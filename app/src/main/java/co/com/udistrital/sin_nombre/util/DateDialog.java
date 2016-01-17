@@ -9,7 +9,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 /**
- * Created by Rolando on 21/09/2015.
+ * Created by Rolando Baron on 21/09/2015.
  */
 public class DateDialog extends DialogFragment implements  DatePickerDialog.OnDateSetListener{
 

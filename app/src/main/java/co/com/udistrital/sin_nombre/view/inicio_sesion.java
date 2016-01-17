@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import co.com.udistrital.sin_nombre.R;
 
+/**
+ * Created by Rolando Baron on 21/09/2015.
+ */
 public class inicio_sesion extends AppCompatActivity {
 
     @Override
