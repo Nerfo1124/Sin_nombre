@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Sin_nombre</string>
+    <string name="IS_TV_title">Inicio De Sesion</string>
+    <string name="IS_ET_nameuser">Nombre De Usuario</string>
+    <string name="IS_ET_password">Ingresar Contraseña</string>
+    <string name="IS_BU_forgetpass">¿Olvidaste tu contraseña?</string>
+    <string name="IS_BU_enter">Entrar</string>
+    <string name="IS_BU_signup">Registrarme</string>
 </resources>
