@@ -1,7 +1,10 @@
 package co.com.udistrital.sin_nombre.view;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +35,8 @@ public class inicio_sesion extends AppCompatActivity {
         Intent intento= new Intent(getApplicationContext(),Registro.class);
         startActivity(intento);
     }
-
+    //metodo para generar dialogo, que permite la autentificacion del usuario y posteriormente
+    //realiza el cambio de contraseña
     public void olvido(View v){
         final Dialog personal = new Dialog(this);
         personal.setContentView(R.layout.recuperar_cuenta);
@@ -82,6 +86,101 @@ public class inicio_sesion extends AppCompatActivity {
 
         personal.show();
 
+    }
+
+    //metodo encargador de revisar si el usuario ingresado en el dialogo fue encontrado y si lo esta
+    // busca las preguntas que permiten realizar el cambio de contraseña
+    public String Buscar(String txt){
+        if(!txt.equals("")){
+            if (this.verificarUsuario(txt,2)==1){
+                DBManager manager2 = new DBManager(this);
+                String r=manager2.consultapregunta(txt);
+                return r;
+            }else
+                return " -1 ";
+        }
+        else
+            return " -2 ";
+    }
+
+    //metodo encargado de buscar el usuario ingresado en el dialogo y si no lo esta devuelbe mensaje
+    public int verificarUsuario(String usu, int opc){
+        DBManager manager2 = new DBManager(this);
+        int r=manager2.consultanombreu(usu);
+        if(r==0 && opc==1 ){
+            txtusuario.setText("");
+            txtusuario.setHint("No hay un usuario con este nombre");
+            txtusuario.setHintTextColor(Color.parseColor("#51FF1218"));
+            return 0;
+        }
+        if(r==0 && opc==2 )
+            return 0;
+        return 1;
+    }
+    //metodo encargado de retornar las preguntas correspondiente al usuario digitado en el dialogo
+    public String Respuesta(String txt){
+        DBManager manager2 = new DBManager(this);
+        String r=manager2.consultarespuesta(txt);
+        return r;
+    }
+
+    //metodo encargado de iniciar la actividad correspondiente al iniciar sesion o en caso contrario
+    //devuelve mensaje de error en los datos ingresados
+    public void entrar (View v){
+        manager = new DBManager(this);
+        int e=espaciosblancos();
+        int u=0;
+        if( e==1) {
+            u = verificarUsuario(txtusuario.getText().toString(),1);
+        }
+        if(e==1 && u==1){
+            if(manager.consultacontrasenia(txtusuario.getText().toString()).equals(txtpassword.getText().toString())){
+                Intent intento = new Intent(this,Inicio.class);
+                intento.putExtra("1 2 3", txtusuario.getText().toString());
+                startActivity(intento);
+                finish();
+            }else{
+                Dialogo("Mensaje","La Contraseña ingresada es incorrecta",3);
+                txtpassword.setText("");
+                txtpassword.setHint(" La Contraseña ingresada es incorrecta");
+                txtpassword.setHintTextColor(Color.parseColor("#51FF1218"));
+            }
+
+        }
+    }
+
+    //metodo encargado de verificar que los elementos editables del xml no se encuentren en blanco
+    public int espaciosblancos() {
+        int r = 1;
+        if ("".equals(txtusuario.getText().toString())) {
+            r = 0;
+            txtusuario.setHint("Debe ingresar su nombre de usuario");
+            txtusuario.setHintTextColor(Color.parseColor("#51FF1218"));
+        }
+        if ("".equals(txtpassword.getText().toString())) {
+            r = 0;
+            txtpassword.setHint("Debe ingresar su contraseña");
+            txtpassword.setHintTextColor(Color.parseColor("#51FF1218"));
+        }
+        return r;
+    }
+
+    //metodo que genera un dialogo el cual puede mostrar cualquier tipo de mensaje
+    public void Dialogo(String tit, final String men, final int opc){
+        try {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(tit)
+                    .setMessage(men)
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    }).show();
+        }catch (Exception e){
+            Toast.makeText(this,"Error Frecuencia - Dialogo:"+e.toString(),Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
