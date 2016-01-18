@@ -7,51 +7,33 @@ import java.util.Date;
  */
 public class FormulaVO {
 
-    private String nombreUsuario;
-    private String apellido1Usuario;
-    private String apellido2Usuario;
-    private Date fechaNacimiento;
-    private String sexo;
+    private int idFormula;
+    private String aVisualOD;
+    private String aVisualOI;
 
     // Bloque Getter
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public int getIdFormula() {
+        return idFormula;
     }
 
-    public String getApellido1Usuario() {
-        return apellido1Usuario;
+    public String getaVisualOD() {
+        return aVisualOD;
     }
 
-    public String getApellido2Usuario() {
-        return apellido2Usuario;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public String getSexo() {
-        return sexo;
+    public String getaVisualOI() {
+        return aVisualOI;
     }
 
     // Bloque Setter
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setIdFormula(int idFormula) {
+        this.idFormula = idFormula;
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public void setaVisualOD(String aVisualOD) {
+        this.aVisualOD = aVisualOD;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public void setApellido2Usuario(String apellido2Usuario) {
-        this.apellido2Usuario = apellido2Usuario;
-    }
-
-    public void setApellido1Usuario(String apellido1Usuario) {
-        this.apellido1Usuario = apellido1Usuario;
+    public void setaVisualOI(String aVisualOI) {
+        this.aVisualOI = aVisualOI;
     }
 }

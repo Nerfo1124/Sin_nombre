@@ -5,10 +5,15 @@ package co.com.udistrital.sin_nombre.vo;
  */
 public class SistemaVO {
 
+    private int idSistema;
     private int tamanoFuente;
     private int frecuencia;
 
     // Bloque Getter
+    public int getIdSistema() {
+        return idSistema;
+    }
+
     public int getTamanoFuente() {
         return tamanoFuente;
     }
@@ -18,6 +23,10 @@ public class SistemaVO {
     }
 
     // Bloque Setter
+    public void setIdSistema(int idSistema) {
+        this.idSistema = idSistema;
+    }
+
     public void setTamanoFuente(int tamanoFuente) {
         this.tamanoFuente = tamanoFuente;
     }

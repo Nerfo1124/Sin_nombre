@@ -35,7 +35,7 @@ public class inicio_sesion extends AppCompatActivity {
 
     public void olvido(View v){
         final Dialog personal = new Dialog(this);
-        personal.setContentView(R.layout.recuperarcuenta);
+        personal.setContentView(R.layout.recuperar_cuenta);
         personal.setTitle("\tRecuperar Cuenta");
         final EditText txtusuario= (EditText)personal.findViewById(R.id.txtnusuario);
         final EditText txtrespuesta= (EditText)personal.findViewById(R.id.txtrespuesta);

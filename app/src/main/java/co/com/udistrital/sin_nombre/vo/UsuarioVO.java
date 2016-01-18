@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class UsuarioVO {
 
+    private int idUsuario;
     private String nombreUsuario;
     private String apellido1Usuario;
     private String apellido2Usuario;
@@ -18,6 +19,10 @@ public class UsuarioVO {
     private ReestablecerVO restablecerUsuario;
 
     // Bloque Getter
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -54,8 +59,11 @@ public class UsuarioVO {
         return restablecerUsuario;
     }
 
-
     //Bloque Setter
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
