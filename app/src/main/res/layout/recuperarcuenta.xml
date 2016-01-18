@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp">
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese su nombre de usuario"
+            android:textSize="20dp"
+            android:id="@+id/txtnusuario"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnbuscar"
+            android:layout_marginLeft="@dimen/abc_text_size_body_1_material"
+            android:background="@android:drawable/ic_menu_search" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#C8C9CB" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Digite la respuesta a la siguiente pregunta:"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/lbltexto"
+        android:layout_below="@+id/divider"
+       />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/txtpregunta"
+        android:layout_below="@+id/lbltexto"
+        android:text="¿?"
+        android:textColor="#e9b0da4f" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtrespuesta"
+        android:layout_below="@+id/txtpregunta"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="Respuesta"
+         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enviar"
+        android:textSize="20dp"
+        android:id="@+id/btnenviar"
+        android:layout_below="@+id/txtrespuesta"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
