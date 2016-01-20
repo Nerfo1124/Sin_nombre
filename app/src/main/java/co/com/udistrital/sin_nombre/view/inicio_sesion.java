@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,13 +31,27 @@ public class inicio_sesion extends AppCompatActivity {
         txtusuario = (EditText)findViewById(R.id.txtusuario);
         txtpassword = (EditText)findViewById(R.id.txtcontraseña);
     }
-    //metodo para generar nueva actividad
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_inicio_sesion, menu);
+        return true;
+    }
+
+    /**
+     * metodo para generar nueva actividad
+     * @param v
+     */
     public void registrar(View v){
         Intent intento= new Intent(getApplicationContext(),Registro.class);
         startActivity(intento);
     }
-    //metodo para generar dialogo, que permite la autentificacion del usuario y posteriormente
-    //realiza el cambio de contraseña
+
+    /**
+     * metodo para generar un dialogo llamando un archivo  xml, el  cual permite la autentificacion del usuario y posteriormente
+     *  realiza el cambio de contraseña
+     * @param v
+     */
     public void olvido(View v){
         final Dialog personal = new Dialog(this);
         personal.setContentView(R.layout.recuperar_cuenta);
@@ -50,13 +65,13 @@ public class inicio_sesion extends AppCompatActivity {
         btnbuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String r= Buscar(txtusuario.getText().toString());
-                if(r==" -1 "){
+                String r = Buscar(txtusuario.getText().toString());
+                if (r == " -1 ") {
                     txtusuario.setText("");
                     txtusuario.setHint("No se encontro ese usuario");
 
-                }else {
-                    if(r==" -2 ")
+                } else {
+                    if (r == " -2 ")
                         txtusuario.setHint("Debe digitar un usuario");
                     else {
                         txtpregunta.setText(r);
@@ -88,8 +103,14 @@ public class inicio_sesion extends AppCompatActivity {
 
     }
 
-    //metodo encargador de revisar si el usuario ingresado en el dialogo fue encontrado y si lo esta
-    // busca las preguntas que permiten realizar el cambio de contraseña
+    /**
+     * metodo encargador de revisar si el usuario ingresado en el dialogo fue encontrado y si lo esta
+     *busca las preguntas que permiten realizar el cambio de contraseña
+     * @param txt recibe el nombre del usuario
+     * @return retorna un ' -1 ' si no se encontro el usuario digitado o un ' -2 ' si  no se ha
+     * digitado  un usuario  o en caso contrario retorna un valor string con las preguntas del usuario
+     */
+
     public String Buscar(String txt){
         if(!txt.equals("")){
             if (this.verificarUsuario(txt,2)==1){
@@ -103,7 +124,13 @@ public class inicio_sesion extends AppCompatActivity {
             return " -2 ";
     }
 
-    //metodo encargado de buscar el usuario ingresado en el dialogo y si no lo esta devuelbe mensaje
+    /**
+     * metodo encargado de buscar el usuario ingresado en el dialogo y si no lo esta devuelbe mensaje
+     * @param usu es un  string el cual lleva el  nombre del usuario
+     * @param opc es un int el  cual puede ser un 1 o un 2  el cual permite decidir que respuesta dar
+     *            en caso de que no se encuentre el usuario
+     * @return
+     */
     public int verificarUsuario(String usu, int opc){
         DBManager manager2 = new DBManager(this);
         int r=manager2.consultanombreu(usu);
@@ -117,15 +144,24 @@ public class inicio_sesion extends AppCompatActivity {
             return 0;
         return 1;
     }
-    //metodo encargado de retornar las preguntas correspondiente al usuario digitado en el dialogo
+
+    /**
+     * metodo encargado de retornar las preguntas correspondiente al usuario digitado en el dialogo
+     * @param txt variable string que lleva el  nombre de usuario para buscar su correspondientes
+     *            preguntas
+     * @return
+     */
     public String Respuesta(String txt){
         DBManager manager2 = new DBManager(this);
         String r=manager2.consultarespuesta(txt);
         return r;
     }
 
-    //metodo encargado de iniciar la actividad correspondiente al iniciar sesion o en caso contrario
-    //devuelve mensaje de error en los datos ingresados
+    /**
+     * metodo encargado de iniciar la actividad correspondiente al iniciar sesion o en caso contrario
+     * devuelve mensaje de error en los datos ingresados
+     * @param v
+     */
     public void entrar (View v){
         manager = new DBManager(this);
         int e=espaciosblancos();
@@ -149,7 +185,10 @@ public class inicio_sesion extends AppCompatActivity {
         }
     }
 
-    //metodo encargado de verificar que los elementos editables del xml no se encuentren en blanco
+    /**
+     * metodo encargado de verificar que los elementos editables del xml no se encuentren en blanco
+     * @return r=1 si no ahi espacion en blanco y  r=0 si hay espacios en blanco
+     */
     public int espaciosblancos() {
         int r = 1;
         if ("".equals(txtusuario.getText().toString())) {
@@ -165,7 +204,13 @@ public class inicio_sesion extends AppCompatActivity {
         return r;
     }
 
-    //metodo que genera un dialogo el cual puede mostrar cualquier tipo de mensaje
+    /**
+     * metodo que genera un dialogo el cual puede mostrar cualquier tipo de mensaje
+     * @param tit variable string que lleva en nombre del titulo del  dialogo
+     * @param men variable string que lleva el mensaje que se quiere mostrar
+     * @param opc variable entera que lleva un numero el  cual permite realizar una operacion
+     *            especifica si es necesaria
+     */
     public void Dialogo(String tit, final String men, final int opc){
         try {
             new AlertDialog.Builder(this)
@@ -179,7 +224,7 @@ public class inicio_sesion extends AppCompatActivity {
                         }
                     }).show();
         }catch (Exception e){
-            Toast.makeText(this,"Error Frecuencia - Dialogo:"+e.toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Error iniciosesion - Dialogo:"+e.toString(),Toast.LENGTH_SHORT).show();
         }
     }
 
