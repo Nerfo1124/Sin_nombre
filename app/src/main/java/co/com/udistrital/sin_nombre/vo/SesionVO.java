@@ -6,35 +6,37 @@ package co.com.udistrital.sin_nombre.vo;
 public class SesionVO {
 
     private int idSesion;
-    private int tamanoFuente;
-    private int frecuencia;
+    private int usuario;
+    private int contrasena;
 
-    SesionVO(){};
+    public SesionVO(){};
 
     // Bloque Getter
+
     public int getIdSesion() {
         return idSesion;
     }
 
-    public int getTamanoFuente() {
-        return tamanoFuente;
+    public int getUsuario() {
+        return usuario;
     }
 
-    public int getFrecuencia() {
-        return frecuencia;
+    public int getContrasena() {
+        return contrasena;
     }
 
     //Bloque Setter
+
     public void setIdSesion(int idSesion) {
         this.idSesion = idSesion;
     }
 
-    public void setTamanoFuente(int tamanoFuente) {
-        this.tamanoFuente = tamanoFuente;
+    public void setUsuario(int usuario) {
+        this.usuario = usuario;
     }
 
-    public void setFrecuencia(int frecuencia) {
-        this.frecuencia = frecuencia;
+    public void setContrasena(int contrasena) {
+        this.contrasena = contrasena;
     }
 }
 

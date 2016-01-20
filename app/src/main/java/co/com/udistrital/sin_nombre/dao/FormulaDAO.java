@@ -1,9 +1,13 @@
 package co.com.udistrital.sin_nombre.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import co.com.udistrital.sin_nombre.util.database.DataBaseHelper;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
@@ -17,22 +21,39 @@ import co.com.udistrital.sin_nombre.vo.FormulaVO;
 public class FormulaDAO {
 
     public static String TABLE_NAME = "FORMULA";
-    public DataBaseHelper helper;
+    public DataBaseHelper dbh;
     public SQLiteDatabase db;
     public Context contexto;
 
     public FormulaDAO(Context context){
         try {
             contexto = context;
-            helper = new DataBaseHelper(context);
-            db = helper.getWritableDatabase();
+            dbh = new DataBaseHelper(context);
+            db = dbh.getWritableDatabase();
         } catch (Exception e){
-            Toast.makeText(context, "Error en FormulaDAO - consult: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            Toast.makeText(context, "[FormulaDAO] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
         }
     }
 
-    public void list() {
-
+    public List<FormulaVO> list() {
+        try {
+            List<FormulaVO> listaFormula = new ArrayList<FormulaVO>();
+            String columns[] = {dbh.FORMULA_ID, dbh.FORMULA_OJO_DER, dbh.FORMULA_OJO_IZQ};
+            Cursor listFormulas = db.query(TABLE_NAME,columns,null,null,null,null,null);
+            if(listFormulas.moveToFirst()){
+                do{
+                    FormulaVO vo = new FormulaVO();
+                    vo.setIdFormula(listFormulas.getInt(0));
+                    vo.setaVisualOD(listFormulas.getString(1));
+                    vo.setaVisualOI(listFormulas.getString(2));
+                    listaFormula.add(vo);
+                } while(listFormulas.moveToNext());
+            }
+            return listaFormula;
+        } catch (Exception e){
+            Toast.makeText(contexto, "[list] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            return null;
+        }
     }
 
     public FormulaVO consult(int idFormula) {
@@ -49,38 +70,44 @@ public class FormulaDAO {
                 objFormula.setaVisualOD(fila.getString(i++));
                 objFormula.setaVisualOI(fila.getString(i++));
             }
-            fila.close();
             return objFormula;
         } catch (Exception e){
-            Toast.makeText(contexto, "Error en FormulaDAO - consult: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            Toast.makeText(contexto, "[consult] Error en FormulaDAO - consult: " + e.toString(), Toast.LENGTH_SHORT ).show();
             return null;
         }
     }
 
-    // TODO pendiente confirmacion de la consulta SQL.
+    /**
+     * <b>Descripcion: </b> Metodo encargado de insertar datos en la tabla de FORMULA en la BDD.
+     * @param vo
+     * @return
+     */
     public boolean insert(FormulaVO vo) {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO ").append(TABLE_NAME).append(" VALUES (");
-            sb.append(vo.getIdFormula()).append("," + vo.getaVisualOD()+",");
-            sb.append(vo.getaVisualOI()+")");
+            sb.append(vo.getaVisualOD() + ",").append(vo.getaVisualOI());
+            sb.append(")");
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
-            Toast.makeText(contexto, "Error en FormulaDAO - insert: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            Toast.makeText(contexto, "[insert] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
             return false;
         }
     }
 
-    public boolean update(int idFormula) {
+    public boolean update(FormulaVO vo) {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("UPDATE ").append(TABLE_NAME).append(" SET ");
-            sb.append("for_id = ").append(idFormula);
+            sb.append(dbh.FORMULA_ID).append("=").append(vo.getIdFormula()).append(",");
+            sb.append(dbh.FORMULA_OJO_DER).append("=").append(vo.getaVisualOD()).append(",");
+            sb.append(dbh.FORMULA_OJO_IZQ).append("=").append(vo.getaVisualOI()).append(" ");
+            sb.append("WHERE ").append(dbh.FORMULA_ID).append("=").append(vo.getIdFormula());
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "Error en FormulaDAO - update " + e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -89,11 +116,11 @@ public class FormulaDAO {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("DELETE FROM").append(TABLE_NAME);
-            sb.append(" WHERE for_id = ").append(idFormula);
+            sb.append(" WHERE ").append(dbh.FORMULA_ID).append(" = ").append(idFormula);
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "Error en FormulaDAO - delete " + e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(contexto, "[delete] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             return false;
         }
     }
