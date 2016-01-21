@@ -8,7 +8,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.com.udistrital.sin_nombre.util.database.DataBaseHelper;
+import co.com.udistrital.sin_nombre.dao.database.DataBaseHelper;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
 
 /**
@@ -19,7 +19,6 @@ import co.com.udistrital.sin_nombre.vo.SesionVO;
  */
 public class SesionDAO {
 
-    public static String TABLE_NAME = "SESION";
     public DataBaseHelper dbh;
     public SQLiteDatabase db;
     public Context contexto;
@@ -34,11 +33,15 @@ public class SesionDAO {
         }
     }
 
+    /**
+     * <b>Descripcion: </b>Metodo encargado de consultar todos los registros de la tabla SESION.
+     * @return
+     */
     public List<SesionVO> list() {
         try {
             List<SesionVO> listaSesion = new ArrayList<SesionVO>();
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * FROM ").append(TABLE_NAME);
+            sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SESION);
             Cursor listSesiones = db.rawQuery(sb.toString(), null);
             if(listSesiones.moveToFirst()){
                 do{
@@ -56,11 +59,17 @@ public class SesionDAO {
         }
     }
 
+    /**
+     * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un registro en la tabla
+     * SESION de la BDD recibiendo como parametro el id del registro.
+     * @param idSesion
+     * @return
+     */
     public SesionVO consult(int idSesion) {
         SesionVO objSesion = new SesionVO();
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * FROM ").append(TABLE_NAME);
+            sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SESION);
             sb.append(" WHERE ").append(dbh.SESION_ID).append(" = ").append(idSesion);
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
@@ -76,10 +85,17 @@ public class SesionDAO {
         }
     }
 
+    /**
+     * <b>Descripcion: </b>Metodo encargado de realizar la insercion de datos en la tabla de SESION
+     * @param vo
+     * @return
+     */
     public boolean insert(SesionVO vo) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("INSERT INTO ").append(TABLE_NAME).append(" VALUES (");
+            sb.append("INSERT INTO ").append(dbh.TABLE_NAME_SESION).append("(");
+            sb.append(dbh.SESION_USER).append(dbh.SESION_PASS).append(")");
+            sb.append(" VALUES (");
             sb.append("'" + vo.getUsuario() + "','").append(vo.getContrasena()+"'");
             sb.append(")");
             db.execSQL(sb.toString());
@@ -90,12 +106,18 @@ public class SesionDAO {
         }
     }
 
+    /**
+     * <b>Descripcion: </b>Metodo encargado de actualizar un registro de la tabla SESION recibiendo
+     * como parametro un objeto con los valores a actualizar.
+     * @param vo
+     * @return
+     */
     public boolean update(SesionVO vo) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("UPDATE ").append(TABLE_NAME).append(" SET ");
-            sb.append(dbh.SESION_USER).append("=").append(vo.getUsuario()).append(",");
-            sb.append(dbh.SESION_PASS).append("=").append(vo.getContrasena()).append(" ");
+            sb.append("UPDATE ").append(dbh.TABLE_NAME_SESION).append(" SET ");
+            sb.append(dbh.SESION_USER).append("='").append(vo.getUsuario()).append("',");
+            sb.append(dbh.SESION_PASS).append("='").append(vo.getContrasena()).append("' ");
             sb.append("WHERE ").append(dbh.SESION_ID).append("=").append(vo.getIdSesion());
             db.execSQL(sb.toString());
             return true;
@@ -104,11 +126,16 @@ public class SesionDAO {
             return false;
         }
     }
-    
+
+    /**
+     * <b>Descripcion: </b>Metodo encargado de realizar el borrado de un registro en la tabla SESION
+     * @param idSesion
+     * @return
+     */
     public boolean delete(int idSesion) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("DELETE FROM").append(TABLE_NAME);
+            sb.append("DELETE FROM ").append(dbh.TABLE_NAME_SESION);
             sb.append(" WHERE ").append(dbh.SESION_ID).append(" = ").append(idSesion);
             db.execSQL(sb.toString());
             return true;

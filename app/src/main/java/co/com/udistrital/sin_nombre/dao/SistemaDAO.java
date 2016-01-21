@@ -8,7 +8,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.com.udistrital.sin_nombre.util.database.DataBaseHelper;
+import co.com.udistrital.sin_nombre.dao.database.DataBaseHelper;
 import co.com.udistrital.sin_nombre.vo.SistemaVO;
 
 /**
@@ -19,7 +19,6 @@ import co.com.udistrital.sin_nombre.vo.SistemaVO;
  */
 public class SistemaDAO {
 
-    public static String TABLE_NAME = "SISTEMA";
     public DataBaseHelper dbh;
     public SQLiteDatabase db;
     public Context contexto;
@@ -34,11 +33,15 @@ public class SistemaDAO {
         }
     }
 
+    /**
+     * <b>Descripcion: </b>Metodo encargado de consultar todos los registros de la tabla SISTEMA.
+     * @return
+     */
     public List<SistemaVO> list() {
         try {
             List<SistemaVO> listaSistema = new ArrayList<SistemaVO>();
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * FROM ").append(TABLE_NAME);
+            sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SISTEMA);
             Cursor listSistemas = db.rawQuery(sb.toString(), null);
             if(listSistemas.moveToFirst()){
                 do{
@@ -56,11 +59,17 @@ public class SistemaDAO {
         }
     }
 
+    /**
+     * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un registro en la tabla
+     * SISTEMA de la BDD recibiendo como parametro el id del registro.
+     * @param idSistema
+     * @return
+     */
     public SistemaVO consult(int idSistema) {
         SistemaVO objSistema = new SistemaVO();
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * FROM ").append(TABLE_NAME);
+            sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SISTEMA);
             sb.append(" WHERE ").append(dbh.SISTEMA_ID).append(" = ").append(idSistema);
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
@@ -76,10 +85,17 @@ public class SistemaDAO {
         }
     }
 
+    /**
+     * <b>Descripcion: </b>Metodo encargado de realizar la insercion de datos en la tabla de SISTEMA
+     * @param vo
+     * @return
+     */
     public boolean insert(SistemaVO vo) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("INSERT INTO ").append(TABLE_NAME).append(" VALUES (");
+            sb.append("INSERT INTO ").append(dbh.TABLE_NAME_SISTEMA).append("(");
+            sb.append(dbh.SISTEMA_TAM_FUENTE+",").append(dbh.SISTEMA_FRECUENCIA+")");
+            sb.append(" VALUES (");
             sb.append(vo.getTamanoFuente() + ",").append(vo.getFrecuencia());
             sb.append(")");
             db.execSQL(sb.toString());
@@ -90,10 +106,16 @@ public class SistemaDAO {
         }
     }
 
+    /**
+     * <b>Descripcion: </b>Metodo encargado de actualizar un registro de la tabla SISTEMA recibiendo
+     * como parametro un objeto con los valores a actualizar.
+     * @param vo
+     * @return
+     */
     public boolean update(SistemaVO vo) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("UPDATE ").append(TABLE_NAME).append(" SET ");
+            sb.append("UPDATE ").append(dbh.TABLE_NAME_SISTEMA).append(" SET ");
             sb.append(dbh.SISTEMA_TAM_FUENTE).append("=").append(vo.getTamanoFuente()).append(",");
             sb.append(dbh.SISTEMA_FRECUENCIA).append("=").append(vo.getFrecuencia()).append(" ");
             sb.append("WHERE ").append(dbh.SISTEMA_ID).append("=").append(vo.getIdSistema());
@@ -105,10 +127,16 @@ public class SistemaDAO {
         }
     }
 
+    /**
+     * <b>Descripcion: </b>Metodo encargado de realizar el borrado de un registro en la tabla SISTEMA
+     * recibiendo como parametro el id del registro a eliminar.
+     * @param idSistema
+     * @return
+     */
     public boolean delete(int idSistema) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("DELETE FROM").append(TABLE_NAME);
+            sb.append("DELETE FROM ").append(dbh.TABLE_NAME_SISTEMA);
             sb.append(" WHERE ").append(dbh.SISTEMA_ID).append(" = ").append(idSistema);
             db.execSQL(sb.toString());
             return true;

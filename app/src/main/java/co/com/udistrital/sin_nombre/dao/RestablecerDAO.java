@@ -8,7 +8,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.com.udistrital.sin_nombre.util.database.DataBaseHelper;
+import co.com.udistrital.sin_nombre.dao.database.DataBaseHelper;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 
 /**
@@ -20,7 +20,6 @@ import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
  */
 public class RestablecerDAO {
 
-    public static String TABLE_NAME = "RESTABLECER";
     public DataBaseHelper dbh;
     public SQLiteDatabase db;
     public Context contexto;
@@ -40,7 +39,7 @@ public class RestablecerDAO {
             List<ReestablecerVO> listaRes = new ArrayList<ReestablecerVO>();
             String columns[] = {dbh.RESTABLECER_ID, dbh.RESTABLECER_QUEST1, dbh.RESTABLECER_ANSW1,
                                 dbh.RESTABLECER_QUEST2, dbh.RESTABLECER_ANSW2,dbh.RESTABLECER_TAMANO_FUENTE};
-            Cursor fila = db.query(TABLE_NAME,columns,null,null,null,null,null);
+            Cursor fila = db.query(dbh.TABLE_NAME_RESTABLECER,columns,null,null,null,null,null);
             if(fila.moveToFirst()){
                 do{
                     ReestablecerVO vo = new ReestablecerVO();
@@ -64,8 +63,8 @@ public class RestablecerDAO {
         ReestablecerVO objRes = new ReestablecerVO();
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * FROM ").append(TABLE_NAME);
-            sb.append(" WHERE for_id = ").append(idRestablecer);
+            sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_RESTABLECER);
+            sb.append(" WHERE ").append(dbh.RESTABLECER_ID).append(" = ").append(idRestablecer);
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
             if (fila != null){
@@ -86,9 +85,12 @@ public class RestablecerDAO {
     public boolean insert(ReestablecerVO vo) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("INSERT INTO ").append(TABLE_NAME).append(" VALUES (");
-            sb.append(vo.getPregunta1() + ",").append(vo.getRespuesta1()).append(",");
-            sb.append(vo.getPregunta2() + ",").append(vo.getRespuesta2()).append(",");
+            sb.append("INSERT INTO ").append(dbh.TABLE_NAME_RESTABLECER).append("(");
+            sb.append(dbh.RESTABLECER_QUEST1+",").append(dbh.RESTABLECER_ANSW1+",").append(dbh.RESTABLECER_QUEST2+",");
+            sb.append(dbh.RESTABLECER_ANSW2+",").append(dbh.RESTABLECER_TAMANO_FUENTE).append(")");
+            sb.append(" VALUES ('");
+            sb.append(vo.getPregunta1() + "','").append(vo.getRespuesta1()).append("','");
+            sb.append(vo.getPregunta2() + "','").append(vo.getRespuesta2()).append("',");
             sb.append(vo.getTamanoFuente());
             sb.append(")");
             db.execSQL(sb.toString());
@@ -102,11 +104,11 @@ public class RestablecerDAO {
     public boolean update(ReestablecerVO vo) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("UPDATE ").append(TABLE_NAME).append(" SET ");
-            sb.append(dbh.RESTABLECER_QUEST1).append("=").append(vo.getPregunta1()).append(",");
-            sb.append(dbh.RESTABLECER_ANSW1).append("=").append(vo.getRespuesta1()).append(",");
-            sb.append(dbh.RESTABLECER_QUEST2).append("=").append(vo.getPregunta2()).append(",");
-            sb.append(dbh.RESTABLECER_ANSW2).append("=").append(vo.getRespuesta2()).append(",");
+            sb.append("UPDATE ").append(dbh.TABLE_NAME_RESTABLECER).append(" SET ");
+            sb.append(dbh.RESTABLECER_QUEST1).append("='").append(vo.getPregunta1()).append("',");
+            sb.append(dbh.RESTABLECER_ANSW1).append("='").append(vo.getRespuesta1()).append("',");
+            sb.append(dbh.RESTABLECER_QUEST2).append("='").append(vo.getPregunta2()).append("',");
+            sb.append(dbh.RESTABLECER_ANSW2).append("='").append(vo.getRespuesta2()).append("',");
             sb.append(dbh.RESTABLECER_TAMANO_FUENTE).append("=").append(vo.getTamanoFuente()).append(" ");
             sb.append("WHERE ").append(dbh.RESTABLECER_ID).append("=").append(vo.getIdReestablecer());
             db.execSQL(sb.toString());
@@ -120,7 +122,7 @@ public class RestablecerDAO {
     public boolean delete(int idRestablecer) {
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("DELETE FROM").append(TABLE_NAME);
+            sb.append("DELETE FROM ").append(dbh.TABLE_NAME_RESTABLECER);
             sb.append(" WHERE ").append(dbh.RESTABLECER_ID).append(" = ").append(idRestablecer);
             db.execSQL(sb.toString());
             return true;

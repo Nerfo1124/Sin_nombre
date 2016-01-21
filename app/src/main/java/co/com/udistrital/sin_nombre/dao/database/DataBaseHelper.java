@@ -1,4 +1,4 @@
-package co.com.udistrital.sin_nombre.util.database;
+package co.com.udistrital.sin_nombre.dao.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,7 +20,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO Creacion de las tablas principales de la BDD
         db.execSQL(CREATE_TABLE_FORMULA);
         db.execSQL(CREATE_TABLE_SISTEMA);
         db.execSQL(CREATE_TABLE_SESION);
