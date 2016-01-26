@@ -52,7 +52,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:text="Registro De Datos"
+                                android:text="@string/RE_TV_title"
                                 android:textSize="30dp"
                                 android:gravity="center"
                                 android:textColor="#2c56c5"
@@ -72,7 +72,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="textPersonName"
-                                    android:hint="Nombre para usuario"
+                                    android:hint="@string/RE_ET_nameuser"
                                     android:id="@+id/txtusuario"
                                     android:layout_weight="1" />
                             </LinearLayout>
@@ -89,7 +89,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="textPersonName"
-                                    android:hint="Su nombre"
+                                    android:hint="@string/RE_ET_yourname"
                                     android:id="@+id/txtnombre"
                                     android:layout_weight="1" />
                             </LinearLayout>
@@ -106,7 +106,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="textPersonName"
-                                    android:hint="Sus apellidos"
+                                    android:hint="@string/RE_ET_surname"
                                     android:id="@+id/txtapellido"
                                     android:layout_weight="1" />
                             </LinearLayout>
@@ -123,7 +123,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="date"
-                                    android:hint="Seleccionar fecha nacimiento"
+                                    android:hint="@string/RE_ET_date"
                                     android:id="@+id/txtfecha"
                                     android:layout_weight="1"
                                     android:editable="false" />
@@ -141,7 +141,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Sexo:"
+                                    android:text="@string/RE_TV_sex"
                                     android:textSize="20dp"
                                     android:id="@+id/lblsexo" />
 
@@ -155,7 +155,7 @@
                                     <RadioButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Femenino"
+                                        android:text="@string/RE_RB_female"
                                         android:textSize="20dp"
                                         android:id="@+id/rbmujer"
                                         android:checked="true" />
@@ -164,7 +164,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textSize="20dp"
-                                        android:text="Masculino"
+                                        android:text="@string/RE_RB_male"
                                         android:id="@+id/rbhombre" />
 
                                 </RadioGroup>
@@ -182,10 +182,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="textPassword"
-                                    android:hint="Digite una contraseña"
+                                    android:hint="@string/RE_ET_password"
                                     android:id="@+id/txtcontraseñar"
-                                    android:layout_weight="1"
-                                    android:text="123456" />
+                                    android:layout_weight="1" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -201,10 +200,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="textPassword"
-                                    android:hint="Digite de nuevo la contraseña"
+                                    android:hint="@string/RE_ET_repeatpassword"
                                     android:id="@+id/txtcontraseña2"
-                                    android:layout_weight="1"
-                                    android:text="123456" />
+                                    android:layout_weight="1" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -218,7 +216,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Seleccione una pregunta secreta"
+                                    android:text="@string/RE_TV_toselect"
                                     android:textSize="20dp"
                                     android:layout_weight="1"
                                     android:id="@+id/lblpregunta" />
@@ -241,7 +239,7 @@
                                 android:layout_height="match_parent">
 
                                 <EditText
-                                    android:hint="Ingrese la respuesta"
+                                    android:hint="@string/RE_ET_answer"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/txtpregunta" />
@@ -260,7 +258,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="¿Tiene Formula Medica?"
+                                    android:text="@string/RE_TV_formula"
                                     android:id="@+id/textView2"
                                     android:textSize="20dp"
                                     android:layout_weight="1"
@@ -287,14 +285,14 @@
                                     <RadioButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="SI"
+                                        android:text="@string/RE_RB_yes"
                                         android:id="@+id/radiosi"
                                         android:checked="false" />
 
                                     <RadioButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="No"
+                                        android:text="@string/RE_RB_no"
                                         android:id="@+id/radiono"
                                         android:checked="true" />
                                 </RadioGroup>
