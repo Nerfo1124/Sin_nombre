@@ -49,20 +49,21 @@
                             android:layout_height="match_parent">
 
                             <TextView
+                                android:layout_marginTop="10dp"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:text="@string/RE_TV_title"
+                                android:text="Registro De Datos"
                                 android:textSize="30dp"
                                 android:gravity="center"
                                 android:textColor="#2c56c5"
-                                android:id="@+id/lbltitulo"
+                                android:id="@+id/lbltituloR1"
                                 android:layout_alignParentTop="true"
                                 android:layout_centerHorizontal="true" />
 
                             <LinearLayout
-                                android:id="@+id/l0"
-                                android:layout_below="@+id/lbltitulo"
+                                android:id="@+id/l0R1"
+                                android:layout_below="@+id/lbltituloR1"
                                 android:layout_marginTop="15dp"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
@@ -71,15 +72,16 @@
                                 <EditText
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:inputType="textPersonName"
-                                    android:hint="@string/RE_ET_nameuser"
-                                    android:id="@+id/txtusuario"
+                                    android:inputType="textNoSuggestions"
+                                    android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890.-_"
+                                    android:hint="Nombre para usuario"
+                                    android:id="@+id/txtusuarioR1"
                                     android:layout_weight="1" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l1"
-                                android:layout_below="@+id/l0"
+                                android:id="@+id/l1R1"
+                                android:layout_below="@+id/l0R1"
                                 android:layout_marginTop="15dp"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
@@ -88,16 +90,17 @@
                                 <EditText
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:inputType="textPersonName"
-                                    android:hint="@string/RE_ET_yourname"
-                                    android:id="@+id/txtnombre"
+                                    android:inputType="textNoSuggestions"
+                                    android:hint="Su nombre"
+                                    android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890.-_ "
+                                    android:id="@+id/txtnombreR1"
                                     android:layout_weight="1" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l2"
+                                android:id="@+id/l2R1"
                                 android:orientation="horizontal"
-                                android:layout_below="@+id/l1"
+                                android:layout_below="@+id/l1R1"
                                 android:layout_marginTop="15dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" >
@@ -105,15 +108,16 @@
                                 <EditText
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:inputType="textPersonName"
-                                    android:hint="@string/RE_ET_surname"
-                                    android:id="@+id/txtapellido"
+                                    android:inputType="textNoSuggestions"
+                                    android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890.-_ "
+                                    android:hint="Sus apellidos"
+                                    android:id="@+id/txtapellidoR1"
                                     android:layout_weight="1" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l3"
-                                android:layout_below="@+id/l2"
+                                android:id="@+id/l3R1"
+                                android:layout_below="@+id/l2R1"
                                 android:layout_marginTop="15dp"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
@@ -123,16 +127,16 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="date"
-                                    android:hint="@string/RE_ET_date"
-                                    android:id="@+id/txtfecha"
+                                    android:hint="Seleccionar fecha nacimiento"
+                                    android:id="@+id/txtfechaR1"
                                     android:layout_weight="1"
                                     android:editable="false" />
 
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l4"
-                                android:layout_below="@+id/l3"
+                                android:id="@+id/l4R1"
+                                android:layout_below="@+id/l3R1"
                                 android:layout_marginTop="15dp"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
@@ -141,38 +145,38 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/RE_TV_sex"
+                                    android:text="Sexo:"
                                     android:textSize="20dp"
-                                    android:id="@+id/lblsexo" />
+                                    android:id="@+id/lblsexoR1" />
 
                                 <RadioGroup
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:orientation="horizontal"
-                                    android:id="@+id/radiogrupo">
+                                    android:id="@+id/radiogrupoR1">
 
                                     <RadioButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/RE_RB_female"
+                                        android:text="Femenino"
                                         android:textSize="20dp"
-                                        android:id="@+id/rbmujer"
+                                        android:id="@+id/rbmujerR1"
                                         android:checked="true" />
 
                                     <RadioButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textSize="20dp"
-                                        android:text="@string/RE_RB_male"
-                                        android:id="@+id/rbhombre" />
+                                        android:text="Masculino"
+                                        android:id="@+id/rbhombreR1" />
 
                                 </RadioGroup>
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l5"
-                                android:layout_below="@+id/l4"
+                                android:id="@+id/l5R1"
+                                android:layout_below="@+id/l4R1"
                                 android:layout_marginTop="15dp"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
@@ -182,14 +186,15 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="textPassword"
-                                    android:hint="@string/RE_ET_password"
-                                    android:id="@+id/txtcontraseñar"
-                                    android:layout_weight="1" />
+                                    android:hint="Digite una contraseña"
+                                    android:id="@+id/txtcontraseñarR1"
+                                    android:layout_weight="1"
+                                    android:text="123456" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l6"
-                                android:layout_below="@+id/l5"
+                                android:id="@+id/l6R1"
+                                android:layout_below="@+id/l5R1"
                                 android:layout_marginTop="15dp"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
@@ -200,78 +205,71 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="textPassword"
-                                    android:hint="@string/RE_ET_repeatpassword"
-                                    android:id="@+id/txtcontraseña2"
-                                    android:layout_weight="1" />
+                                    android:hint="Digite de nuevo la contraseña"
+                                    android:id="@+id/txtcontraseña2R1"
+                                    android:layout_weight="1"
+                                    android:text="123456" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l7"
-                                android:layout_below="@+id/l6"
+                                android:id="@+id/l7R1"
+                                android:layout_below="@+id/l6R1"
                                 android:layout_marginTop="15dp"
                                 android:orientation="vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/RE_TV_toselect"
-                                    android:textSize="20dp"
-                                    android:layout_weight="1"
-                                    android:id="@+id/lblpregunta" />
-
                                 <Spinner
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/selector"
+                                    android:id="@+id/selectorR1"
                                     android:layout_weight="1"
                                     android:background="@android:color/holo_green_light"/>
 
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l8"
+                                android:id="@+id/l8R1"
                                 android:layout_marginTop="15dp"
-                                android:layout_below="@+id/l7"
+                                android:layout_below="@+id/l7R1"
                                 android:orientation="vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
                                 <EditText
-                                    android:hint="@string/RE_ET_answer"
+                                    android:hint="Ingrese la respuesta"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/txtpregunta" />
+                                    android:id="@+id/txtpreguntaR1" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l9"
+                                android:id="@+id/l9R1"
                                 android:layout_marginTop="15dp"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_below="@+id/l8"
+                                android:layout_below="@+id/l8R1"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/RE_TV_formula"
-                                    android:id="@+id/textView2"
+                                    android:text="¿Tiene Formula Medica?"
+                                    android:id="@+id/textView2R1"
                                     android:textSize="20dp"
                                     android:layout_weight="1"
                                     android:gravity="center" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l10"
+                                android:id="@+id/l10R1"
                                 android:layout_marginTop="15dp"
                                 android:orientation="vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_below="@+id/l9"
+                                android:layout_below="@+id/l9R1"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true" >
 
@@ -279,28 +277,28 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical"
-                                    android:id="@+id/radiogrupo2"
+                                    android:id="@+id/radiogrupo2R1"
                                     android:gravity="center">
 
                                     <RadioButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/RE_RB_yes"
-                                        android:id="@+id/radiosi"
+                                        android:text="SI"
+                                        android:id="@+id/radiosiR1"
                                         android:checked="false" />
 
                                     <RadioButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/RE_RB_no"
-                                        android:id="@+id/radiono"
+                                        android:text="No"
+                                        android:id="@+id/radionoR1"
                                         android:checked="true" />
                                 </RadioGroup>
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l11"
-                                android:layout_below="@+id/l10"
+                                android:id="@+id/l11R1"
+                                android:layout_below="@+id/l10R1"
                                 android:layout_marginTop="15dp"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
@@ -309,9 +307,9 @@
                                 <Button
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Siguiente"
-                                    android:onClick="siguiente"
-                                    android:id="@+id/button"
+                                    android:text="Continuar"
+                                    android:onClick="continuar"
+                                    android:id="@+id/continuarunoR1"
                                     android:textSize="20dp"
                                     android:layout_weight="1" />
                             </LinearLayout>
@@ -321,21 +319,353 @@
 
                 <LinearLayout
                     android:id="@+id/registro2"
+                    android:orientation="vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Hola33333"/>
+                    >
+                    <RelativeLayout
+                        android:gravity="center"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/dinamico1">
+                        <ScrollView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:id="@+id/scrollView3" >
+
+                            <RelativeLayout
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:id="@+id/l20"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Ojo Izquierdo:"
+                                        android:textSize="25dp"
+                                        android:id="@+id/lblojoizq" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/l21"
+                                    android:layout_below="@+id/l20"
+                                    android:layout_marginTop="15dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <SeekBar
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/barra"
+                                        android:progress="0"
+                                        android:indeterminate="false"
+                                        android:layout_weight="1"
+                                        android:translationZ="2dp" />
+
+                                    <Button
+                                        style="?android:attr/buttonStyleSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:onClick="menos"
+                                        android:text="-"
+                                        android:id="@+id/btnmenos2"
+                                        android:background="@android:color/holo_green_light" />
+
+                                    <TextView
+                                        android:layout_marginStart="10dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="fill_parent"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:id="@+id/lblizq"
+                                        android:textSize="20dp"
+                                        android:background="@android:color/holo_green_light"
+                                        android:backgroundTint="@android:color/holo_blue_dark" />
+
+                                    <Button
+                                        style="?android:attr/buttonStyleSmall"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:onClick="mas"
+                                        android:text="+"
+                                        android:id="@+id/btnmas2"
+                                        android:background="@android:color/holo_green_light" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/ojod"
+                                    android:layout_below="@+id/l21"
+                                    android:layout_marginTop="15dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Ojo Derecho:"
+                                        android:textSize="25dp"
+                                        android:id="@+id/lblojoder" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/l23"
+                                    android:layout_below="@+id/ojod"
+                                    android:layout_marginTop="15dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <SeekBar
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/barra2"
+                                        android:indeterminate="false"
+                                        android:layout_weight="1"
+                                        />
+
+                                    <Button
+                                        style="?android:attr/buttonStyleSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:onClick="menos2"
+                                        android:text="-"
+                                        android:id="@+id/btnmenos22"
+                                        android:background="@android:color/holo_green_light" />
+
+                                    <TextView
+                                        android:layout_marginStart="10dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="fill_parent"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:id="@+id/lblder"
+                                        android:textSize="20dp"
+                                        android:background="@android:color/holo_green_light"
+                                        android:backgroundTint="@android:color/holo_blue_dark" />
+
+                                    <Button
+                                        style="?android:attr/buttonStyleSmall"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:onClick="mas2"
+                                        android:text="+"
+                                        android:id="@+id/btnmas22"
+                                        android:background="@android:color/holo_green_light" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/l24"
+                                    android:layout_below="@+id/l23"
+                                    android:layout_marginTop="15dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <Button
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Siguiente"
+                                        android:onClick="siguiente"
+                                        android:id="@+id/button2"
+                                        android:textSize="20dp"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/holo_green_light" />
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </ScrollView>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/dinamico2"
+                        android:gravity="center"
+                        android:visibility="gone">
+
+                        <ScrollView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:id="@+id/scrollView4"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true" >
+
+                            <RelativeLayout
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:id="@+id/l02"
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="fill_parent"
+                                    android:gravity="center">
+
+                                    <EditText
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:inputType="textMultiLine"
+                                        android:id="@+id/txttexto2"
+                                        android:enabled="false"
+                                        android:textSize="20dp"
+                                        android:text="Ayer vi a los caminantes: a los indiferentes, los miedosos, los valientes, los cansados, los enamorados, y los desahuciados. Ví como sus pasos se convertían en fino polvo al contacto con el inmediato y fugazpresente. Descubrí que a la mayoría el pasado no le servía de nada. Aún no terminaba de observarlos y el futuro ya se apropiaba de aquel presente, ahora convertido en pasado, mostrándole a cada cual las consecuencias de sus actos"
+                                        android:gravity="center_horizontal"
+                                        android:layout_weight="1"
+                                        />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/l12"
+                                    android:layout_below="@+id/l02"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center">
+
+                                    <Button
+                                        style="?android:attr/buttonStyleSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="+"
+                                        android:onClick="masET"
+                                        android:id="@+id/btnmas"
+                                        android:background="@android:color/holo_green_light" />
+
+                                    <Button
+                                        style="?android:attr/buttonStyleSmall"
+                                        android:layout_marginStart="15dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:onClick="menosET"
+                                        android:text="-"
+                                        android:id="@+id/btnmenos"
+                                        android:background="@android:color/holo_green_light" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_marginTop="15dp"
+                                    android:id="@+id/lr3"
+                                    android:layout_below="@+id/l12"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center">
+
+                                    <Button
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Siguiente"
+                                        android:onClick="siguiente"
+                                        android:id="@+id/btnsiguiente"
+                                        android:background="@android:color/holo_green_light" />
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </ScrollView>
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/registro3"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical">
+
+                    <ScrollView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/scrollView5"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:id="@+id/lr0"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+
+                                <EditText
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textMultiLine"
+                                    android:id="@+id/txttexto"
+                                    android:enabled="false"
+                                    android:textSize="20dp"
+                                    android:text="la siguiente variable que debera ajustar, sera  la frecuencia(en horas)en la cual  usted desea realizar los ejercicios que tenemos para su ayudar a mejorar su vision"
+                                    android:gravity="center_horizontal"
+                                    android:layout_weight="1"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lr1"
+                                android:layout_below="@+id/lr0"
+                                android:orientation="horizontal"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+
+                                <NumberPicker
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/numero"
+                                    android:layout_alignTop="@+id/numberPicker"
+                                    android:layout_alignLeft="@+id/numberPicker"
+                                    android:layout_alignStart="@+id/numberPicker"
+                                    android:orientation="vertical" />
+
+                                <TextView
+                                    android:layout_marginStart="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:text="Horas"
+                                    android:textSize="20dp"
+                                    android:id="@+id/lblhora" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lr2"
+                                android:layout_below="@+id/lr1"
+                                android:layout_marginTop="15dp"
+                                android:orientation="vertical"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center">
+
+                                <Button
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Terminar"
+                                    android:onClick="terminar"
+                                    android:id="@+id/button4"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="174dp"
+                                    android:layout_weight="1"
+                                    android:background="@android:color/holo_green_light" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+                    </ScrollView>
+                </LinearLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>
+
+
 </RelativeLayout>

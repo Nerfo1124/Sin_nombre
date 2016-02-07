@@ -65,7 +65,7 @@ public class inicio_sesion extends AppCompatActivity {
         btnbuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String r = Buscar(txtusuario.getText().toString());
+                String r = "";//Buscar(txtusuario.getText().toString());
                 if (r == " -1 ") {
                     txtusuario.setText("");
                     txtusuario.setHint("No se encontro ese usuario");
@@ -88,7 +88,7 @@ public class inicio_sesion extends AppCompatActivity {
                 if(txtrespuesta.getText().toString().equals("")){
                     txtrespuesta.setHint("Debe digitar una respuesta");
                 }else {
-                    if(txtrespuesta.getText().toString().equals(Respuesta(txtusuario.getText().toString()))){
+                    if(txtrespuesta.getText().toString().equals("")){//Respuesta(txtusuario.getText().toString()))){
                         Toast.makeText(getApplicationContext(), "Cambiar Contraseña", Toast.LENGTH_SHORT).show();
                     }else{
                         txtrespuesta.setText("");
@@ -111,18 +111,18 @@ public class inicio_sesion extends AppCompatActivity {
      * digitado  un usuario  o en caso contrario retorna un valor string con las preguntas del usuario
      */
 
-    public String Buscar(String txt){
+   /* public String Buscar(String txt){
         if(!txt.equals("")){
             if (this.verificarUsuario(txt,2)==1){
-                DBManager manager2 = new DBManager(this);
-                String r=manager2.consultapregunta(txt);
-                return r;
+                //DBManager manager2 = new DBManager(this);
+                //String r=manager2.consultapregunta(txt);
+                return "";//r;
             }else
                 return " -1 ";
         }
         else
             return " -2 ";
-    }
+    }*/
 
     /**
      * metodo encargado de buscar el usuario ingresado en el dialogo y si no lo esta devuelbe mensaje
@@ -131,7 +131,7 @@ public class inicio_sesion extends AppCompatActivity {
      *            en caso de que no se encuentre el usuario
      * @return
      */
-    public int verificarUsuario(String usu, int opc){
+    /*public int verificarUsuario(String usu, int opc){
         DBManager manager2 = new DBManager(this);
         int r=manager2.consultanombreu(usu);
         if(r==0 && opc==1 ){
@@ -143,7 +143,7 @@ public class inicio_sesion extends AppCompatActivity {
         if(r==0 && opc==2 )
             return 0;
         return 1;
-    }
+    }*/
 
     /**
      * metodo encargado de retornar las preguntas correspondiente al usuario digitado en el dialogo
@@ -151,18 +151,18 @@ public class inicio_sesion extends AppCompatActivity {
      *            preguntas
      * @return
      */
-    public String Respuesta(String txt){
+    /*public String Respuesta(String txt){
         DBManager manager2 = new DBManager(this);
         String r=manager2.consultarespuesta(txt);
         return r;
-    }
+    }*/
 
     /**
      * metodo encargado de iniciar la actividad correspondiente al iniciar sesion o en caso contrario
      * devuelve mensaje de error en los datos ingresados
      * @param v
      */
-    public void entrar (View v){
+    /*public void entrar (View v){
         manager = new DBManager(this);
         int e=espaciosblancos();
         int u=0;
@@ -183,7 +183,7 @@ public class inicio_sesion extends AppCompatActivity {
             }
 
         }
-    }
+    }*/
 
     /**
      * metodo encargado de verificar que los elementos editables del xml no se encuentren en blanco
