@@ -12,7 +12,7 @@
     <item
         android:id="@+id/ejercicio"
         app:showAsAction="never"
-        android:title="Ejercicios"/>
+        android:title="Ejercicios "/>
     <item
         android:id="@+id/usuario"
         app:showAsAction="never"
