@@ -114,6 +114,22 @@ public class UsuarioDAO {
     }
 
     /**
+     * <b>Descripcion: </b>Metodo para consultar un nombre de usuario en la BDD
+     */
+    public int consultanombreu( String nombreu) {
+        try {
+            int r;
+            Cursor fila = db.rawQuery("SELECT  COUNT(*) FROM " + dbh.TABLE_NAME_USUARIO  + " WHERE " + dbh.USUARIO_NOMBRE + "='" + nombreu + "'", null);
+            fila.moveToFirst();
+            r=Integer.parseInt(fila.getString(0));
+            return r;
+        }catch (Exception e){
+            Toast.makeText(contexto,"Error:"+ e.toString(),Toast.LENGTH_SHORT).show();
+        }
+        return -1;
+    }
+
+    /**
      * <b>Descripcion: </b>Metodo encargado de realizar la insercion de datos en la tabla de USUARIO
      * @param vo
      * @return

@@ -20,9 +20,15 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import co.com.udistrital.sin_nombre.R;
+import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
+import co.com.udistrital.sin_nombre.dao.database.DataBaseHelper;
 import co.com.udistrital.sin_nombre.util.DateDialog;
+import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+
+    private UsuarioVO datosUsuario = new UsuarioVO();
+    private DataBaseHelper dbh;
 
     private RadioGroup gruposexo, grupoformula;//elementos para los grupos de tipo de sexo/formula
     private RelativeLayout layoutAnimadouno, layoutAnimadodos;// permiten agrupar  separadamente los elementos segun sea por formula o por ajuste manual
@@ -38,6 +44,7 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbh = new DataBaseHelper(this);
         setContentView(R.layout.activity_registro);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
         pestanias();
@@ -183,7 +190,6 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      */
 
     public void continuar(View v) {
-        TbH.setCurrentTab(1);
         int p = espaciosblancos();
         int r = 0, r2 = 0, r3 = 0;
         if (p == 1) {
@@ -192,8 +198,18 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
                 r2 = compararcontraseñas();
             }
             if (r2 == 1) {
-                // r3=verificarUsuario(); aqui ira el codigo o funcion que determina si el usuario ingresado  ya esta creado
-                r3 = 1;
+                // Codigo o funcion que determina si el usuario ingresado  ya esta creado
+                String nombreUsuario = txtnombreu.getText().toString();
+                UsuarioDAO objDao = new UsuarioDAO(this);
+                r3 = objDao.consultanombreu(nombreUsuario);
+                if(r3 < 1){
+                    txtnombreu.setText("");
+                    txtnombreu.setHint("Ya hay un usuario con este nombre");
+                    txtnombreu.setHintTextColor(Color.parseColor("#51FF1218"));
+                } else{
+                    datosUsuario.setNombreUsuario(nombreUsuario);
+                    txtnombreu.setText("Dato ingresado a la BD: " + datosUsuario.getNombreUsuario());
+                }
             }
             if (layoutAnimadouno.getVisibility() == View.GONE)
                 layoutAnimadouno.setVisibility(View.VISIBLE);//linea que muestra el layuot junto a todos sus elementos
@@ -208,7 +224,7 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
                     layoutAnimadodos.setVisibility(View.VISIBLE);
                 if (layoutAnimadouno.getVisibility() == View.VISIBLE)
                     layoutAnimadouno.setVisibility(View.GONE);
-
+                TbH.setCurrentTab(1);
             }
 
         }

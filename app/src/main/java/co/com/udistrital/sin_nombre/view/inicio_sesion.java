@@ -15,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import co.com.udistrital.sin_nombre.R;
+import co.com.udistrital.sin_nombre.dao.database.DataBaseHelper;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
 
 /**
  * Created by Rolando Baron on 21/09/2015.
@@ -22,6 +25,7 @@ import co.com.udistrital.sin_nombre.R;
 public class inicio_sesion extends AppCompatActivity {
 
     private EditText txtusuario,txtpassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +35,7 @@ public class inicio_sesion extends AppCompatActivity {
         txtusuario = (EditText)findViewById(R.id.txtusuario);
         txtpassword = (EditText)findViewById(R.id.txtcontraseña);
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_inicio_sesion, menu);
