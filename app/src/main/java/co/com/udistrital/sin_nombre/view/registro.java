@@ -202,13 +202,13 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
                 String nombreUsuario = txtnombreu.getText().toString();
                 UsuarioDAO objDao = new UsuarioDAO(this);
                 r3 = objDao.consultanombreu(nombreUsuario);
-                if(r3 < 1){
+                if(r3 != 1){
+                    datosUsuario.setNombreUsuario(nombreUsuario);
+                    txtnombreu.setText("Dato ingresado a la BD: " + datosUsuario.getNombreUsuario());
+                } else{
                     txtnombreu.setText("");
                     txtnombreu.setHint("Ya hay un usuario con este nombre");
                     txtnombreu.setHintTextColor(Color.parseColor("#51FF1218"));
-                } else{
-                    datosUsuario.setNombreUsuario(nombreUsuario);
-                    txtnombreu.setText("Dato ingresado a la BD: " + datosUsuario.getNombreUsuario());
                 }
             }
             if (layoutAnimadouno.getVisibility() == View.GONE)

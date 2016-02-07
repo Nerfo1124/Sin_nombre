@@ -101,7 +101,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_TABLE_SISTEMA =
             "CREATE TABLE " + TABLE_NAME_SISTEMA + " ( "
-            + SISTEMA_ID + " integer primary key autoincrement not null"
+            + SISTEMA_ID + " integer primary key autoincrement not null, "
             + SISTEMA_TAM_FUENTE + " integer not null, "
             + SISTEMA_FRECUENCIA + " integer not null "
             + " ) ";
