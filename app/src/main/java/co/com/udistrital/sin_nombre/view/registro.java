@@ -17,17 +17,19 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.dao.database.DataBaseHelper;
 import co.com.udistrital.sin_nombre.util.DateDialog;
+import co.com.udistrital.sin_nombre.vo.SesionVO;
 import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
-    private UsuarioVO datosUsuario = new UsuarioVO();
+    private UsuarioVO usuarioReg = new UsuarioVO();
     private DataBaseHelper dbh;
 
     private RadioGroup gruposexo, grupoformula;//elementos para los grupos de tipo de sexo/formula
@@ -202,10 +204,7 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
                 String nombreUsuario = txtnombreu.getText().toString();
                 UsuarioDAO objDao = new UsuarioDAO(this);
                 r3 = objDao.consultanombreu(nombreUsuario);
-                if(r3 != 1){
-                    datosUsuario.setNombreUsuario(nombreUsuario);
-                    txtnombreu.setText("Dato ingresado a la BD: " + datosUsuario.getNombreUsuario());
-                } else{
+                if(r3 == 1){
                     txtnombreu.setText("");
                     txtnombreu.setHint("Ya hay un usuario con este nombre");
                     txtnombreu.setHintTextColor(Color.parseColor("#51FF1218"));
@@ -218,7 +217,27 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         }
         if (r == 1 && r2 == 1 && r3 == 1 && p == 1) {
             if (grupoformula.getCheckedRadioButtonId() == R.id.radiosiR1) {
+                usuarioReg.setNombreUsuario(txtnombre.getText().toString());
+                String[] apellidos = txtapellido.getText().toString().split(" ");
+                usuarioReg.setApellido1Usuario(apellidos[0]);
+                if(apellidos[1] != null && apellidos[1] != ""){
+                    usuarioReg.setApellido2Usuario(apellidos[1]);
+                }
+                usuarioReg.setFechaNacimiento(txtfecha.getText().toString());
+                if (gruposexo.getCheckedRadioButtonId() == R.id.rbhombreR1){
+                    usuarioReg.setSexo("Masculino");
+                } else if (gruposexo.getCheckedRadioButtonId() == R.id.rbmujerR1){
+                    usuarioReg.setSexo("Femenino");
+                }
 
+                SesionVO datoSesion = new SesionVO();
+                datoSesion.setUsuario(txtnombreu.getText().toString());
+                datoSesion.setContrasena(txtcontrados.getText().toString());
+
+                usuarioReg.setSesionUsuario(datoSesion);
+
+                UsuarioDAO insertDao = new UsuarioDAO(this);
+                insertDao.insert(usuarioReg);
             } else {
                 if (layoutAnimadodos.getVisibility() == View.GONE)
                     layoutAnimadodos.setVisibility(View.VISIBLE);

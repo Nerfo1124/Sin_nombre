@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
  */
 public class UsuarioDAO {
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS");
     private DataBaseHelper dbh;
     private SQLiteDatabase db;
     public Context contexto;
@@ -53,7 +51,7 @@ public class UsuarioDAO {
                     vo.setNombreUsuario(listaUsuarios.getString(1));
                     vo.setApellido1Usuario(listaUsuarios.getString(2));
                     vo.setApellido2Usuario(listaUsuarios.getString(3));
-                    vo.setFechaNacimiento(sdf.parse(listaUsuarios.getString(4)));
+                    vo.setFechaNacimiento(listaUsuarios.getString(4));
                     vo.setSexo(listaUsuarios.getString(5));
 
                     SesionDAO sesDao = new SesionDAO(contexto);
@@ -95,7 +93,7 @@ public class UsuarioDAO {
                 objUsuario.setNombreUsuario(fila.getString(1));
                 objUsuario.setApellido1Usuario(fila.getString(2));
                 objUsuario.setApellido2Usuario(fila.getString(3));
-                objUsuario.setFechaNacimiento(sdf.parse(fila.getString(4)));
+                objUsuario.setFechaNacimiento(fila.getString(4));
                 objUsuario.setSexo(fila.getString(5));
 
                 SesionDAO sesDao = new SesionDAO(contexto);
@@ -157,7 +155,7 @@ public class UsuarioDAO {
             sb.append(vo.getFormulaUsuario().getIdFormula() + ",").append(vo.getConfigUsuario().getIdSistema()+",").append(vo.getRestablecerUsuario().getIdReestablecer());
             sb.append(")");
 
-            System.out.println("SQL: " + sb.toString());
+            System.out.println("[insert] SQL: " + sb.toString());
 
             SesionDAO sesDao = new SesionDAO(contexto);
             FormulaDAO forDao = new FormulaDAO(contexto);
@@ -213,7 +211,7 @@ public class UsuarioDAO {
                 resDao.update(vo.getRestablecerUsuario());
             }
 
-            System.out.println("SQL: " + sb.toString());
+            System.out.println("[update] SQL: " + sb.toString());
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {

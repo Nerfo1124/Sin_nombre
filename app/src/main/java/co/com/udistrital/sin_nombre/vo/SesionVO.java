@@ -6,8 +6,8 @@ package co.com.udistrital.sin_nombre.vo;
 public class SesionVO {
 
     private int idSesion;
-    private int usuario;
-    private int contrasena;
+    private String usuario;
+    private String contrasena;
 
     public SesionVO(){};
 
@@ -17,11 +17,11 @@ public class SesionVO {
         return idSesion;
     }
 
-    public int getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public int getContrasena() {
+    public String getContrasena() {
         return contrasena;
     }
 
@@ -31,11 +31,11 @@ public class SesionVO {
         this.idSesion = idSesion;
     }
 
-    public void setUsuario(int usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
-    public void setContrasena(int contrasena) {
+    public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 }

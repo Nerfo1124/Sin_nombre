@@ -11,7 +11,7 @@ public class UsuarioVO {
     private String nombreUsuario;
     private String apellido1Usuario;
     private String apellido2Usuario;
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
     private String sexo;
     private SesionVO sesionUsuario;
     private FormulaVO formulaUsuario;
@@ -35,7 +35,7 @@ public class UsuarioVO {
         return apellido2Usuario;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
@@ -76,7 +76,7 @@ public class UsuarioVO {
         this.apellido2Usuario = apellido2Usuario;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

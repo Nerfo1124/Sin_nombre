@@ -13,18 +13,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final int DB_SCHEMA_VERSION = 1;
     Context contexto;
 
-    public DataBaseHelper(Context context){
+    public DataBaseHelper(Context context) {
         super(context, DB_NAME, null, DB_SCHEMA_VERSION);
+        System.out.println("[DataBaseHelper] DataBase Name: " + DB_NAME + " Version: " + DB_SCHEMA_VERSION);
         contexto = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_FORMULA);
+        System.out.println("[DataBaseHelper] SQL: " + CREATE_TABLE_FORMULA);
         db.execSQL(CREATE_TABLE_SISTEMA);
+        System.out.println("[DataBaseHelper] SQL: " + CREATE_TABLE_SISTEMA);
         db.execSQL(CREATE_TABLE_SESION);
+        System.out.println("[DataBaseHelper] SQL: " + CREATE_TABLE_SESION);
         db.execSQL(CREATE_TABLE_RESTABLECER);
+        System.out.println("[DataBaseHelper] SQL: " + CREATE_TABLE_RESTABLECER);
         db.execSQL(CREATE_TABLE_USUARIO);
+        System.out.println("[DataBaseHelper] SQL: " + CREATE_TABLE_USUARIO);
     }
 
     @Override

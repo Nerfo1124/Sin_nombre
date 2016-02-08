@@ -48,8 +48,8 @@ public class SesionDAO {
                 do{
                     SesionVO vo = new SesionVO();
                     vo.setIdSesion(listSesiones.getInt(0));
-                    vo.setUsuario(listSesiones.getInt(1));
-                    vo.setContrasena(listSesiones.getInt(2));
+                    vo.setUsuario(listSesiones.getString(1));
+                    vo.setContrasena(listSesiones.getString(2));
                     listaSesion.add(vo);
                 } while(listSesiones.moveToNext());
             }
@@ -80,8 +80,8 @@ public class SesionDAO {
             fila.moveToFirst();
             if (fila != null){
                 objSesion.setIdSesion(fila.getInt(0));
-                objSesion.setUsuario(fila.getInt(1));
-                objSesion.setContrasena(fila.getInt(2));
+                objSesion.setUsuario(fila.getString(1));
+                objSesion.setContrasena(fila.getString(2));
             }
             return objSesion;
         } catch (Exception e){
