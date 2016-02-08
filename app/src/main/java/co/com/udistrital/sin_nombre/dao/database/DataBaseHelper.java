@@ -58,7 +58,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + USUARIO_SESION + " integer, "
             + USUARIO_FORMULA + " integer, "
             + USUARIO_SISTEMA + " integer, "
-            + USUARIO_REESTABLECER + " integer, "
+            + USUARIO_REESTABLECER + " integer "
             + " ) ";
 
     // ========================================================

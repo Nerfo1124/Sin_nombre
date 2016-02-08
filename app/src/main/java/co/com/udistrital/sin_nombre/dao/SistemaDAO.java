@@ -30,6 +30,7 @@ public class SistemaDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[SistemaDAO] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[SistemaDAO] Error en SistemaDAO: " + e.toString());
         }
     }
 
@@ -42,6 +43,9 @@ public class SistemaDAO {
             List<SistemaVO> listaSistema = new ArrayList<SistemaVO>();
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SISTEMA);
+
+            System.out.println("SQL: " + sb.toString());
+
             Cursor listSistemas = db.rawQuery(sb.toString(), null);
             if(listSistemas.moveToFirst()){
                 do{
@@ -55,6 +59,7 @@ public class SistemaDAO {
             return listaSistema;
         } catch (Exception e){
             Toast.makeText(contexto, "[list] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[list] Error en SesionDAO: " + e.toString());
             return null;
         }
     }
@@ -71,6 +76,9 @@ public class SistemaDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SISTEMA);
             sb.append(" WHERE ").append(dbh.SISTEMA_ID).append(" = ").append(idSistema);
+
+            System.out.println("SQL: " + sb.toString());
+
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
             if (fila != null){
@@ -81,6 +89,7 @@ public class SistemaDAO {
             return objSistema;
         } catch (Exception e){
             Toast.makeText(contexto, "[consult] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            System.out.println("[consult] Error en SistemaDAO: " + e.toString());
             return null;
         }
     }
@@ -94,14 +103,18 @@ public class SistemaDAO {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO ").append(dbh.TABLE_NAME_SISTEMA).append("(");
-            sb.append(dbh.SISTEMA_TAM_FUENTE+",").append(dbh.SISTEMA_FRECUENCIA+")");
+            sb.append(dbh.SISTEMA_TAM_FUENTE + ",").append(dbh.SISTEMA_FRECUENCIA+")");
             sb.append(" VALUES (");
             sb.append(vo.getTamanoFuente() + ",").append(vo.getFrecuencia());
             sb.append(")");
+
+            System.out.println("SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
             Toast.makeText(contexto, "[insert] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            System.out.println("[insert] Error en SistemaDAO: " + e.toString());
             return false;
         }
     }
@@ -119,10 +132,14 @@ public class SistemaDAO {
             sb.append(dbh.SISTEMA_TAM_FUENTE).append("=").append(vo.getTamanoFuente()).append(",");
             sb.append(dbh.SISTEMA_FRECUENCIA).append("=").append(vo.getFrecuencia()).append(" ");
             sb.append("WHERE ").append(dbh.SISTEMA_ID).append("=").append(vo.getIdSistema());
+
+            System.out.println("SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[update] Error en SistemanDAO " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[update] Error en SistemanDAO " + e.toString());
             return false;
         }
     }
@@ -138,10 +155,13 @@ public class SistemaDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("DELETE FROM ").append(dbh.TABLE_NAME_SISTEMA);
             sb.append(" WHERE ").append(dbh.SISTEMA_ID).append(" = ").append(idSistema);
+
+            System.out.println("SQL: " + sb.toString());
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[delete] Error en SistemaDAO: " + e.toString());
             return false;
         }
     }

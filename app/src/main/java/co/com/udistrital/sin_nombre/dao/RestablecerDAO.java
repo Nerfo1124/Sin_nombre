@@ -31,6 +31,7 @@ public class RestablecerDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[RestablecerDAO] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[RestablecerDAO] Error en RestablecerDAO: " + e.toString());
         }
     }
 
@@ -55,6 +56,7 @@ public class RestablecerDAO {
             return listaRes;
         } catch (Exception e){
             Toast.makeText(contexto, "[list] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[list] Error en RestablecerDAO: " + e.toString());
             return null;
         }
     }
@@ -65,6 +67,9 @@ public class RestablecerDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_RESTABLECER);
             sb.append(" WHERE ").append(dbh.RESTABLECER_ID).append(" = ").append(idRestablecer);
+
+            System.out.println("SQL: " + sb.toString());
+
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
             if (fila != null){
@@ -78,6 +83,7 @@ public class RestablecerDAO {
             return objRes;
         } catch (Exception e){
             Toast.makeText(contexto, "[consult] Error en FormulaDAO - consult: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            System.out.println("[consult] Error en FormulaDAO - consult: " + e.toString());
             return null;
         }
     }
@@ -93,10 +99,14 @@ public class RestablecerDAO {
             sb.append(vo.getPregunta2() + "','").append(vo.getRespuesta2()).append("',");
             sb.append(vo.getTamanoFuente());
             sb.append(")");
+
+            System.out.println("SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
             Toast.makeText(contexto, "[insert] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            System.out.println("[insert] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -111,10 +121,14 @@ public class RestablecerDAO {
             sb.append(dbh.RESTABLECER_ANSW2).append("='").append(vo.getRespuesta2()).append("',");
             sb.append(dbh.RESTABLECER_TAMANO_FUENTE).append("=").append(vo.getTamanoFuente()).append(" ");
             sb.append("WHERE ").append(dbh.RESTABLECER_ID).append("=").append(vo.getIdReestablecer());
+
+            System.out.println("SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[update] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -124,10 +138,14 @@ public class RestablecerDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("DELETE FROM ").append(dbh.TABLE_NAME_RESTABLECER);
             sb.append(" WHERE ").append(dbh.RESTABLECER_ID).append(" = ").append(idRestablecer);
+
+            System.out.println("SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[delete] Error en RestablecerDAO: " + e.toString());
             return false;
         }
     }

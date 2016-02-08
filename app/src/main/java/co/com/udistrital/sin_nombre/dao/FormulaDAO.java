@@ -30,6 +30,7 @@ public class FormulaDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[FormulaDAO] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            System.out.println("[FormulaDAO] Error en FormulaDAO: " + e.toString());
         }
     }
 
@@ -54,6 +55,7 @@ public class FormulaDAO {
             return listaFormula;
         } catch (Exception e){
             Toast.makeText(contexto, "[list] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[list] Error en FormulaDAO: " + e.toString());
             return null;
         }
     }
@@ -70,6 +72,9 @@ public class FormulaDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_FORMULA);
             sb.append(" WHERE for_id = ").append(idFormula);
+
+            System.out.println("SQL: " + sb.toString());
+
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
             if (fila != null){
@@ -80,6 +85,7 @@ public class FormulaDAO {
             return objFormula;
         } catch (Exception e){
             Toast.makeText(contexto, "[consult] Error en FormulaDAO - consult: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            System.out.println("[consult] Error en FormulaDAO - consult: " + e.toString());
             return null;
         }
     }
@@ -101,6 +107,7 @@ public class FormulaDAO {
             return true;
         } catch (Exception e){
             Toast.makeText(contexto, "[insert] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            System.out.println("[insert] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -119,10 +126,14 @@ public class FormulaDAO {
             sb.append(dbh.FORMULA_OJO_DER).append("='").append(vo.getaVisualOD()).append("',");
             sb.append(dbh.FORMULA_OJO_IZQ).append("='").append(vo.getaVisualOI()).append("' ");
             sb.append("WHERE ").append(dbh.FORMULA_ID).append("=").append(vo.getIdFormula());
+
+            System.out.println("SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[update] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -137,10 +148,14 @@ public class FormulaDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("DELETE FROM ").append(dbh.TABLE_NAME_FORMULA);
             sb.append(" WHERE ").append(dbh.FORMULA_ID).append(" = ").append(idFormula);
+
+            System.out.println("SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[delete] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }

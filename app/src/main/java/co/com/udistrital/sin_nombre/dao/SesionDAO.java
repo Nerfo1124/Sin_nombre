@@ -30,6 +30,7 @@ public class SesionDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[SesionDAO] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[SesionDAO] Error en SesionDAO: " + e.toString());
         }
     }
 
@@ -55,6 +56,7 @@ public class SesionDAO {
             return listaSesion;
         } catch (Exception e){
             Toast.makeText(contexto, "[list] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[list] Error en SesionDAO: " + e.toString());
             return null;
         }
     }
@@ -71,6 +73,9 @@ public class SesionDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SESION);
             sb.append(" WHERE ").append(dbh.SESION_ID).append(" = ").append(idSesion);
+
+            System.out.println("SQL: " + sb.toString());
+
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
             if (fila != null){
@@ -81,6 +86,7 @@ public class SesionDAO {
             return objSesion;
         } catch (Exception e){
             Toast.makeText(contexto, "[consult] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            System.out.println("[consult] Error en SesionDAO: " + e.toString());
             return null;
         }
     }
@@ -96,12 +102,16 @@ public class SesionDAO {
             sb.append("INSERT INTO ").append(dbh.TABLE_NAME_SESION).append("(");
             sb.append(dbh.SESION_USER).append(dbh.SESION_PASS).append(")");
             sb.append(" VALUES (");
-            sb.append("'" + vo.getUsuario() + "','").append(vo.getContrasena()+"'");
+            sb.append("'" + vo.getUsuario() + "','").append(vo.getContrasena() + "'");
             sb.append(")");
+
+            System.out.println("SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
             Toast.makeText(contexto, "[insert] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            System.out.println("[insert] Error en SesionDAO: " + e.toString());
             return false;
         }
     }
@@ -119,10 +129,14 @@ public class SesionDAO {
             sb.append(dbh.SESION_USER).append("='").append(vo.getUsuario()).append("',");
             sb.append(dbh.SESION_PASS).append("='").append(vo.getContrasena()).append("' ");
             sb.append("WHERE ").append(dbh.SESION_ID).append("=").append(vo.getIdSesion());
+
+            System.out.println("SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[update] Error en SesionDAO " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[update] Error en SesionDAO " + e.toString());
             return false;
         }
     }
@@ -137,10 +151,13 @@ public class SesionDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("DELETE FROM ").append(dbh.TABLE_NAME_SESION);
             sb.append(" WHERE ").append(dbh.SESION_ID).append(" = ").append(idSesion);
+
+            System.out.println("SQL: " + sb.toString());
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[delete] Error en SesionDAO: " + e.toString());
             return false;
         }
     }
