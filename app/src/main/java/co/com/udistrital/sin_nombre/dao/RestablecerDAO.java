@@ -105,8 +105,8 @@ public class RestablecerDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
-            Toast.makeText(contexto, "[insert] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            System.out.println("[insert] Error en FormulaDAO: " + e.toString());
+            Toast.makeText(contexto, "[insert] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
+            System.out.println("[insert] Error en RestablecerDAO: " + e.toString());
             return false;
         }
     }

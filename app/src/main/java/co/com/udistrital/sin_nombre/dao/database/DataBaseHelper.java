@@ -3,6 +3,7 @@ package co.com.udistrital.sin_nombre.dao.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 /**
  * Created by Rolando Baron on 19/09/2015.
@@ -31,6 +32,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         System.out.println("[DataBaseHelper] SQL: " + CREATE_TABLE_RESTABLECER);
         db.execSQL(CREATE_TABLE_USUARIO);
         System.out.println("[DataBaseHelper] SQL: " + CREATE_TABLE_USUARIO);
+        Toast.makeText(contexto,"CREO BASE DE DATOS",Toast.LENGTH_LONG).show();
     }
 
     @Override

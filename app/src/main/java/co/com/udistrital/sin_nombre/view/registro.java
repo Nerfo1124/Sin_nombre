@@ -21,16 +21,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import co.com.udistrital.sin_nombre.R;
+import co.com.udistrital.sin_nombre.dao.FormulaDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.dao.database.DataBaseHelper;
 import co.com.udistrital.sin_nombre.util.DateDialog;
+import co.com.udistrital.sin_nombre.vo.FormulaVO;
+import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
+import co.com.udistrital.sin_nombre.vo.SistemaVO;
 import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
     private UsuarioVO usuarioReg = new UsuarioVO();
-    private DataBaseHelper dbh;
+    private UsuarioDAO objDao;
 
     private RadioGroup gruposexo, grupoformula;//elementos para los grupos de tipo de sexo/formula
     private RelativeLayout layoutAnimadouno, layoutAnimadodos;// permiten agrupar  separadamente los elementos segun sea por formula o por ajuste manual
@@ -46,9 +50,9 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbh = new DataBaseHelper(this);
         setContentView(R.layout.activity_registro);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
+        objDao = new UsuarioDAO(this);
         pestanias();
         referenciasuno();
         referenciasdos();
@@ -202,50 +206,28 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             if (r2 == 1) {
                 // Codigo o funcion que determina si el usuario ingresado  ya esta creado
                 String nombreUsuario = txtnombreu.getText().toString();
-                UsuarioDAO objDao = new UsuarioDAO(this);
                 r3 = objDao.consultanombreu(nombreUsuario);
                 if(r3 == 1){
                     txtnombreu.setText("");
                     txtnombreu.setHint("Ya hay un usuario con este nombre");
                     txtnombreu.setHintTextColor(Color.parseColor("#51FF1218"));
                 }
+                r3=1;
             }
             if (layoutAnimadouno.getVisibility() == View.GONE)
                 layoutAnimadouno.setVisibility(View.VISIBLE);//linea que muestra el layuot junto a todos sus elementos
             if (layoutAnimadodos.getVisibility() == View.VISIBLE)
                 layoutAnimadodos.setVisibility(View.GONE);//metodo que oculpa el layout junto con todos sus elementos
         }
+        Toast.makeText(this,""+r+" "+r2+" "+r3+" "+p,Toast.LENGTH_LONG).show();
         if (r == 1 && r2 == 1 && r3 == 1 && p == 1) {
-            if (grupoformula.getCheckedRadioButtonId() == R.id.radiosiR1) {
-                usuarioReg.setNombreUsuario(txtnombre.getText().toString());
-                String[] apellidos = txtapellido.getText().toString().split(" ");
-                usuarioReg.setApellido1Usuario(apellidos[0]);
-                if(apellidos[1] != null && apellidos[1] != ""){
-                    usuarioReg.setApellido2Usuario(apellidos[1]);
-                }
-                usuarioReg.setFechaNacimiento(txtfecha.getText().toString());
-                if (gruposexo.getCheckedRadioButtonId() == R.id.rbhombreR1){
-                    usuarioReg.setSexo("Masculino");
-                } else if (gruposexo.getCheckedRadioButtonId() == R.id.rbmujerR1){
-                    usuarioReg.setSexo("Femenino");
-                }
-
-                SesionVO datoSesion = new SesionVO();
-                datoSesion.setUsuario(txtnombreu.getText().toString());
-                datoSesion.setContrasena(txtcontrados.getText().toString());
-
-                usuarioReg.setSesionUsuario(datoSesion);
-
-                UsuarioDAO insertDao = new UsuarioDAO(this);
-                insertDao.insert(usuarioReg);
-            } else {
+            if (grupoformula.getCheckedRadioButtonId() != R.id.radiosiR1) {
                 if (layoutAnimadodos.getVisibility() == View.GONE)
                     layoutAnimadodos.setVisibility(View.VISIBLE);
                 if (layoutAnimadouno.getVisibility() == View.VISIBLE)
                     layoutAnimadouno.setVisibility(View.GONE);
-                TbH.setCurrentTab(1);
             }
-
+            TbH.setCurrentTab(1);
         }
     }
 
@@ -381,5 +363,62 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     public void menosET(View v){
         float t= texto.getTextSize();
         texto.setTextSize(t-2);
+    }
+
+    public void llenarusuario(){
+        usuarioReg.setNombreUsuario(txtnombre.getText().toString());
+        String[] apellidos = txtapellido.getText().toString().split(" ");
+        usuarioReg.setApellido1Usuario(apellidos[0]);
+        if(apellidos[1] != null && apellidos[1] != ""){
+            usuarioReg.setApellido2Usuario(apellidos[1]);
+        }
+        usuarioReg.setFechaNacimiento(txtfecha.getText().toString());
+        if (gruposexo.getCheckedRadioButtonId() == R.id.rbhombreR1){
+            usuarioReg.setSexo("Masculino");
+        } else if (gruposexo.getCheckedRadioButtonId() == R.id.rbmujerR1){
+            usuarioReg.setSexo("Femenino");
+        }
+        usuarioReg.setSesionUsuario(llenarsesion());
+        usuarioReg.setFormulaUsuario(llenarformula());
+        usuarioReg.setConfigUsuario(llenarsistema());
+        usuarioReg.setRestablecerUsuario(llenarcuenta());
+
+        objDao.insert(usuarioReg);
+        Toast.makeText(this,":D :D :D :(",Toast.LENGTH_LONG).show();
+    }
+
+    public SesionVO llenarsesion(){
+        SesionVO datoSesion = new SesionVO();
+        datoSesion.setUsuario(txtnombreu.getText().toString());
+        datoSesion.setContrasena(txtcontrados.getText().toString());
+        return datoSesion;
+    }
+
+    public FormulaVO llenarformula(){
+        FormulaVO datoFormula = new FormulaVO();
+        datoFormula.setaVisualOD(iz.getText().toString());
+        datoFormula.setaVisualOI(de.getText().toString());
+        return datoFormula;
+    }
+
+
+    public SistemaVO llenarsistema(){
+        SistemaVO datosistema = new SistemaVO();
+        datosistema.setFrecuencia(fre.getValue());
+        datosistema.setTamanoFuente(texto.getTextSize());
+        return datosistema;
+    }
+    public ReestablecerVO llenarcuenta(){
+        ReestablecerVO datorestablecer=new ReestablecerVO();
+        datorestablecer.setPregunta1("dhavian es gay");
+        datorestablecer.setRespuesta1("si");
+        datorestablecer.setPregunta2("y no niega");
+        datorestablecer.setRespuesta2("si");
+        datorestablecer.setTamanoFuente(""+texto.getTextSize());
+        return datorestablecer;
+    }
+
+    public void terminar(View v){
+        llenarusuario();
     }
 }

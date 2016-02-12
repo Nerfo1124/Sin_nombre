@@ -20,7 +20,7 @@ public class DateDialog extends DialogFragment implements  DatePickerDialog.OnDa
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new DatePickerDialog(getActivity(), this, 1979, 12, 31);
+        return new DatePickerDialog(getActivity(), this, 1999, 0, 1);
     }
 
     @Override

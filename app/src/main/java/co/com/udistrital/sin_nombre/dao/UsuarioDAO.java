@@ -129,6 +129,8 @@ public class UsuarioDAO {
             Cursor fila = db.rawQuery( sb.toString() , null);
             fila.moveToFirst();
             r=Integer.parseInt(fila.getString(0));
+            Toast.makeText(contexto,"Entro: "+r,Toast.LENGTH_SHORT).show();
+
             return r;
         }catch (Exception e){
             Toast.makeText(contexto,"Error:"+ e.toString(),Toast.LENGTH_SHORT).show();
@@ -147,7 +149,7 @@ public class UsuarioDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO ").append(dbh.TABLE_NAME_USUARIO).append("(");
             sb.append(dbh.USUARIO_NOMBRE + ",").append(dbh.USUARIO_APELLIDO1+",").append(dbh.USUARIO_APELLIDO2 + ",");
-            sb.append(dbh.USUARIO_NACIMIENTO + ",").append(dbh.USUARIO_SEXO+",").append(dbh.USUARIO_SESION);
+            sb.append(dbh.USUARIO_NACIMIENTO + ",").append(dbh.USUARIO_SEXO+",").append(dbh.USUARIO_SESION+ ",");
             sb.append(dbh.USUARIO_FORMULA+",").append(dbh.USUARIO_SISTEMA + ",").append(dbh.USUARIO_REESTABLECER).append(")");
             sb.append(" VALUES (");
             sb.append("'" + vo.getNombreUsuario() + "','").append(vo.getApellido1Usuario()+"','").append(vo.getApellido2Usuario() + "',");

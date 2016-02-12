@@ -6,19 +6,19 @@ package co.com.udistrital.sin_nombre.vo;
 public class SistemaVO {
 
     private int idSistema;
-    private int tamanoFuente;
-    private int frecuencia;
+    private float tamanoFuente;
+    private float frecuencia;
 
     // Bloque Getter
     public int getIdSistema() {
         return idSistema;
     }
 
-    public int getTamanoFuente() {
+    public float getTamanoFuente() {
         return tamanoFuente;
     }
 
-    public int getFrecuencia() {
+    public float getFrecuencia() {
         return frecuencia;
     }
 
@@ -27,11 +27,11 @@ public class SistemaVO {
         this.idSistema = idSistema;
     }
 
-    public void setTamanoFuente(int tamanoFuente) {
+    public void setTamanoFuente(float tamanoFuente) {
         this.tamanoFuente = tamanoFuente;
     }
 
-    public void setFrecuencia(int frecuencia) {
+    public void setFrecuencia(float frecuencia) {
         this.frecuencia = frecuencia;
     }
 }

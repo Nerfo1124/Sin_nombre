@@ -100,7 +100,7 @@ public class SesionDAO {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO ").append(dbh.TABLE_NAME_SESION).append("(");
-            sb.append(dbh.SESION_USER).append(dbh.SESION_PASS).append(")");
+            sb.append(dbh.SESION_USER+" , ").append(dbh.SESION_PASS).append(")");
             sb.append(" VALUES (");
             sb.append("'" + vo.getUsuario() + "','").append(vo.getContrasena() + "'");
             sb.append(")");
