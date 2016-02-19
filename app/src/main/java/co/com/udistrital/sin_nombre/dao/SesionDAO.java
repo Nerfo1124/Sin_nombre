@@ -3,6 +3,7 @@ package co.com.udistrital.sin_nombre.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,8 +31,33 @@ public class SesionDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[SesionDAO] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[SesionDAO] Error en SesionDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[SesionDAO] Error en SesionDAO: " + e.toString());
         }
+    }
+
+    /**
+     * <b>Descripcion: </b>Metodo para consultar un nombre de usuario en la BDD
+     */
+    public int consultaNombreU( String userName) {
+        try {
+            int r;
+            StringBuilder sb = new StringBuilder();
+            sb.append("SELECT  COUNT(*) FROM ").append(dbh.TABLE_NAME_SESION).append(" WHERE ");
+            sb.append(dbh.SESION_USER).append(" = '").append(userName).append("'");
+
+            Log.d("[Sin_nombre]", "[consultaNombreU] SQL: " + sb.toString());
+
+            Cursor fila = db.rawQuery( sb.toString() , null);
+            fila.moveToFirst();
+            r=Integer.parseInt(fila.getString(0));
+            Toast.makeText(contexto,"Entro: "+r,Toast.LENGTH_SHORT).show();
+
+            return r;
+        }catch (Exception e){
+            Toast.makeText(contexto,"Error:"+ e.toString(),Toast.LENGTH_SHORT).show();
+            Log.e("[Sin_nombre]","[consultaNombreU] Error en SesionDAO:" + e.toString());
+        }
+        return -1;
     }
 
     /**
@@ -43,6 +69,9 @@ public class SesionDAO {
             List<SesionVO> listaSesion = new ArrayList<SesionVO>();
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SESION);
+
+            Log.d("[Sin_nombre]", "[list] SQL: " + sb.toString());
+
             Cursor listSesiones = db.rawQuery(sb.toString(), null);
             if(listSesiones.moveToFirst()){
                 do{
@@ -56,7 +85,7 @@ public class SesionDAO {
             return listaSesion;
         } catch (Exception e){
             Toast.makeText(contexto, "[list] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[list] Error en SesionDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[list] Error en SesionDAO: " + e.toString());
             return null;
         }
     }
@@ -74,7 +103,7 @@ public class SesionDAO {
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SESION);
             sb.append(" WHERE ").append(dbh.SESION_ID).append(" = ").append(idSesion);
 
-            System.out.println("SQL: " + sb.toString());
+            Log.d("[Sin_nombre]","[consult] SQL: " + sb.toString());
 
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
@@ -86,7 +115,7 @@ public class SesionDAO {
             return objSesion;
         } catch (Exception e){
             Toast.makeText(contexto, "[consult] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            System.out.println("[consult] Error en SesionDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[consult] Error en SesionDAO: " + e.toString());
             return null;
         }
     }
@@ -105,13 +134,13 @@ public class SesionDAO {
             sb.append("'" + vo.getUsuario() + "','").append(vo.getContrasena() + "'");
             sb.append(")");
 
-            System.out.println("SQL: " + sb.toString());
+            Log.d("[Sin_nombre]","[insert] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
             Toast.makeText(contexto, "[insert] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            System.out.println("[insert] Error en SesionDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[insert] Error en SesionDAO: " + e.toString());
             return false;
         }
     }
@@ -130,13 +159,13 @@ public class SesionDAO {
             sb.append(dbh.SESION_PASS).append("='").append(vo.getContrasena()).append("' ");
             sb.append("WHERE ").append(dbh.SESION_ID).append("=").append(vo.getIdSesion());
 
-            System.out.println("SQL: " + sb.toString());
+            Log.d("[Sin_nombre]", "[update] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[update] Error en SesionDAO " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[update] Error en SesionDAO " + e.toString());
+            Log.e("[Sin_nombre]", "[update] Error en SesionDAO " + e.toString());
             return false;
         }
     }
@@ -152,12 +181,13 @@ public class SesionDAO {
             sb.append("DELETE FROM ").append(dbh.TABLE_NAME_SESION);
             sb.append(" WHERE ").append(dbh.SESION_ID).append(" = ").append(idSesion);
 
-            System.out.println("SQL: " + sb.toString());
+            Log.d("[Sin_nombre]", "[delete] SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[delete] Error en SesionDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[delete] Error en SesionDAO: " + e.toString());
             return false;
         }
     }

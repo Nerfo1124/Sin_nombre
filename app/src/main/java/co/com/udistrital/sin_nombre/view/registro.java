@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,7 @@ import java.util.Calendar;
 
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.FormulaDAO;
+import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.dao.database.DataBaseHelper;
 import co.com.udistrital.sin_nombre.util.DateDialog;
@@ -34,7 +36,8 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
     private UsuarioVO usuarioReg = new UsuarioVO();
-    private UsuarioDAO objDao;
+    private UsuarioDAO objUsuarioDao;
+    private SesionDAO objSesionDao;
 
     private RadioGroup gruposexo, grupoformula;//elementos para los grupos de tipo de sexo/formula
     private RelativeLayout layoutAnimadouno, layoutAnimadodos;// permiten agrupar  separadamente los elementos segun sea por formula o por ajuste manual
@@ -49,10 +52,12 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     //vector que almacena cada una de las preguntas separadamente
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("[Sin_nombre]", "Ingresando a la vista principal de Registro.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
-        objDao = new UsuarioDAO(this);
+        objUsuarioDao = new UsuarioDAO(this);
+        objSesionDao = new SesionDAO(this);
         pestanias();
         referenciasuno();
         referenciasdos();
@@ -206,9 +211,11 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             if (r2 == 1) {
                 // Codigo o funcion que determina si el usuario ingresado  ya esta creado
                 String nombreUsuario = txtnombreu.getText().toString();
-                r3 = objDao.consultanombreu(nombreUsuario);
+                Log.d("[Sin_nombre]", "[continuar] Nombre de usuario a consultar: " + nombreUsuario);
+                r3 = objSesionDao.consultaNombreU(nombreUsuario);
                 if(r3 == 1){
                     txtnombreu.setText("");
+                    Log.d("[Sin_nombre]", "[continuar] Ya hay un usuario con el nombre ingresado.");
                     txtnombreu.setHint("Ya hay un usuario con este nombre");
                     txtnombreu.setHintTextColor(Color.parseColor("#51FF1218"));
                 }
@@ -346,7 +353,7 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
     /**
-     * este metodo hace referencia a un jbutton encargado de aumentar el tamaño de la letra del texto
+     * <b>Descripcion: </b> Metodo que hace referencia a un jbutton encargado de aumentar el tamaño de la letra del texto
      * ubicado en la segunga pestaña en la opcion de ajuste manual
      * @param v
      */
@@ -365,7 +372,7 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         texto.setTextSize(t-2);
     }
 
-    public void llenarusuario(){
+    public void llenarUsuario(){
         usuarioReg.setNombreUsuario(txtnombre.getText().toString());
         String[] apellidos = txtapellido.getText().toString().split(" ");
         usuarioReg.setApellido1Usuario(apellidos[0]);
@@ -378,23 +385,24 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         } else if (gruposexo.getCheckedRadioButtonId() == R.id.rbmujerR1){
             usuarioReg.setSexo("Femenino");
         }
-        usuarioReg.setSesionUsuario(llenarsesion());
-        usuarioReg.setFormulaUsuario(llenarformula());
-        usuarioReg.setConfigUsuario(llenarsistema());
-        usuarioReg.setRestablecerUsuario(llenarcuenta());
+        usuarioReg.setSesionUsuario(llenarSesion());
+        usuarioReg.setFormulaUsuario(llenarFormula());
+        usuarioReg.setConfigUsuario(llenarSistema());
+        usuarioReg.setRestablecerUsuario(llenarCuenta());
 
-        objDao.insert(usuarioReg);
+        objUsuarioDao.insert(usuarioReg);
         Toast.makeText(this,":D :D :D :(",Toast.LENGTH_LONG).show();
+        Log.i("[Sin_nombre]", " [llenarUsuario] Usuario registrado satisfactoriamente.");
     }
 
-    public SesionVO llenarsesion(){
+    public SesionVO llenarSesion(){
         SesionVO datoSesion = new SesionVO();
         datoSesion.setUsuario(txtnombreu.getText().toString());
         datoSesion.setContrasena(txtcontrados.getText().toString());
         return datoSesion;
     }
 
-    public FormulaVO llenarformula(){
+    public FormulaVO llenarFormula(){
         FormulaVO datoFormula = new FormulaVO();
         datoFormula.setaVisualOD(iz.getText().toString());
         datoFormula.setaVisualOI(de.getText().toString());
@@ -402,13 +410,13 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
 
-    public SistemaVO llenarsistema(){
+    public SistemaVO llenarSistema(){
         SistemaVO datosistema = new SistemaVO();
         datosistema.setFrecuencia(fre.getValue());
         datosistema.setTamanoFuente(texto.getTextSize());
         return datosistema;
     }
-    public ReestablecerVO llenarcuenta(){
+    public ReestablecerVO llenarCuenta(){
         ReestablecerVO datorestablecer=new ReestablecerVO();
         datorestablecer.setPregunta1("dhavian es gay");
         datorestablecer.setRespuesta1("si");
@@ -419,6 +427,6 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
     public void terminar(View v){
-        llenarusuario();
+        llenarUsuario();
     }
 }

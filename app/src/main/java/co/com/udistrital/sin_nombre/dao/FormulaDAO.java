@@ -3,6 +3,7 @@ package co.com.udistrital.sin_nombre.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class FormulaDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[FormulaDAO] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            System.out.println("[FormulaDAO] Error en FormulaDAO: " + e.toString());
+            Log.e("[Sin_nombre]","[FormulaDAO] Error en FormulaDAO: " + e.toString());
         }
     }
 
@@ -55,7 +56,7 @@ public class FormulaDAO {
             return listaFormula;
         } catch (Exception e){
             Toast.makeText(contexto, "[list] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[list] Error en FormulaDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[list] Error en FormulaDAO: " + e.toString());
             return null;
         }
     }
@@ -73,7 +74,7 @@ public class FormulaDAO {
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_FORMULA);
             sb.append(" WHERE for_id = ").append(idFormula);
 
-            System.out.println("SQL: " + sb.toString());
+            Log.d("[Sin_nombre]","[consult] SQL: " + sb.toString());
 
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
@@ -85,7 +86,7 @@ public class FormulaDAO {
             return objFormula;
         } catch (Exception e){
             Toast.makeText(contexto, "[consult] Error en FormulaDAO - consult: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            System.out.println("[consult] Error en FormulaDAO - consult: " + e.toString());
+            Log.e("[Sin_nombre]", "[consult] Error en FormulaDAO - consult: " + e.toString());
             return null;
         }
     }
@@ -103,11 +104,14 @@ public class FormulaDAO {
             sb.append(" VALUES ('");
             sb.append(vo.getaVisualOD() + "','").append(vo.getaVisualOI());
             sb.append("')");
+
+            Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
             Toast.makeText(contexto, "[insert] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            System.out.println("[insert] Error en FormulaDAO: " + e.toString());
+            Log.e("[Sin_nombre]","[insert] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -127,13 +131,13 @@ public class FormulaDAO {
             sb.append(dbh.FORMULA_OJO_IZQ).append("='").append(vo.getaVisualOI()).append("' ");
             sb.append("WHERE ").append(dbh.FORMULA_ID).append("=").append(vo.getIdFormula());
 
-            System.out.println("SQL: " + sb.toString());
+            Log.d("[Sin_nombre]","SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[update] Error en FormulaDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[update] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -155,7 +159,7 @@ public class FormulaDAO {
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[delete] Error en FormulaDAO: " + e.toString());
+            Log.e("[Sin_nombre]","[delete] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }

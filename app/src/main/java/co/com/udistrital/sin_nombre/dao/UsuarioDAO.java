@@ -3,6 +3,7 @@ package co.com.udistrital.sin_nombre.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class UsuarioDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[UsuarioDAO] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[UsuarioDAO] Error en UsuarioDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[UsuarioDAO] Error en UsuarioDAO: " + e.toString());
         }
     }
 
@@ -43,6 +44,9 @@ public class UsuarioDAO {
             List<UsuarioVO> listaUsuario = new ArrayList<UsuarioVO>();
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_USUARIO);
+
+            Log.d("Sin_nombre", "[list] SQL: " + sb.toString());
+
             Cursor listaUsuarios = db.rawQuery(sb.toString(), null);
             if(listaUsuarios.moveToFirst()){
                 do{
@@ -68,8 +72,8 @@ public class UsuarioDAO {
             }
             return listaUsuario;
         } catch (Exception e){
-            Toast.makeText(contexto, "[UsuarioDAO] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[UsuarioDAO] Error en UsuarioDAO: " + e.toString());
+            Toast.makeText(contexto, "[list] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("[Sin_nombre]", "[list] Error en UsuarioDAO: " + e.toString());
             return null;
         }
     }
@@ -81,14 +85,17 @@ public class UsuarioDAO {
      * @return
      */
     public UsuarioVO consult(int idUsuario) {
-        UsuarioVO objUsuario= new UsuarioVO();
+        UsuarioVO objUsuario = new UsuarioVO();
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SESION);
             sb.append(" WHERE ").append(dbh.SESION_ID).append(" = ").append(idUsuario);
+
+            Log.d("[Sin_nombre]", "[consult] SQL: " + sb.toString());
+
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
-            if (fila != null){
+            if (fila != null) {
                 objUsuario.setIdUsuario(fila.getInt(0));
                 objUsuario.setNombreUsuario(fila.getString(1));
                 objUsuario.setApellido1Usuario(fila.getString(2));
@@ -107,36 +114,11 @@ public class UsuarioDAO {
                 objUsuario.setRestablecerUsuario(resDao.consult(fila.getInt(9)));
             }
             return objUsuario;
-        } catch (Exception e){
-            Toast.makeText(contexto, "[consult] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            System.out.println("[consult] Error en SesionDAO: " + e.toString());
+        } catch (Exception e) {
+            Toast.makeText(contexto, "[consult] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("[Sin_nombre]", "[consult] Error en UsuarioDAO: " + e.toString());
             return null;
         }
-    }
-
-    /**
-     * <b>Descripcion: </b>Metodo para consultar un nombre de usuario en la BDD
-     */
-    public int consultanombreu( String userName) {
-        try {
-            int r;
-            StringBuilder sb = new StringBuilder();
-            sb.append("SELECT  COUNT(*) FROM ").append(dbh.TABLE_NAME_USUARIO).append(" WHERE ");
-            sb.append(dbh.USUARIO_NOMBRE).append(" ='").append(userName).append("'");
-
-            System.out.println("SQL: " + sb.toString());
-
-            Cursor fila = db.rawQuery( sb.toString() , null);
-            fila.moveToFirst();
-            r=Integer.parseInt(fila.getString(0));
-            Toast.makeText(contexto,"Entro: "+r,Toast.LENGTH_SHORT).show();
-
-            return r;
-        }catch (Exception e){
-            Toast.makeText(contexto,"Error:"+ e.toString(),Toast.LENGTH_SHORT).show();
-            System.out.println("Error:"+ e.toString());
-        }
-        return -1;
     }
 
     /**
@@ -233,11 +215,14 @@ public class UsuarioDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("DELETE FROM ").append(dbh.TABLE_NAME_USUARIO);
             sb.append(" WHERE ").append(dbh.USUARIO_ID).append(" = ").append(idUsuario);
+
+            Log.d("[Sin_nombre]", "[delete] SQL: " + sb.toString());
+
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[delete] Error en UsuarioDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[delete] Error en UsuarioDAO: " + e.toString());
             return false;
         }
     }
