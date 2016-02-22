@@ -91,8 +91,8 @@ public class SesionDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un registro en la tabla
-     * SESION de la BDD recibiendo como parametro el id del registro.
+     * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un Registro en la tabla
+     * SESION de la BDD recibiendo como parametro el id del Registro.
      * @param idSesion
      * @return
      */
@@ -146,7 +146,7 @@ public class SesionDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de actualizar un registro de la tabla SESION recibiendo
+     * <b>Descripcion: </b>Metodo encargado de actualizar un Registro de la tabla SESION recibiendo
      * como parametro un objeto con los valores a actualizar.
      * @param vo
      * @return
@@ -171,7 +171,7 @@ public class SesionDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de realizar el borrado de un registro en la tabla SESION
+     * <b>Descripcion: </b>Metodo encargado de realizar el borrado de un Registro en la tabla SESION
      * @param idSesion
      * @return
      */

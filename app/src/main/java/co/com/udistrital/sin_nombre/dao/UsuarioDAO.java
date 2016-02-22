@@ -79,8 +79,8 @@ public class UsuarioDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un registro en la tabla
-     * USUARIO de la BDD recibiendo como parametro el id del registro.
+     * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un Registro en la tabla
+     * USUARIO de la BDD recibiendo como parametro el id del Registro.
      * @param idUsuario
      * @return
      */
@@ -162,7 +162,7 @@ public class UsuarioDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de actualizar un registro de la tabla USUARIO recibiendo
+     * <b>Descripcion: </b>Metodo encargado de actualizar un Registro de la tabla USUARIO recibiendo
      * como parametro un objeto con los valores a actualizar.
      * @param vo
      * @return
@@ -206,7 +206,7 @@ public class UsuarioDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de realizar el borrado de un registro en la tabla USUARIO
+     * <b>Descripcion: </b>Metodo encargado de realizar el borrado de un Registro en la tabla USUARIO
      * @param idUsuario
      * @return
      */

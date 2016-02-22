@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="co.com.udistrital.sin_nombre.view.registro">
+    tools:context=".view.Registro">
 
     <TabHost
         android:layout_width="fill_parent"
@@ -494,27 +494,81 @@
                         <ScrollView
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:id="@+id/scrollView4"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true" >
+                            android:id="@+id/scrollView4">
 
                             <RelativeLayout
-                                android:layout_marginTop="10dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
                                 <LinearLayout
-                                    android:id="@+id/l02"
+                                    android:id="@+id/l0"
                                     android:orientation="vertical"
                                     android:layout_width="match_parent"
                                     android:layout_height="fill_parent"
                                     android:gravity="center">
 
+                                    <LinearLayout
+                                        android:id="@+id/l9"
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center">
+
+                                        <EditText
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:enabled="false"
+                                            android:id="@+id/txtTamanioFuente" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/l1"
+                                        android:layout_below="@+id/l0"
+                                        android:orientation="horizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:layout_weight="1">
+
+                                        <Button
+                                            style="?android:attr/buttonStyleSmall"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="-"
+                                            android:onClick="menosET"
+                                            android:id="@+id/btnMenos"
+                                            android:background="@android:color/holo_green_light" />
+
+                                        <SeekBar
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:id="@+id/sbBarra"
+                                            android:layout_weight="1"
+                                            android:max="100"
+                                            android:indeterminate="false" />
+
+                                        <Button
+                                            style="?android:attr/buttonStyleSmall"
+                                            android:layout_marginStart="15dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:onClick="masET"
+                                            android:text="+"
+                                            android:id="@+id/btnMas"
+                                            android:background="@android:color/holo_green_light" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"></LinearLayout>
+
                                     <EditText
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"
                                         android:inputType="textMultiLine"
-                                        android:id="@+id/txttexto2"
+                                        android:id="@+id/txtTexto"
                                         android:enabled="false"
                                         android:textSize="20dp"
                                         android:text="Ayer vi a los caminantes: a los indiferentes, los miedosos, los valientes, los cansados, los enamorados, y los desahuciados. Ví como sus pasos se convertían en fino polvo al contacto con el inmediato y fugazpresente. Descubrí que a la mayoría el pasado no le servía de nada. Aún no terminaba de observarlos y el futuro ya se apropiaba de aquel presente, ahora convertido en pasado, mostrándole a cada cual las consecuencias de sus actos"
@@ -522,53 +576,28 @@
                                         android:layout_weight="1"
                                         />
 
+                                    <LinearLayout
+                                        android:layout_marginTop="15dp"
+                                        android:id="@+id/l2"
+                                        android:layout_below="@+id/l1"
+                                        android:orientation="horizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:layout_weight="1">
+
+                                        <Button
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Siguiente"
+                                            android:onClick="siguiente"
+                                            android:id="@+id/btnSiguiente"
+                                            android:background="@android:color/holo_green_light"
+                                            android:longClickable="true" />
+                                    </LinearLayout>
+
                                 </LinearLayout>
 
-                                <LinearLayout
-                                    android:id="@+id/l12"
-                                    android:layout_below="@+id/l02"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center">
-
-                                    <Button
-                                        style="?android:attr/buttonStyleSmall"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="+"
-                                        android:onClick="masET"
-                                        android:id="@+id/btnmas"
-                                        android:background="@android:color/holo_green_light" />
-
-                                    <Button
-                                        style="?android:attr/buttonStyleSmall"
-                                        android:layout_marginStart="15dp"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:onClick="menosET"
-                                        android:text="-"
-                                        android:id="@+id/btnmenos"
-                                        android:background="@android:color/holo_green_light" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_marginTop="15dp"
-                                    android:id="@+id/lr3"
-                                    android:layout_below="@+id/l12"
-                                    android:orientation="horizontal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center">
-
-                                    <Button
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Siguiente"
-                                        android:onClick="siguiente"
-                                        android:id="@+id/btnsiguiente"
-                                        android:background="@android:color/holo_green_light" />
-                                </LinearLayout>
                             </RelativeLayout>
                         </ScrollView>
                     </RelativeLayout>

@@ -66,8 +66,8 @@ public class SistemaDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un registro en la tabla
-     * SISTEMA de la BDD recibiendo como parametro el id del registro.
+     * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un Registro en la tabla
+     * SISTEMA de la BDD recibiendo como parametro el id del Registro.
      * @param idSistema
      * @return
      */
@@ -121,7 +121,7 @@ public class SistemaDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de actualizar un registro de la tabla SISTEMA recibiendo
+     * <b>Descripcion: </b>Metodo encargado de actualizar un Registro de la tabla SISTEMA recibiendo
      * como parametro un objeto con los valores a actualizar.
      * @param vo
      * @return
@@ -146,8 +146,8 @@ public class SistemaDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de realizar el borrado de un registro en la tabla SISTEMA
-     * recibiendo como parametro el id del registro a eliminar.
+     * <b>Descripcion: </b>Metodo encargado de realizar el borrado de un Registro en la tabla SISTEMA
+     * recibiendo como parametro el id del Registro a eliminar.
      * @param idSistema
      * @return
      */

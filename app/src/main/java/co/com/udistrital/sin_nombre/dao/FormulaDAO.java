@@ -62,8 +62,8 @@ public class FormulaDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un registro en la tabla
-     * FORMULA de la BDD recibiendo como parametro el id del registro.
+     * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un Registro en la tabla
+     * FORMULA de la BDD recibiendo como parametro el id del Registro.
      * @param idFormula
      * @return
      */
@@ -117,7 +117,7 @@ public class FormulaDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de actualizar un registro de la tabla FORMULA recibiendo
+     * <b>Descripcion: </b>Metodo encargado de actualizar un Registro de la tabla FORMULA recibiendo
      * como parametro un objeto con los valores a actualizar.
      * @param vo
      * @return
@@ -143,7 +143,7 @@ public class FormulaDAO {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargado de realizar el borrado de un registro en la tabla FORMULA
+     * <b>Descripcion: </b>Metodo encargado de realizar el borrado de un Registro en la tabla FORMULA
      * @param idFormula
      * @return
      */
