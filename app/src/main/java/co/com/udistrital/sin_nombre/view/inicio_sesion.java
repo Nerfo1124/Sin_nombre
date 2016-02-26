@@ -31,8 +31,8 @@ public class inicio_sesion extends AppCompatActivity {
         setContentView(R.layout.activity_inicio_sesion);
         getSupportActionBar().setTitle("Inicio Sesion");
         //getSupportActionBar().setIcon(R.drawable.icono_home);
-        txtusuario = (EditText)findViewById(R.id.txtusuario);
-        txtpassword = (EditText)findViewById(R.id.txtcontraseña);
+        txtusuario = (EditText)findViewById(R.id.txtUsuario);
+        txtpassword = (EditText)findViewById(R.id.txtPassword);
     }
 
     @Override
@@ -108,8 +108,8 @@ public class inicio_sesion extends AppCompatActivity {
     }
 
     /**
-     * metodo encargador de revisar si el usuario ingresado en el dialogo fue encontrado y si lo esta
-     *busca las preguntas que permiten realizar el cambio de contraseña
+     * <b>Descripcion: </b>Metodo encargador de revisar si el usuario ingresado en el dialogo fue encontrado y si lo esta
+     * busca las preguntas que permiten realizar el cambio de contraseña
      * @param txt recibe el nombre del usuario
      * @return retorna un ' -1 ' si no se encontro el usuario digitado o un ' -2 ' si  no se ha
      * digitado  un usuario  o en caso contrario retorna un valor string con las preguntas del usuario

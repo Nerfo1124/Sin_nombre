@@ -6,10 +6,11 @@
     <string name="IS_BU_forgetpass">¿Olvidaste tu contraseña?</string>
     <string name="IS_BU_enter">Entrar</string>
     <string name="IS_BU_signup">Registrarme</string>
+
     <string name="RE_TV_title">Registro De Datos</string>
     <string name="RE_ET_nameuser">Nombre para usuario</string>
     <string name="RE_ET_yourname">Su nombre</string>
-    <string name="RE_ET_surname">Sus apellidos</string>
+    <string name="RE_ET_lastname">Sus apellidos</string>
     <string name="RE_ET_date">Seleccionar fecha nacimiento</string>
     <string name="RE_TV_sex">Sexo:</string>
     <string name="RE_RB_female">Femenino</string>

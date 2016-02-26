@@ -12,7 +12,7 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/scrollView"
+        android:id="@+id/svInicioSesion"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true">
 
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/IS_TV_title"
-                android:id="@+id/textView"
+                android:id="@+id/txtTituloSesion"
                 android:textSize="30dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
@@ -37,7 +37,7 @@
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/txtTituloSesion"
                 android:weightSum="1"
                 android:layout_marginTop="10dp"
                 android:id="@+id/linearLayout">
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:hint="@string/IS_ET_nameuser"
-                    android:id="@+id/txtusuario"
+                    android:id="@+id/txtUsuario"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:hint="@string/IS_ET_password"
-                    android:id="@+id/txtcontraseña"
+                    android:id="@+id/txtPassword"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/IS_BU_forgetpass"
                 android:layout_marginTop="10dp"
-                android:id="@+id/btnolvidar"
+                android:id="@+id/btnOlvidoPass"
                 android:layout_below="@+id/linearLayout2"
                 android:onClick="olvido"
                 android:textSize="15dp"
@@ -81,11 +81,11 @@
                 android:textColor="#181eff"/>
 
             <View
-                android:id="@+id/divider2"
+                android:id="@+id/cvDivider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="#C8C9CB"
-                android:layout_below="@+id/btnolvidar"
+                android:layout_below="@+id/btnOlvidoPass"
                 android:layout_alignParentStart="true" />
 
             <Button
@@ -93,8 +93,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/IS_BU_enter"
                 android:layout_marginTop="15dp"
-                android:id="@+id/btnentrar"
-                android:layout_below="@+id/btnolvidar"
+                android:id="@+id/btnIngresar"
+                android:layout_below="@+id/btnOlvidoPass"
                 android:onClick="entrar"
                 android:textSize="20dp"
                 android:textColor="#345bff" />
@@ -104,13 +104,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/IS_BU_signup"
-                android:id="@+id/btnregistrar"
+                android:id="@+id/btnRegistrar"
                 android:onClick="registrar"
                 android:layout_marginTop="15dp"
                 android:textSize="20dp"
                 android:background="#f8d11c"
                 android:textColor="#181eff"
-                android:layout_below="@+id/btnentrar"
+                android:layout_below="@+id/btnIngresar"
                 />
         </RelativeLayout>
     </ScrollView>

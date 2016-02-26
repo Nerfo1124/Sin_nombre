@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
             <TabWidget
-                android:id="@android:id/tabs"
+                android:id="@+id/tabHostMenu"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"></TabWidget>
 
@@ -32,14 +32,14 @@
                 android:layout_height="fill_parent">
 
                 <LinearLayout
-                    android:id="@+id/registro1"
+                    android:id="@+id/registroR1"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical">
                     <ScrollView
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:id="@+id/scrollView2"
+                        android:id="@+id/scrollViewR1"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true" >
@@ -53,17 +53,17 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:text="Registro De Datos"
+                                android:text="@string/IS_TV_title"
                                 android:textSize="30dp"
                                 android:gravity="center"
                                 android:textColor="#2c56c5"
-                                android:id="@+id/lbltituloR1"
+                                android:id="@+id/txtTituloRegistro"
                                 android:layout_alignParentTop="true"
                                 android:layout_centerHorizontal="true" />
 
                             <LinearLayout
                                 android:id="@+id/l0R1"
-                                android:layout_below="@+id/lbltituloR1"
+                                android:layout_below="@+id/txtTituloRegistro"
                                 android:layout_marginTop="15dp"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
@@ -74,8 +74,8 @@
                                     android:layout_height="wrap_content"
                                     android:inputType="textNoSuggestions"
                                     android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890.-_"
-                                    android:hint="Nombre para usuario"
-                                    android:id="@+id/txtusuarioR1"
+                                    android:hint="@string/RE_ET_nameuser"
+                                    android:id="@+id/txtUsuarioR1"
                                     android:layout_weight="1" />
                             </LinearLayout>
 
@@ -91,9 +91,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="textNoSuggestions"
-                                    android:hint="Su nombre"
+                                    android:hint="@string/RE_ET_yourname"
                                     android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890.-_ "
-                                    android:id="@+id/txtnombreR1"
+                                    android:id="@+id/txtNombreR1"
                                     android:layout_weight="1" />
                             </LinearLayout>
 
@@ -110,8 +110,8 @@
                                     android:layout_height="wrap_content"
                                     android:inputType="textNoSuggestions"
                                     android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890.-_ "
-                                    android:hint="Sus apellidos"
-                                    android:id="@+id/txtapellidoR1"
+                                    android:hint="@string/RE_ET_lastname"
+                                    android:id="@+id/txtApellidoR1"
                                     android:layout_weight="1" />
                             </LinearLayout>
 
@@ -127,7 +127,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="date"
-                                    android:hint="Seleccionar fecha nacimiento"
+                                    android:hint="@string/RE_ET_date"
                                     android:id="@+id/txtfechaR1"
                                     android:layout_weight="1"
                                     android:editable="false" />
@@ -145,7 +145,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Sexo:"
+                                    android:text="@string/RE_TV_sex"
                                     android:textSize="20dp"
                                     android:id="@+id/lblsexoR1" />
 
@@ -159,7 +159,7 @@
                                     <RadioButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Femenino"
+                                        android:text="@string/RE_RB_female"
                                         android:textSize="20dp"
                                         android:id="@+id/rbmujerR1"
                                         android:checked="true" />
@@ -168,8 +168,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textSize="20dp"
-                                        android:text="Masculino"
-                                        android:id="@+id/rbhombreR1" />
+                                        android:text="@string/RE_RB_male"
+                                        android:id="@+id/rbHombreR1"
+                                        android:checked="false" />
 
                                 </RadioGroup>
                             </LinearLayout>
@@ -186,8 +187,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="textPassword"
-                                    android:hint="Digite una contraseña"
-                                    android:id="@+id/txtcontraseñarR1"
+                                    android:hint="@string/RE_ET_password"
+                                    android:id="@+id/txtContrasenia1R1"
                                     android:layout_weight="1"
                                     android:text="123456" />
                             </LinearLayout>
@@ -205,8 +206,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:inputType="textPassword"
-                                    android:hint="Digite de nuevo la contraseña"
-                                    android:id="@+id/txtcontraseña2R1"
+                                    android:hint="@string/RE_ET_repeatpassword"
+                                    android:id="@+id/txtContrasenia2R1"
                                     android:layout_weight="1"
                                     android:text="123456" />
                             </LinearLayout>
@@ -222,7 +223,7 @@
                                 <Spinner
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/selectorR1"
+                                    android:id="@+id/spSelectorR1"
                                     android:layout_weight="1"
                                     android:background="@android:color/holo_green_light"/>
 
@@ -237,10 +238,10 @@
                                 android:layout_height="match_parent">
 
                                 <EditText
-                                    android:hint="Ingrese la respuesta"
+                                    android:hint="@string/RE_ET_answer"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/txtpreguntaR1" />
+                                    android:id="@+id/txtPreguntaR1" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -256,8 +257,8 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="¿Tiene Formula Medica?"
-                                    android:id="@+id/textView2R1"
+                                    android:text="@string/RE_TV_formula"
+                                    android:id="@+id/txtFormulaPR1"
                                     android:textSize="20dp"
                                     android:layout_weight="1"
                                     android:gravity="center" />
@@ -277,21 +278,21 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical"
-                                    android:id="@+id/radiogrupo2R1"
+                                    android:id="@+id/radioGrupo2R1"
                                     android:gravity="center">
 
                                     <RadioButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="SI"
-                                        android:id="@+id/radiosiR1"
-                                        android:checked="false" />
+                                        android:text="@string/RE_RB_yes"
+                                        android:id="@+id/radioSiR1"
+                                        android:checked="true" />
 
                                     <RadioButton
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="No"
-                                        android:id="@+id/radionoR1"
+                                        android:text="@string/RE_RB_no"
+                                        android:id="@+id/radioNoR1"
                                         android:checked="true" />
                                 </RadioGroup>
                             </LinearLayout>
@@ -309,7 +310,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Continuar"
                                     android:onClick="continuar"
-                                    android:id="@+id/continuarunoR1"
+                                    android:id="@+id/btnContinuarR1"
                                     android:textSize="20dp"
                                     android:layout_weight="1" />
                             </LinearLayout>
@@ -318,7 +319,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/registro2"
+                    android:id="@+id/registroR2"
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -331,7 +332,7 @@
                         <ScrollView
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:id="@+id/scrollView3" >
+                            android:id="@+id/scrollViewD1R2" >
 
                             <RelativeLayout
                                 android:layout_marginTop="10dp"
@@ -349,7 +350,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="Ojo Izquierdo:"
                                         android:textSize="25dp"
-                                        android:id="@+id/lblojoizq" />
+                                        android:id="@+id/txtValorOjoIzq" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -363,7 +364,7 @@
                                     <SeekBar
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:id="@+id/barra"
+                                        android:id="@+id/sbBarraIzqR2"
                                         android:progress="0"
                                         android:indeterminate="false"
                                         android:layout_weight="1"
@@ -375,7 +376,7 @@
                                         android:layout_height="wrap_content"
                                         android:onClick="menos"
                                         android:text="-"
-                                        android:id="@+id/btnmenos2"
+                                        android:id="@+id/btnMenosIR2"
                                         android:background="@android:color/holo_green_light" />
 
                                     <TextView
@@ -383,7 +384,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:textAppearance="?android:attr/textAppearanceSmall"
-                                        android:id="@+id/lblizq"
+                                        android:id="@+id/lblIzquierdo"
                                         android:textSize="20dp"
                                         android:background="@android:color/holo_green_light"
                                         android:backgroundTint="@android:color/holo_blue_dark" />
@@ -395,7 +396,7 @@
                                         android:layout_height="wrap_content"
                                         android:onClick="mas"
                                         android:text="+"
-                                        android:id="@+id/btnmas2"
+                                        android:id="@+id/btnMasIR2"
                                         android:background="@android:color/holo_green_light" />
 
                                 </LinearLayout>
@@ -413,7 +414,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="Ojo Derecho:"
                                         android:textSize="25dp"
-                                        android:id="@+id/lblojoder" />
+                                        android:id="@+id/txtValorOjoDer" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -427,18 +428,18 @@
                                     <SeekBar
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:id="@+id/barra2"
+                                        android:id="@+id/sbBarraDerR2"
                                         android:indeterminate="false"
                                         android:layout_weight="1"
                                         />
-
++
                                     <Button
                                         style="?android:attr/buttonStyleSmall"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:onClick="menos2"
                                         android:text="-"
-                                        android:id="@+id/btnmenos22"
+                                        android:id="@+id/btnMenosDR2"
                                         android:background="@android:color/holo_green_light" />
 
                                     <TextView
@@ -446,7 +447,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
                                         android:textAppearance="?android:attr/textAppearanceSmall"
-                                        android:id="@+id/lblder"
+                                        android:id="@+id/lblDerecho"
                                         android:textSize="20dp"
                                         android:background="@android:color/holo_green_light"
                                         android:backgroundTint="@android:color/holo_blue_dark" />
@@ -458,7 +459,7 @@
                                         android:layout_height="wrap_content"
                                         android:onClick="mas2"
                                         android:text="+"
-                                        android:id="@+id/btnmas22"
+                                        android:id="@+id/btnMasDR2"
                                         android:background="@android:color/holo_green_light" />
                                 </LinearLayout>
 
@@ -473,9 +474,9 @@
                                     <Button
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"
-                                        android:text="Siguiente"
+                                        android:text="Continuar"
                                         android:onClick="siguiente"
-                                        android:id="@+id/button2"
+                                        android:id="@+id/btnContinuarD1R2"
                                         android:textSize="20dp"
                                         android:layout_weight="1"
                                         android:background="@android:color/holo_green_light" />
@@ -494,7 +495,7 @@
                         <ScrollView
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:id="@+id/scrollView4">
+                            android:id="@+id/scrollViewD2R2">
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -562,7 +563,7 @@
                                     <LinearLayout
                                         android:orientation="vertical"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"></LinearLayout>
+                                        android:layout_height="wrap_content">
 
                                     <EditText
                                         android:layout_width="fill_parent"
@@ -575,6 +576,7 @@
                                         android:gravity="center_horizontal"
                                         android:layout_weight="1"
                                         />
+                                    </LinearLayout>
 
                                     <LinearLayout
                                         android:layout_marginTop="15dp"
@@ -589,9 +591,9 @@
                                         <Button
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Siguiente"
+                                            android:text="Continuar"
                                             android:onClick="siguiente"
-                                            android:id="@+id/btnSiguiente"
+                                            android:id="@+id/btnContinuarD2R2"
                                             android:background="@android:color/holo_green_light"
                                             android:longClickable="true" />
                                     </LinearLayout>
@@ -605,7 +607,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/registro3"
+                    android:id="@+id/registroR3"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical">
@@ -613,7 +615,7 @@
                     <ScrollView
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:id="@+id/scrollView5"
+                        android:id="@+id/scrollViewR3"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true">
@@ -632,7 +634,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="textMultiLine"
-                                    android:id="@+id/txttexto"
+                                    android:id="@+id/txtTextoR3"
                                     android:enabled="false"
                                     android:textSize="20dp"
                                     android:text="la siguiente variable que debera ajustar, sera  la frecuencia(en horas)en la cual  usted desea realizar los ejercicios que tenemos para su ayudar a mejorar su vision"
@@ -651,7 +653,7 @@
                                 <NumberPicker
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/numero"
+                                    android:id="@+id/npNumero"
                                     android:layout_alignTop="@+id/numberPicker"
                                     android:layout_alignLeft="@+id/numberPicker"
                                     android:layout_alignStart="@+id/numberPicker"
@@ -664,7 +666,7 @@
                                     android:textAppearance="?android:attr/textAppearanceSmall"
                                     android:text="Horas"
                                     android:textSize="20dp"
-                                    android:id="@+id/lblhora" />
+                                    android:id="@+id/lblHora" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -681,7 +683,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Terminar"
                                     android:onClick="terminar"
-                                    android:id="@+id/button4"
+                                    android:id="@+id/btnFinalizarR3"
                                     android:layout_alignParentBottom="true"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginBottom="174dp"
@@ -695,6 +697,4 @@
             </FrameLayout>
         </LinearLayout>
     </TabHost>
-
-
 </RelativeLayout>
