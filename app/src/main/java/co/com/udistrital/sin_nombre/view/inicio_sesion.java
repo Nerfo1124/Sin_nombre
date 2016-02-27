@@ -22,6 +22,9 @@ import co.com.udistrital.sin_nombre.R;
  */
 public class inicio_sesion extends AppCompatActivity {
 
+    /**
+     * Variables para el manejo de los componentes de aplicacion.
+     */
     private EditText txtusuario,txtpassword;
 
     @Override
@@ -31,8 +34,8 @@ public class inicio_sesion extends AppCompatActivity {
         setContentView(R.layout.activity_inicio_sesion);
         getSupportActionBar().setTitle("Inicio Sesion");
         //getSupportActionBar().setIcon(R.drawable.icono_home);
-        txtusuario = (EditText)findViewById(R.id.txtUsuario);
-        txtpassword = (EditText)findViewById(R.id.txtPassword);
+        txtusuario = (EditText)findViewById(R.id.txtusuario);
+        txtpassword = (EditText)findViewById(R.id.txtcontraseña);
     }
 
     @Override
@@ -108,8 +111,8 @@ public class inicio_sesion extends AppCompatActivity {
     }
 
     /**
-     * <b>Descripcion: </b>Metodo encargador de revisar si el usuario ingresado en el dialogo fue encontrado y si lo esta
-     * busca las preguntas que permiten realizar el cambio de contraseña
+     * metodo encargador de revisar si el usuario ingresado en el dialogo fue encontrado y si lo esta
+     *busca las preguntas que permiten realizar el cambio de contraseña
      * @param txt recibe el nombre del usuario
      * @return retorna un ' -1 ' si no se encontro el usuario digitado o un ' -2 ' si  no se ha
      * digitado  un usuario  o en caso contrario retorna un valor string con las preguntas del usuario
@@ -218,15 +221,15 @@ public class inicio_sesion extends AppCompatActivity {
     public void Dialogo(String tit, final String men, final int opc){
         try {
             new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle(tit)
-                    .setMessage(men)
-                    .setCancelable(false)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    }).show();
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(tit)
+                .setMessage(men)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).show();
         }catch (Exception e){
             Toast.makeText(this,"Error iniciosesion - Dialogo:"+e.toString(),Toast.LENGTH_SHORT).show();
         }

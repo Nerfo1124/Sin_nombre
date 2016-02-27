@@ -98,7 +98,7 @@ public class RestablecerDAO {
             sb.append(" VALUES ('");
             sb.append(vo.getPregunta1() + "','").append(vo.getRespuesta1()).append("','");
             sb.append(vo.getPregunta2() + "','").append(vo.getRespuesta2()).append("',");
-            sb.append(vo.getTamanoFuente());
+            sb.append("'" + vo.getTamanoFuente() + "'");
             sb.append(")");
 
             Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());

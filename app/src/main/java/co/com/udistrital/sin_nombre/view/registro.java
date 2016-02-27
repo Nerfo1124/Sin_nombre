@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -39,17 +40,29 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     private UsuarioDAO objUsuarioDao;
     private SesionDAO objSesionDao;
 
+    private String tamanioSistema;
+
     private RadioGroup gruposexo, grupoformula;//elementos para los grupos de tipo de sexo/formula
     private RelativeLayout layoutAnimadouno, layoutAnimadodos;// permiten agrupar  separadamente los elementos segun sea por formula o por ajuste manual
     private Spinner selector; //elemento que permite almacenar en forma de lista preguntas
     private TabHost TbH;//elemento que permite generar las pestañas
-    private EditText txtfecha, txtnombreu, txtcontra, txtcontrados, txtnombre, txtapellido, txtrespuesta;//elementos que hacen referencia a los datos necesarios del usuario
+    private EditText txtFecha, txtnombreu, txtcontra, txtcontrados, txtnombre, txtapellido, txtrespuesta;//elementos que hacen referencia a los datos necesarios del usuario
     private SeekBar barra, barra2;//elementos que permite seleccionar la formula(numero) de cada ojo
     private TextView iz,de;//elementos que llevaran el valor de formula del ojo izquierdo y  del ojo derecho
     private EditText texto;
+    private EditText tamanioF;
+    private SeekBar seekBar;
     private NumberPicker fre;//elemento que permite selecionar el numero de horas para la frecuencia de tiempo
-    String[] opciones = {"Seleccione una pregunta", "¿Nombre de tu mascota preferida?", "¿Lugar de nacimiento de tu padre?", "¿Cancion favorita?", "¿Mejor amigo?"};
-    //vector que almacena cada una de las preguntas separadamente
+
+    /**
+     * vector que almacena cada una de las preguntas separadamente
+     */
+    String[] opciones = {"Seleccione una pregunta",
+            "¿Nombre de tu mascota preferida?",
+            "¿Lugar de nacimiento de tu padre?",
+            "¿Cancion favorita?",
+            "¿Mejor amigo?"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("[Sin_nombre]", "Ingresando a la vista principal de Registro.");
@@ -88,8 +101,8 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         layoutAnimadouno = (RelativeLayout) findViewById(R.id.dinamico1);
         gruposexo = (RadioGroup) findViewById(R.id.radiogrupoR1);
         grupoformula = (RadioGroup) findViewById(R.id.radiogrupo2R1);
-        txtfecha = (EditText) findViewById(R.id.txtfechaR1);
-        txtnombreu = (EditText) findViewById(R.id.txtusuarioR1);
+        txtFecha = (EditText) findViewById(R.id.txtfechaR1);
+        txtnombreu = (EditText) findViewById(R.id.txtUsuarioR1);
         txtcontra = (EditText) findViewById(R.id.txtcontraseñarR1);
         txtcontrados = (EditText) findViewById(R.id.txtcontraseña2R1);
         txtnombre = (EditText) findViewById(R.id.txtnombreR1);
@@ -106,13 +119,35 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      *  esto con el fin de poder hacer cambios en dichos elementos
      */
     public void referenciasdos(){
+        seekBar = (SeekBar) findViewById(R.id.sbBarra);
+        texto = (EditText) findViewById(R.id.txtTexto);
+        seekBar.setProgress((int) texto.getTextSize());
+        tamanioF = (EditText) findViewById(R.id.txtTamanioFuente);
+        tamanioF.setText("Tamaño de la Fuente: " + seekBar.getProgress() + "%");
         barra = (SeekBar)findViewById(R.id.barra);
         barra.setOnSeekBarChangeListener(this);
         barra2 = (SeekBar)findViewById(R.id.barra2);
         barra2.setOnSeekBarChangeListener (this);
         iz = (TextView)findViewById(R.id.lblizq);
         de = (TextView)findViewById(R.id.lblder);
-        texto = (EditText)findViewById(R.id.txttexto2);
+
+        tamanioSistema = "" + texto.getTextSize();
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tamanioF.setText("Tamaño de la Fuente: " + progress + "%");
+                texto.setTextSize(TypedValue.COMPLEX_UNIT_PX, progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
     }
 
     public void referenciastres(){
@@ -162,7 +197,7 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      * metodo  que permite automaticamente abrir un dialogo que permite selecionar fechas.
      */
     public void abrir() {
-        txtfecha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        txtFecha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
@@ -238,6 +273,12 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         }
     }
 
+    public void siguiente(View v){
+        if(""+texto.getTextSize() != null && ""+texto.getTextSize() != ""){
+            TbH.setCurrentTab(2);
+        }
+    }
+
     /**
      * metodo  que verifica que los edittext tengan espacion en blanco o con " " y  en caso tal de
      * cumplan esta condicion se devolvera un entero con valor cero 0 o  si todos los edittext tienen
@@ -266,11 +307,11 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             txtapellido.setHint("Debe ingresar su apellido");
             txtapellido.setHintTextColor(Color.parseColor("#51FF1218"));
         }
-        if ("".equals(txtfecha.getText().toString())) {
+        if ("".equals(txtFecha.getText().toString())) {
             r = 0;
-            txtfecha.setText("");
-            txtfecha.setHint("Debe ingresar su fecha de nacimiento");
-            txtfecha.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtFecha.setText("");
+            txtFecha.setHint("Debe ingresar su fecha de nacimiento");
+            txtFecha.setHintTextColor(Color.parseColor("#51FF1218"));
         }
         if ("".equals(txtcontra.getText().toString())) {
             r = 0;
@@ -302,14 +343,14 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     public int compararfecha() {
         Calendar f = Calendar.getInstance();
         int año = f.get(Calendar.YEAR);
-        String[] fecha = txtfecha.getText().toString().split("-");
+        String[] fecha = txtFecha.getText().toString().split("-");
         año = año - Integer.parseInt(fecha[2]);
         if (año > 15)
             return 1;
         else {
-            txtfecha.setText("");
-            txtfecha.setHint("Su Fecha Debe Ser Menor Al Año 2000");
-            txtfecha.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtFecha.setText("");
+            txtFecha.setHint("Su Fecha Debe Ser Menor Al Año 2000");
+            txtFecha.setHintTextColor(Color.parseColor("#51FF1218"));
             return 0;
         }
     }
@@ -358,28 +399,49 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      * @param v
      */
     public void masET(View v){
-        float t= texto.getTextSize();
-        texto.setTextSize(t+4);
+        int progreso;
+        int newProgreso;
+        if (v.getId() == R.id.btnMas) {
+            progreso = seekBar.getProgress();
+            if (progreso < 100) {
+                newProgreso = progreso + 1;
+                seekBar.setProgress(newProgreso);
+                tamanioF.setText("Tamaño de la Fuente: " + newProgreso + "%");
+                texto.setTextSize(TypedValue.COMPLEX_UNIT_PX, newProgreso);
+            }
+        }
     }
 
     /**
-     * este metodo hace referencia a un jbutton encargado de disminuir el tamaño de la letra del texto
+     * <b>Descripcion: </b> Metodo que hace referencia a un jbutton encargado de disminuir el tamaño de la letra del texto
      * ubicado en la segunga pestaña en la opcion de ajuste manual
      * @param v
      */
     public void menosET(View v){
-        float t= texto.getTextSize();
-        texto.setTextSize(t-2);
+        int progreso;
+        int newProgreso;
+        if (v.getId() == R.id.btnMenos) {
+            progreso = seekBar.getProgress();
+            if (progreso > 0) {
+                newProgreso = progreso - 1;
+                seekBar.setProgress(newProgreso);
+                tamanioF.setText("Tamaño de la Fuente: " + newProgreso + "%");
+                texto.setTextSize(TypedValue.COMPLEX_UNIT_PX, newProgreso);
+            }
+        }
     }
 
     public void llenarUsuario(){
         usuarioReg.setNombreUsuario(txtnombre.getText().toString());
         String[] apellidos = txtapellido.getText().toString().split(" ");
         usuarioReg.setApellido1Usuario(apellidos[0]);
-        if(apellidos[1] != null && apellidos[1] != ""){
-            usuarioReg.setApellido2Usuario(apellidos[1]);
+        Log.d("[Sin_nombre]", "[llenarUsuario] Tamaño del array: " + apellidos.length);
+        if (apellidos.length > 1) {
+            if (apellidos[1] != null && apellidos[1] != "") {
+                usuarioReg.setApellido2Usuario(apellidos[1]);
+            }
         }
-        usuarioReg.setFechaNacimiento(txtfecha.getText().toString());
+        usuarioReg.setFechaNacimiento(txtFecha.getText().toString());
         if (gruposexo.getCheckedRadioButtonId() == R.id.rbhombreR1){
             usuarioReg.setSexo("Masculino");
         } else if (gruposexo.getCheckedRadioButtonId() == R.id.rbmujerR1){
@@ -422,7 +484,7 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         datorestablecer.setRespuesta1("si");
         datorestablecer.setPregunta2("y no niega");
         datorestablecer.setRespuesta2("si");
-        datorestablecer.setTamanoFuente(""+texto.getTextSize());
+        datorestablecer.setTamanoFuente(tamanioSistema);
         return datorestablecer;
     }
 
