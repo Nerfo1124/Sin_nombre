@@ -131,8 +131,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + RESTABLECER_QUEST1 + " text not null, "
             + RESTABLECER_ANSW1 + " text not null, "
             + RESTABLECER_QUEST2 + " text, "
-            + RESTABLECER_ANSW2 + " text"
-            + " ) ";
+            + RESTABLECER_ANSW2 + " text, "
+            + RESTABLECER_TAMANO_FUENTE+ " text ) ";
 
     // ========================================================
 }

@@ -13,10 +13,7 @@
         android:id="@+id/ejercicio"
         app:showAsAction="never"
         android:title="Ejercicios "/>
-    <item
-        android:id="@+id/usuario"
-        app:showAsAction="never"
-        android:title="Modificar usuario"/>
+
     <item
         android:id="@+id/cuenta"
         app:showAsAction="never"
