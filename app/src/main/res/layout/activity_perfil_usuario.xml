@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".view.PerfilUsuario">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/svPerfilUsuario"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Informacion de Perfil"
+                android:id="@+id/txtTituloPU"
+                android:textSize="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textColor="#2c56c5" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView"
+                android:weightSum="1"
+                android:layout_marginTop="50dp"
+                android:id="@+id/llViewNombreU">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="@string/IS_ET_nameuser"
+                    android:id="@+id/txtNombreUsuario"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView"
+                android:weightSum="1"
+                android:layout_marginTop="100dp"
+                android:id="@+id/llViewFecha">
+
+                <EditText
+                    android:layout_width="350dp"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:hint="Fecha de Nacimiento"
+                    android:id="@+id/txtFechaNacimiento" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView"
+                android:weightSum="1"
+                android:layout_marginTop="150dp"
+                android:id="@+id/llViewSexo">
+
+                <EditText
+                    android:layout_width="350dp"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:hint="Sexo"
+                    android:id="@+id/txtSexoUsuario" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView"
+                android:weightSum="1"
+                android:layout_marginTop="200dp"
+                android:id="@+id/llViewSesion">
+
+                <EditText
+                    android:layout_width="350dp"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:hint="Id de Sesion"
+                    android:id="@+id/txtIdSesion" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>
