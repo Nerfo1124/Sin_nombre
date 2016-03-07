@@ -1,9 +1,10 @@
 package co.com.udistrital.sin_nombre.view;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
@@ -19,14 +20,11 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import co.com.udistrital.sin_nombre.R;
-import co.com.udistrital.sin_nombre.dao.FormulaDAO;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
-import co.com.udistrital.sin_nombre.dao.database.DataBaseHelper;
 import co.com.udistrital.sin_nombre.util.DateDialog;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
@@ -34,7 +32,10 @@ import co.com.udistrital.sin_nombre.vo.SesionVO;
 import co.com.udistrital.sin_nombre.vo.SistemaVO;
 import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
-public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+/**
+ * Created by Fernando on 06/03/2016.
+ */
+public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
     private UsuarioVO usuarioReg = new UsuarioVO();
     private UsuarioDAO objUsuarioDao;
@@ -42,11 +43,26 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     private String tamanioSistema;
 
-    private RadioGroup gruposexo, grupoformula;//elementos para los grupos de tipo de sexo/formula
-    private RelativeLayout layoutAnimadouno, layoutAnimadodos;// permiten agrupar  separadamente los elementos segun sea por formula o por ajuste manual
-    private Spinner selector; //elemento que permite almacenar en forma de lista preguntas
-    private TabHost TbH;//elemento que permite generar las pestañas
-    private EditText txtFecha, txtnombreu, txtcontra, txtcontrados, txtnombre, txtapellido, txtrespuesta;//elementos que hacen referencia a los datos necesarios del usuario
+    /**
+     * Elementos para los grupos de tipo de sexo/formula
+     */
+    private RadioGroup grupoSexo, grupoFamilia;
+    /**
+     * Permiten agrupar  separadamente los elementos segun sea por formula o por ajuste manual
+     */
+    private RelativeLayout layoutAnimadoUno, layoutAnimadoDos;
+    /**
+     * Elemento que permite almacenar en forma de lista preguntas
+     */
+    private Spinner selector;
+    /**
+     * Elemento que permite generar las pestañas
+     */
+    private TabHost TbH;
+    /**
+     * Elementos que hacen referencia a los datos necesarios del usuario
+     */
+    private EditText txtFecha, txtNombreu, txtPassUno, txtPassDos, txtNombre, txtApellido, txtRespuesta;
     private SeekBar barra, barra2;//elementos que permite seleccionar la formula(numero) de cada ojo
     private TextView iz,de;//elementos que llevaran el valor de formula del ojo izquierdo y  del ojo derecho
     private EditText texto;
@@ -97,18 +113,18 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      *  esto con el fin de poder hacer cambios en dichos elementos
      */
     public void referenciasuno() {
-        layoutAnimadodos = (RelativeLayout) findViewById(R.id.dinamico2);
-        layoutAnimadouno = (RelativeLayout) findViewById(R.id.dinamico1);
-        gruposexo = (RadioGroup) findViewById(R.id.radiogrupoR1);
-        grupoformula = (RadioGroup) findViewById(R.id.radiogrupo2R1);
-        txtFecha = (EditText) findViewById(R.id.txtfechaR1);
-        txtnombreu = (EditText) findViewById(R.id.txtUsuarioR1);
-        txtcontra = (EditText) findViewById(R.id.txtcontraseñarR1);
-        txtcontrados = (EditText) findViewById(R.id.txtcontraseña2R1);
-        txtnombre = (EditText) findViewById(R.id.txtnombreR1);
-        txtapellido = (EditText) findViewById(R.id.txtapellidoR1);
+        layoutAnimadoUno = (RelativeLayout) findViewById(R.id.dinamico1);
+        layoutAnimadoDos = (RelativeLayout) findViewById(R.id.dinamico2);
+        grupoSexo = (RadioGroup) findViewById(R.id.radiogrupoR1);
+        grupoFamilia = (RadioGroup) findViewById(R.id.radiogrupo2R1);
+        txtFecha = (EditText) findViewById(R.id.txtFechaR1);
+        txtNombreu = (EditText) findViewById(R.id.txtUsuarioR1);
+        txtPassUno = (EditText) findViewById(R.id.txtPasswordUnoR1);
+        txtPassDos = (EditText) findViewById(R.id.txtPasswordDosR1);
+        txtNombre = (EditText) findViewById(R.id.txtNombreR1);
+        txtApellido = (EditText) findViewById(R.id.txtApellidoR1);
         selector = (Spinner) findViewById(R.id.selectorR1);
-        txtrespuesta = (EditText) findViewById(R.id.txtpreguntaR1);
+        txtRespuesta = (EditText) findViewById(R.id.txtRespuestaR1);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opciones);
         //se agrega el  vector string a un vector adpatador  con el fin de que este se pueda ajustar al sppiner.
         selector.setAdapter(adapter);
@@ -245,29 +261,29 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             }
             if (r2 == 1) {
                 // Codigo o funcion que determina si el usuario ingresado  ya esta creado
-                String nombreUsuario = txtnombreu.getText().toString();
+                String nombreUsuario = txtNombreu.getText().toString();
                 Log.d("[Sin_nombre]", "[continuar] Nombre de usuario a consultar: " + nombreUsuario);
                 r3 = objSesionDao.consultaNombreU(nombreUsuario);
                 if(r3 == 1){
-                    txtnombreu.setText("");
+                    txtNombreu.setText("");
                     Log.d("[Sin_nombre]", "[continuar] Ya hay un usuario con el nombre ingresado.");
-                    txtnombreu.setHint("Ya hay un usuario con este nombre");
-                    txtnombreu.setHintTextColor(Color.parseColor("#51FF1218"));
+                    txtNombreu.setHint("Ya hay un usuario con este nombre");
+                    txtNombreu.setHintTextColor(Color.parseColor("#51FF1218"));
                 }
                 r3=1;
             }
-            if (layoutAnimadouno.getVisibility() == View.GONE)
-                layoutAnimadouno.setVisibility(View.VISIBLE);//linea que muestra el layuot junto a todos sus elementos
-            if (layoutAnimadodos.getVisibility() == View.VISIBLE)
-                layoutAnimadodos.setVisibility(View.GONE);//metodo que oculpa el layout junto con todos sus elementos
+            if (layoutAnimadoUno.getVisibility() == View.GONE)
+                layoutAnimadoUno.setVisibility(View.VISIBLE);//linea que muestra el layuot junto a todos sus elementos
+            if (layoutAnimadoDos.getVisibility() == View.VISIBLE)
+                layoutAnimadoDos.setVisibility(View.GONE);//metodo que oculpa el layout junto con todos sus elementos
         }
-        Toast.makeText(this,""+r+" "+r2+" "+r3+" "+p,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "" + r + " " + r2 + " " + r3 + " " + p, Toast.LENGTH_LONG).show();
         if (r == 1 && r2 == 1 && r3 == 1 && p == 1) {
-            if (grupoformula.getCheckedRadioButtonId() != R.id.radiosiR1) {
-                if (layoutAnimadodos.getVisibility() == View.GONE)
-                    layoutAnimadodos.setVisibility(View.VISIBLE);
-                if (layoutAnimadouno.getVisibility() == View.VISIBLE)
-                    layoutAnimadouno.setVisibility(View.GONE);
+            if (grupoFamilia.getCheckedRadioButtonId() != R.id.radiosiR1) {
+                if (layoutAnimadoDos.getVisibility() == View.GONE)
+                    layoutAnimadoDos.setVisibility(View.VISIBLE);
+                if (layoutAnimadoUno.getVisibility() == View.VISIBLE)
+                    layoutAnimadoUno.setVisibility(View.GONE);
             }
             TbH.setCurrentTab(1);
         }
@@ -288,24 +304,24 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      */
     public int espaciosblancos() {
         int r = 1;
-        if ("".equals(txtnombreu.getText().toString())||0==espacios(txtnombreu.getText().toString())) {
+        if ("".equals(txtNombreu.getText().toString()) || 0 == espacios(txtNombreu.getText().toString())) {
             r = 0;
-            txtnombreu.setHint("Debe ingresar un nombre de usuario");
-            txtnombreu.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtNombreu.setHint("Debe ingresar un nombre de usuario");
+            txtNombreu.setHintTextColor(Color.parseColor("#51FF1218"));
         }
 
-        if ("".equals(txtnombre.getText().toString())||0==espacios(txtnombre.getText().toString())) {
+        if ("".equals(txtNombre.getText().toString()) || 0 == espacios(txtNombre.getText().toString())) {
             r = 0;
-            txtnombre.setText("");
-            txtnombre.setHint("Debe ngresar su nombre");
-            txtnombre.setHintTextColor(Color.parseColor("#51FF1218"));//cambia a color rojo
+            txtNombre.setText("");
+            txtNombre.setHint("Debe ngresar su nombre");
+            txtNombre.setHintTextColor(Color.parseColor("#51FF1218"));//cambia a color rojo
         }
 
-        if ("".equals(txtapellido.getText().toString())||0==espacios(txtapellido.getText().toString())) {
+        if ("".equals(txtApellido.getText().toString()) || 0 == espacios(txtApellido.getText().toString())) {
             r = 0;
-            txtapellido.setText("");
-            txtapellido.setHint("Debe ingresar su apellido");
-            txtapellido.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtApellido.setText("");
+            txtApellido.setHint("Debe ingresar su apellido");
+            txtApellido.setHintTextColor(Color.parseColor("#51FF1218"));
         }
         if ("".equals(txtFecha.getText().toString())) {
             r = 0;
@@ -313,23 +329,23 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             txtFecha.setHint("Debe ingresar su fecha de nacimiento");
             txtFecha.setHintTextColor(Color.parseColor("#51FF1218"));
         }
-        if ("".equals(txtcontra.getText().toString())) {
+        if ("".equals(txtPassUno.getText().toString())) {
             r = 0;
-            txtcontra.setText("");
-            txtcontra.setHint("Debe ingresar una contraseña");
-            txtcontra.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtPassUno.setText("");
+            txtPassUno.setHint("Debe ingresar una contraseña");
+            txtPassUno.setHintTextColor(Color.parseColor("#51FF1218"));
         }
-        if ("".equals(txtcontrados.getText().toString())) {
+        if ("".equals(txtPassDos.getText().toString())) {
             r = 0;
-            txtcontrados.setText("");
-            txtcontrados.setHint("Debe ingresar la contraseña");
-            txtcontrados.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtPassDos.setText("");
+            txtPassDos.setHint("Debe ingresar la contraseña");
+            txtPassDos.setHintTextColor(Color.parseColor("#51FF1218"));
         }
-        if ("".equals(txtrespuesta.getText().toString())||0==espacios(txtrespuesta.getText().toString())) {
+        if ("".equals(txtRespuesta.getText().toString()) || 0 == espacios(txtRespuesta.getText().toString())) {
             r = 0;
-            txtrespuesta.setText("");
-            txtrespuesta.setHint("Debe ingresar una respuesta acorde");
-            txtrespuesta.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtRespuesta.setText("");
+            txtRespuesta.setHint("Debe ingresar una respuesta acorde");
+            txtRespuesta.setHintTextColor(Color.parseColor("#51FF1218"));
         }
         return r;
     }
@@ -361,12 +377,12 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      * @return
      */
     public int compararcontraseñas() {
-        if (txtcontra.getText().toString().equals(txtcontrados.getText().toString()))
+        if (txtPassUno.getText().toString().equals(txtPassDos.getText().toString()))
             return 1;
         else {
-            txtcontrados.setText("");
-            txtcontrados.setHint("Las contraseñas no coinciden, repitala");
-            txtcontrados.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtPassDos.setText("");
+            txtPassDos.setHint("Las contraseñas no coinciden, repitala");
+            txtPassDos.setHintTextColor(Color.parseColor("#51FF1218"));
             return 0;
         }
     }
@@ -432,8 +448,9 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
     public void llenarUsuario(){
-        usuarioReg.setNombreUsuario(txtnombre.getText().toString());
-        String[] apellidos = txtapellido.getText().toString().split(" ");
+        usuarioReg.setNombreUsuario(txtNombre.getText().toString());
+        Log.d("[Sin_nombre]", "Nombre: " + txtNombre.getText());
+        String[] apellidos = txtApellido.getText().toString().split(" ");
         usuarioReg.setApellido1Usuario(apellidos[0]);
         Log.d("[Sin_nombre]", "[llenarUsuario] Tamaño del array: " + apellidos.length);
         if (apellidos.length > 1) {
@@ -442,9 +459,9 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             }
         }
         usuarioReg.setFechaNacimiento(txtFecha.getText().toString());
-        if (gruposexo.getCheckedRadioButtonId() == R.id.rbhombreR1){
+        if (grupoSexo.getCheckedRadioButtonId() == R.id.rbhombreR1) {
             usuarioReg.setSexo("Masculino");
-        } else if (gruposexo.getCheckedRadioButtonId() == R.id.rbmujerR1){
+        } else if (grupoSexo.getCheckedRadioButtonId() == R.id.rbmujerR1) {
             usuarioReg.setSexo("Femenino");
         }
         usuarioReg.setSesionUsuario(llenarSesion());
@@ -459,8 +476,8 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     public SesionVO llenarSesion(){
         SesionVO datoSesion = new SesionVO();
-        datoSesion.setUsuario(txtnombreu.getText().toString());
-        datoSesion.setContrasena(txtcontrados.getText().toString());
+        datoSesion.setUsuario(txtNombreu.getText().toString());
+        datoSesion.setContrasena(txtPassDos.getText().toString());
         return datoSesion;
     }
 
@@ -480,15 +497,22 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
     public ReestablecerVO llenarCuenta(){
         ReestablecerVO datorestablecer=new ReestablecerVO();
-        datorestablecer.setPregunta1("dhavian es gay");
-        datorestablecer.setRespuesta1("si");
-        datorestablecer.setPregunta2("y no niega");
-        datorestablecer.setRespuesta2("si");
+        datorestablecer.setPregunta1(selector.getSelectedItem().toString());
+        datorestablecer.setRespuesta1(txtRespuesta.getText().toString());
+        datorestablecer.setPregunta2(selector.getSelectedItem().toString());
+        datorestablecer.setRespuesta2(txtRespuesta.getText().toString());
         datorestablecer.setTamanoFuente(tamanioSistema);
         return datorestablecer;
     }
 
     public void terminar(View v){
         llenarUsuario();
+        this.finish();
+        try {
+            Intent intento = new Intent(getApplicationContext(), PerfilUsuario.class);
+            startActivity(intento);
+        } catch (Exception ex) {
+            Log.d("[Sin_nombre]", "Error al mostrar Perfil de Usuario", ex);
+        }
     }
 }

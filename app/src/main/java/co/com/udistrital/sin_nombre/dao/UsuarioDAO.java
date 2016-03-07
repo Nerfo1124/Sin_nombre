@@ -20,9 +20,9 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
  */
 public class UsuarioDAO {
 
+    public Context contexto;
     private DataBaseHelper dbh;
     private SQLiteDatabase db;
-    public Context contexto;
 
     public UsuarioDAO(Context context){
         try {
@@ -88,8 +88,8 @@ public class UsuarioDAO {
         UsuarioVO objUsuario = new UsuarioVO();
         try {
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SESION);
-            sb.append(" WHERE ").append(dbh.SESION_ID).append(" = ").append(idUsuario);
+            sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_USUARIO);
+            sb.append(" WHERE ").append(dbh.USUARIO_ID).append(" = ").append(idUsuario);
 
             Log.d("[Sin_nombre]", "[consult] SQL: " + sb.toString());
 
@@ -116,7 +116,7 @@ public class UsuarioDAO {
             return objUsuario;
         } catch (Exception e) {
             Toast.makeText(contexto, "[consult] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[consult] Error en UsuarioDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[consult] Error en UsuarioDAO: " + e.toString(), e);
             return null;
         }
     }
@@ -128,19 +128,6 @@ public class UsuarioDAO {
      */
     public boolean insert(UsuarioVO vo) {
         try {
-            StringBuilder sb = new StringBuilder();
-            sb.append("INSERT INTO ").append(dbh.TABLE_NAME_USUARIO).append("(");
-            sb.append(dbh.USUARIO_NOMBRE + ",").append(dbh.USUARIO_APELLIDO1+",").append(dbh.USUARIO_APELLIDO2 + ",");
-            sb.append(dbh.USUARIO_NACIMIENTO + ",").append(dbh.USUARIO_SEXO+",").append(dbh.USUARIO_SESION+ ",");
-            sb.append(dbh.USUARIO_FORMULA+",").append(dbh.USUARIO_SISTEMA + ",").append(dbh.USUARIO_REESTABLECER).append(")");
-            sb.append(" VALUES (");
-            sb.append("'" + vo.getNombreUsuario() + "','").append(vo.getApellido1Usuario()+"','").append(vo.getApellido2Usuario() + "',");
-            sb.append("'" + vo.getFechaNacimiento() + "','").append(vo.getSexo()+"',").append(vo.getSesionUsuario().getIdSesion()+",");
-            sb.append(vo.getFormulaUsuario().getIdFormula() + ",").append(vo.getConfigUsuario().getIdSistema()+",").append(vo.getRestablecerUsuario().getIdReestablecer());
-            sb.append(")");
-
-            System.out.println("[insert] SQL: " + sb.toString());
-
             SesionDAO sesDao = new SesionDAO(contexto);
             FormulaDAO forDao = new FormulaDAO(contexto);
             SistemaDAO sisDao = new SistemaDAO(contexto);
@@ -151,6 +138,20 @@ public class UsuarioDAO {
             forDao.insert(vo.getFormulaUsuario());
             sisDao.insert(vo.getConfigUsuario());
             resDao.insert(vo.getRestablecerUsuario());
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("INSERT INTO ").append(dbh.TABLE_NAME_USUARIO).append("(");
+            sb.append(dbh.USUARIO_NOMBRE + ",").append(dbh.USUARIO_APELLIDO1 + ",").append(dbh.USUARIO_APELLIDO2 + ",");
+            sb.append(dbh.USUARIO_NACIMIENTO + ",").append(dbh.USUARIO_SEXO + ",").append(dbh.USUARIO_SESION + ",");
+            sb.append(dbh.USUARIO_FORMULA + ",").append(dbh.USUARIO_SISTEMA + ",").append(dbh.USUARIO_REESTABLECER).append(")");
+            sb.append(" VALUES (");
+            sb.append("'" + vo.getNombreUsuario() + "','").append(vo.getApellido1Usuario() + "','").append(vo.getApellido2Usuario() + "',");
+            sb.append("'" + vo.getFechaNacimiento() + "','").append(vo.getSexo() + "',").append(sesDao.consultLastID() + ",");
+            sb.append(forDao.consultLastID() + ",").append(sisDao.consultLastID() + ",").append(resDao.consultLastID());
+            sb.append(")");
+
+            System.out.println("[insert] SQL: " + sb.toString());
+            Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;

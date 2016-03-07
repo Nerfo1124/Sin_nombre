@@ -8,18 +8,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.inicio_sesion">
+        <activity android:name=".view.InicioSesion">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.registro" />
+        <activity android:name=".view.Registro" />
+        <activity android:name=".view.Principal" />
+        <activity android:name=".view.PerfilUsuario" />
 
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-        <activity android:name=".view.Principal"></activity>
     </application>
 
 </manifest>

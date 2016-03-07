@@ -79,7 +79,7 @@ public class RestablecerDAO {
                 objRes.setRespuesta1(fila.getString(2));
                 objRes.setPregunta2(fila.getString(3));
                 objRes.setRespuesta2(fila.getString(4));
-                objRes.setIdReestablecer(fila.getInt(5));
+                objRes.setTamanoFuente(fila.getString(5));
             }
             return objRes;
         } catch (Exception e){
@@ -149,5 +149,28 @@ public class RestablecerDAO {
             Log.e("[Sin_nombre]", "[delete] Error en RestablecerDAO: " + e.toString());
             return false;
         }
+    }
+
+    /**
+     * <b>Descripcion: </b> Metodo encargado de devolver el id del ultimo registro en BDD.
+     *
+     * @return
+     */
+    public int consultLastID() {
+        int response = 0;
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("SELECT MAX(" + dbh.RESTABLECER_ID + ") FROM " + dbh.TABLE_NAME_RESTABLECER);
+
+            Log.d("[Sin_nombre]", "[consultLastID] SQL: " + sb.toString());
+
+            Cursor id = db.rawQuery(sb.toString(), null);
+            if (id.moveToFirst()) {
+                response = id.getInt(0);
+            }
+        } catch (Exception ex) {
+            Log.e("[Sin_nombre]", "[consultLastID] Error durante la ejecucion del metodo.");
+        }
+        return response;
     }
 }

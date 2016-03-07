@@ -163,4 +163,27 @@ public class FormulaDAO {
             return false;
         }
     }
+
+    /**
+     * <b>Descripcion: </b> Metodo encargado de devolver el id del ultimo registro en BDD.
+     *
+     * @return
+     */
+    public int consultLastID() {
+        int response = 0;
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("SELECT MAX(" + dbh.FORMULA_ID + ") FROM " + dbh.TABLE_NAME_FORMULA);
+
+            Log.d("[Sin_nombre]", "[consultLastID] SQL: " + sb.toString());
+
+            Cursor id = db.rawQuery(sb.toString(), null);
+            if (id.moveToFirst()) {
+                response = id.getInt(0);
+            }
+        } catch (Exception ex) {
+            Log.e("[Sin_nombre]", "[consultLastID] Error durante la ejecucion del metodo.");
+        }
+        return response;
+    }
 }

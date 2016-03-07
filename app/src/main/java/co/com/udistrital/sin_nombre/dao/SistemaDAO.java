@@ -104,12 +104,12 @@ public class SistemaDAO {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO ").append(dbh.TABLE_NAME_SISTEMA).append("(");
-            sb.append(dbh.SISTEMA_TAM_FUENTE + ",").append(dbh.SISTEMA_FRECUENCIA+")");
+            sb.append(dbh.SISTEMA_TAM_FUENTE + ",").append(dbh.SISTEMA_FRECUENCIA + ")");
             sb.append(" VALUES (");
             sb.append(vo.getTamanoFuente() + ",").append(vo.getFrecuencia());
             sb.append(")");
 
-            System.out.println("SQL: " + sb.toString());
+            Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
@@ -134,7 +134,7 @@ public class SistemaDAO {
             sb.append(dbh.SISTEMA_FRECUENCIA).append("=").append(vo.getFrecuencia()).append(" ");
             sb.append("WHERE ").append(dbh.SISTEMA_ID).append("=").append(vo.getIdSistema());
 
-            System.out.println("SQL: " + sb.toString());
+            Log.d("[Sin_nombre]", "[update] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
@@ -165,5 +165,28 @@ public class SistemaDAO {
             Log.e("[Sin_nombre]","[delete] Error en SistemaDAO: " + e.toString());
             return false;
         }
+    }
+
+    /**
+     * <b>Descripcion: </b> Metodo encargado de devolver el id del ultimo registro en BDD.
+     *
+     * @return
+     */
+    public int consultLastID() {
+        int response = 0;
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("SELECT MAX(" + dbh.SISTEMA_ID + ") FROM " + dbh.TABLE_NAME_SISTEMA);
+
+            Log.d("[Sin_nombre]", "[consultLastID] SQL: " + sb.toString());
+
+            Cursor id = db.rawQuery(sb.toString(), null);
+            if (id.moveToFirst()) {
+                response = id.getInt(0);
+            }
+        } catch (Exception ex) {
+            Log.e("[Sin_nombre]", "[consultLastID] Error durante la ejecucion del metodo.");
+        }
+        return response;
     }
 }

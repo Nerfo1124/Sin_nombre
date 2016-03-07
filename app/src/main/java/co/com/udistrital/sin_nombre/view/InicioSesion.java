@@ -16,74 +16,79 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import co.com.udistrital.sin_nombre.R;
+import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 
 /**
- * Created by Rolando Baron on 21/09/2015.
+ * Created by Fernando on 06/03/2016.
  */
-public class inicio_sesion extends AppCompatActivity {
+public class InicioSesion extends AppCompatActivity {
 
     /**
      * Variables para el manejo de los componentes de aplicacion.
      */
-    private EditText txtusuario,txtpassword;
+    private EditText txtUsuario, txtPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("[Sin_nombre]","Iniciando vista principal de la aplicacion.");
+        Log.d("[Sin_nombre]", "Iniciando vista principal de la aplicacion.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
         getSupportActionBar().setTitle("Inicio Sesion");
         //getSupportActionBar().setIcon(R.drawable.icono_home);
-        txtusuario = (EditText)findViewById(R.id.txtusuario);
-        txtpassword = (EditText)findViewById(R.id.txtcontraseña);
+        txtUsuario = (EditText) findViewById(R.id.txtUsuario);
+        txtPassword = (EditText) findViewById(R.id.txtPassword);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d("[Inicio Sesion]","Generando Opciones de Menu");
+        Log.d("[Inicio Sesion]", "Generando Opciones de Menu");
         getMenuInflater().inflate(R.menu.menu_inicio_sesion, menu);
         return true;
     }
 
     /**
      * metodo para generar nueva actividad
+     *
      * @param v
      */
-    public void registrar(View v){
-        Intent intento= new Intent(getApplicationContext(),registro.class);
+    public void registrar(View v) {
+        Intent intento = new Intent(getApplicationContext(), Registro.class);
         startActivity(intento);
     }
 
     /**
      * metodo para generar un dialogo llamando un archivo  xml, el  cual permite la autentificacion del usuario y posteriormente
-     *  realiza el cambio de contraseña
+     * realiza el cambio de contraseña
+     *
      * @param v
      */
-    public void olvido(View v){
+    public void olvido(View v) {
+        UsuarioDAO userDao = new UsuarioDAO(this);
+        userDao.consult(1);
         final Dialog personal = new Dialog(this);
         personal.setContentView(R.layout.recuperar_cuenta);
         personal.setTitle("\tRecuperar Cuenta");
-        final EditText txtusuario= (EditText)personal.findViewById(R.id.txtnusuario);
-        final EditText txtrespuesta= (EditText)personal.findViewById(R.id.txtrespuesta);
-        final TextView txtpregunta = (TextView)personal.findViewById(R.id.txtpregunta);
-        Button btnbuscar = (Button)personal.findViewById(R.id.btnbuscar);
-        final Button btnenviar = (Button)personal.findViewById(R.id.btnenviar);
+        final EditText txtUsuario = (EditText) personal.findViewById(R.id.txtnusuario);
+        final EditText txtrespuesta = (EditText) personal.findViewById(R.id.txtrespuesta);
+        final TextView txtpregunta = (TextView) personal.findViewById(R.id.txtpregunta);
+        Button btnbuscar = (Button) personal.findViewById(R.id.btnbuscar);
+        final Button btnenviar = (Button) personal.findViewById(R.id.btnenviar);
         btnenviar.setEnabled(false);
         btnbuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String r = "";//Buscar(txtusuario.getText().toString());
+                String r = "";//Buscar(txtUsuario.getText().toString());
                 if (r == " -1 ") {
-                    txtusuario.setText("");
-                    txtusuario.setHint("No se encontro ese usuario");
+                    txtUsuario.setText("");
+                    txtUsuario.setHint("No se encontro ese usuario");
 
                 } else {
                     if (r == " -2 ")
-                        txtusuario.setHint("Debe digitar un usuario");
+                        txtUsuario.setHint("Debe digitar un usuario");
                     else {
                         txtpregunta.setText(r);
                         btnenviar.setEnabled(true);
-                        txtusuario.setEnabled(false);
+                        txtUsuario.setEnabled(false);
                     }
                 }
             }
@@ -92,12 +97,12 @@ public class inicio_sesion extends AppCompatActivity {
         btnenviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(txtrespuesta.getText().toString().equals("")){
+                if (txtrespuesta.getText().toString().equals("")) {
                     txtrespuesta.setHint("Debe digitar una respuesta");
-                }else {
-                    if(txtrespuesta.getText().toString().equals("")){//Respuesta(txtusuario.getText().toString()))){
+                } else {
+                    if (txtrespuesta.getText().toString().equals("")) {//Respuesta(txtUsuario.getText().toString()))){
                         Toast.makeText(getApplicationContext(), "Cambiar Contraseña", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         txtrespuesta.setText("");
                         txtrespuesta.setHint("Respuesta Incorrecta");
                     }
@@ -142,9 +147,9 @@ public class inicio_sesion extends AppCompatActivity {
         DBManager manager2 = new DBManager(this);
         int r=manager2.consultanombreu(usu);
         if(r==0 && opc==1 ){
-            txtusuario.setText("");
-            txtusuario.setHint("No hay un usuario con este nombre");
-            txtusuario.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtUsuario.setText("");
+            txtUsuario.setHint("No hay un usuario con este nombre");
+            txtUsuario.setHintTextColor(Color.parseColor("#51FF1218"));
             return 0;
         }
         if(r==0 && opc==2 )
@@ -174,19 +179,19 @@ public class inicio_sesion extends AppCompatActivity {
         int e=espaciosblancos();
         int u=0;
         if( e==1) {
-            u = verificarUsuario(txtusuario.getText().toString(),1);
+            u = verificarUsuario(txtUsuario.getText().toString(),1);
         }
         if(e==1 && u==1){
-            if(manager.consultacontrasenia(txtusuario.getText().toString()).equals(txtpassword.getText().toString())){
+            if(manager.consultacontrasenia(txtUsuario.getText().toString()).equals(txtPassword.getText().toString())){
                 Intent intento = new Intent(this,Inicio.class);
-                intento.putExtra("1 2 3", txtusuario.getText().toString());
+                intento.putExtra("1 2 3", txtUsuario.getText().toString());
                 startActivity(intento);
                 finish();
             }else{
                 Dialogo("Mensaje","La Contraseña ingresada es incorrecta",3);
-                txtpassword.setText("");
-                txtpassword.setHint(" La Contraseña ingresada es incorrecta");
-                txtpassword.setHintTextColor(Color.parseColor("#51FF1218"));
+                txtPassword.setText("");
+                txtPassword.setHint(" La Contraseña ingresada es incorrecta");
+                txtPassword.setHintTextColor(Color.parseColor("#51FF1218"));
             }
 
         }
@@ -194,45 +199,46 @@ public class inicio_sesion extends AppCompatActivity {
 
     /**
      * metodo encargado de verificar que los elementos editables del xml no se encuentren en blanco
+     *
      * @return r=1 si no ahi espacion en blanco y  r=0 si hay espacios en blanco
      */
     public int espaciosblancos() {
         int r = 1;
-        if ("".equals(txtusuario.getText().toString())) {
+        if ("".equals(txtUsuario.getText().toString())) {
             r = 0;
-            txtusuario.setHint("Debe ingresar su nombre de usuario");
-            txtusuario.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtUsuario.setHint("Debe ingresar su nombre de usuario");
+            txtUsuario.setHintTextColor(Color.parseColor("#51FF1218"));
         }
-        if ("".equals(txtpassword.getText().toString())) {
+        if ("".equals(txtPassword.getText().toString())) {
             r = 0;
-            txtpassword.setHint("Debe ingresar su contraseña");
-            txtpassword.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtPassword.setHint("Debe ingresar su contraseña");
+            txtPassword.setHintTextColor(Color.parseColor("#51FF1218"));
         }
         return r;
     }
 
     /**
      * metodo que genera un dialogo el cual puede mostrar cualquier tipo de mensaje
+     *
      * @param tit variable string que lleva en nombre del titulo del  dialogo
      * @param men variable string que lleva el mensaje que se quiere mostrar
      * @param opc variable entera que lleva un numero el  cual permite realizar una operacion
      *            especifica si es necesaria
      */
-    public void Dialogo(String tit, final String men, final int opc){
+    public void Dialogo(String tit, final String men, final int opc) {
         try {
             new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(tit)
-                .setMessage(men)
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                }).show();
-        }catch (Exception e){
-            Toast.makeText(this,"Error iniciosesion - Dialogo:"+e.toString(),Toast.LENGTH_SHORT).show();
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(tit)
+                    .setMessage(men)
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    }).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error iniciosesion - Dialogo:" + e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
-
 }
