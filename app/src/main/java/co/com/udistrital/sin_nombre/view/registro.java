@@ -26,6 +26,7 @@ import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.util.DateDialog;
+import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
@@ -35,7 +36,7 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 /**
  * Created by Fernando on 06/03/2016.
  */
-public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
     private UsuarioVO usuarioReg = new UsuarioVO();
     private UsuarioDAO objUsuarioDao;
@@ -507,10 +508,11 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     public void terminar(View v){
         llenarUsuario();
-        this.finish();
+        startService(new Intent(registro.this, pantalla_on_off.class));
         try {
-            Intent intento = new Intent(getApplicationContext(), PerfilUsuario.class);
-            startActivity(intento);
+            Intent i= new Intent(this,PerfilUsuario.class);
+            startActivity(i);
+            this.finish();
         } catch (Exception ex) {
             Log.d("[Sin_nombre]", "Error al mostrar Perfil de Usuario", ex);
         }

@@ -52,7 +52,7 @@ public class InicioSesion extends AppCompatActivity {
      * @param v
      */
     public void registrar(View v) {
-        Intent intento = new Intent(getApplicationContext(), Registro.class);
+        Intent intento = new Intent(getApplicationContext(), registro.class);
         startActivity(intento);
     }
 
@@ -174,11 +174,11 @@ public class InicioSesion extends AppCompatActivity {
      * devuelve mensaje de error en los datos ingresados
      * @param v
      */
-    /*public void entrar (View v){
-        manager = new DBManager(this);
+    public void entrar (View v){
+        //manager = new DBManager(this);
         int e=espaciosblancos();
         int u=0;
-        if( e==1) {
+       /* if( e==1) {
             u = verificarUsuario(txtUsuario.getText().toString(),1);
         }
         if(e==1 && u==1){
@@ -194,8 +194,8 @@ public class InicioSesion extends AppCompatActivity {
                 txtPassword.setHintTextColor(Color.parseColor("#51FF1218"));
             }
 
-        }
-    }*/
+        }*/
+    }
 
     /**
      * metodo encargado de verificar que los elementos editables del xml no se encuentren en blanco

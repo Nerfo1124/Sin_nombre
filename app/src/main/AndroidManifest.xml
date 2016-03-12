@@ -15,9 +15,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.Registro" />
+        <activity android:name=".view.registro" />
         <activity android:name=".view.Principal" />
         <activity android:name=".view.PerfilUsuario" />
+
+        <receiver android:name="util.Recevier">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.SCREEN_OFF" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".util.pantalla_on_off"
+            android:enabled="true"
+            android:exported="true" />
 
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     </application>
