@@ -38,12 +38,18 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
  */
 public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
+    /**
+     * vector que almacena cada una de las preguntas separadamente
+     */
+    String[] opciones = {"Seleccione una pregunta",
+            "¿Nombre de tu mascota preferida?",
+            "¿Lugar de nacimiento de tu padre?",
+            "¿Cancion favorita?",
+            "¿Mejor amigo?"};
     private UsuarioVO usuarioReg = new UsuarioVO();
     private UsuarioDAO objUsuarioDao;
     private SesionDAO objSesionDao;
-
     private String tamanioSistema;
-
     /**
      * Elementos para los grupos de tipo de sexo/formula
      */
@@ -70,15 +76,6 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     private EditText tamanioF;
     private SeekBar seekBar;
     private NumberPicker fre;//elemento que permite selecionar el numero de horas para la frecuencia de tiempo
-
-    /**
-     * vector que almacena cada una de las preguntas separadamente
-     */
-    String[] opciones = {"Seleccione una pregunta",
-            "¿Nombre de tu mascota preferida?",
-            "¿Lugar de nacimiento de tu padre?",
-            "¿Cancion favorita?",
-            "¿Mejor amigo?"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -496,6 +493,12 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         datosistema.setTamanoFuente(texto.getTextSize());
         return datosistema;
     }
+
+    /**
+     * Metodo encargado de llenar la tabla Reestablecer.
+     *
+     * @return
+     */
     public ReestablecerVO llenarCuenta(){
         ReestablecerVO datorestablecer=new ReestablecerVO();
         datorestablecer.setPregunta1(selector.getSelectedItem().toString());
