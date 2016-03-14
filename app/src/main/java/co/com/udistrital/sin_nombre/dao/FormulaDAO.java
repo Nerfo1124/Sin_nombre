@@ -42,7 +42,7 @@ public class FormulaDAO {
     public List<FormulaVO> list() {
         try {
             List<FormulaVO> listaFormula = new ArrayList<FormulaVO>();
-            String columns[] = {dbh.FORMULA_ID, dbh.FORMULA_OJO_DER, dbh.FORMULA_OJO_IZQ};
+            String columns[] = {dbh.FORMULA_ID, dbh.FORMULA_OJO_DER, dbh.FORMULA_OJO_IZQ, dbh.FORMULA_TAM_FUENTE};
             Cursor listFormulas = db.query(dbh.TABLE_NAME_FORMULA,columns,null,null,null,null,null);
             if(listFormulas.moveToFirst()){
                 do{
@@ -50,6 +50,7 @@ public class FormulaDAO {
                     vo.setIdFormula(listFormulas.getInt(0));
                     vo.setaVisualOD(listFormulas.getString(1));
                     vo.setaVisualOI(listFormulas.getString(2));
+                    vo.setTamanioFuente(listFormulas.getString(3));
                     listaFormula.add(vo);
                 } while(listFormulas.moveToNext());
             }
@@ -82,6 +83,7 @@ public class FormulaDAO {
                 objFormula.setIdFormula(fila.getInt(0));
                 objFormula.setaVisualOD(fila.getString(1));
                 objFormula.setaVisualOI(fila.getString(2));
+                objFormula.setTamanioFuente(fila.getString(3));
             }
             return objFormula;
         } catch (Exception e){
@@ -100,9 +102,9 @@ public class FormulaDAO {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO ").append(dbh.TABLE_NAME_FORMULA).append("(");
-            sb.append(dbh.FORMULA_OJO_DER+" , ").append(dbh.FORMULA_OJO_IZQ).append(")");
+            sb.append(dbh.FORMULA_OJO_DER + " , ").append(dbh.FORMULA_OJO_IZQ + " , ").append(dbh.FORMULA_TAM_FUENTE).append(")");
             sb.append(" VALUES ('");
-            sb.append(vo.getaVisualOD() + "','").append(vo.getaVisualOI());
+            sb.append(vo.getaVisualOD() + "','").append(vo.getaVisualOI() + " , ").append(vo.getTamanioFuente());
             sb.append("')");
 
             Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());
@@ -128,7 +130,8 @@ public class FormulaDAO {
             sb.append("UPDATE ").append(dbh.TABLE_NAME_FORMULA).append(" SET ");
             sb.append(dbh.FORMULA_ID).append("=").append(vo.getIdFormula()).append(",");
             sb.append(dbh.FORMULA_OJO_DER).append("='").append(vo.getaVisualOD()).append("',");
-            sb.append(dbh.FORMULA_OJO_IZQ).append("='").append(vo.getaVisualOI()).append("' ");
+            sb.append(dbh.FORMULA_OJO_IZQ).append("='").append(vo.getaVisualOI()).append("', ");
+            sb.append(dbh.FORMULA_TAM_FUENTE).append("='").append(vo.getTamanioFuente()).append("' ");
             sb.append("WHERE ").append(dbh.FORMULA_ID).append("=").append(vo.getIdFormula());
 
             Log.d("[Sin_nombre]","SQL: " + sb.toString());

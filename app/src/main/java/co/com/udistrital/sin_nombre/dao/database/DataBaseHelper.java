@@ -16,11 +16,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String FORMULA_ID = "for_id";
     public static final String FORMULA_OJO_DER = "for_av_od";
     public static final String FORMULA_OJO_IZQ = "for_av_oi";
+    public static final String FORMULA_TAM_FUENTE = "for_tam_fuente";
     public static final String CREATE_TABLE_FORMULA =
             "CREATE TABLE " + TABLE_NAME_FORMULA + " ( "
                     + FORMULA_ID + " integer primary key autoincrement not null, "
                     + FORMULA_OJO_DER + " integer not null, "
-                    + FORMULA_OJO_IZQ + " integer not null "
+                    + FORMULA_OJO_IZQ + " integer not null, "
+                    + FORMULA_TAM_FUENTE + " integer not null "
                     + " ) ";
     // Tabla de Sesion
     public static final String TABLE_NAME_SESION = "SESION";

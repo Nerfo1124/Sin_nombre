@@ -10,6 +10,7 @@ public class FormulaVO {
     private int idFormula;
     private String aVisualOD;
     private String aVisualOI;
+    private String tamanioFuente;
 
     // Bloque Getter
     public int getIdFormula() {
@@ -24,6 +25,10 @@ public class FormulaVO {
         return aVisualOI;
     }
 
+    public String getTamanioFuente() {
+        return tamanioFuente;
+    }
+
     // Bloque Setter
     public void setIdFormula(int idFormula) {
         this.idFormula = idFormula;
@@ -35,5 +40,9 @@ public class FormulaVO {
 
     public void setaVisualOI(String aVisualOI) {
         this.aVisualOI = aVisualOI;
+    }
+
+    public void setTamanioFuente(String tamanioFuente) {
+        this.tamanioFuente = tamanioFuente;
     }
 }
