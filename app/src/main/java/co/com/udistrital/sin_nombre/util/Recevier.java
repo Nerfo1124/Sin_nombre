@@ -8,7 +8,7 @@ import android.widget.Toast;
 /**
  * Created by Usuario on 19/02/2016.
  */
-public class Recevier extends BroadcastReceiver {
+public class  Recevier extends BroadcastReceiver {
 
     Contador contador;
     Context context;

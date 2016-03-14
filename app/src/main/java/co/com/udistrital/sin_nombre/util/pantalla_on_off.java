@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.widget.Toast;
 
-public class pantalla_on_off extends Service {
+public class  pantalla_on_off extends Service {
 
     Contador contador=new Contador();
     public pantalla_on_off() {

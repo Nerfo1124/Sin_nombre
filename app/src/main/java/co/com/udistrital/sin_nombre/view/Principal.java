@@ -18,7 +18,7 @@ import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.util.Contador;
 import co.com.udistrital.sin_nombre.util.ProgressCircle;
 
-public class Principal extends AppCompatActivity {
+public class  Principal extends AppCompatActivity {
 
     ProgressCircle progressCircle;
     MyTask myTask;

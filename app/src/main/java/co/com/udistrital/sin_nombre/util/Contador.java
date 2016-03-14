@@ -7,7 +7,7 @@ import java.util.Calendar;
 /**
  * Created by Usuario on 19/02/2016.
  */
-public class Contador extends Thread {
+public class  Contador extends Thread {
 
 
     boolean continua=true,siempre=true;

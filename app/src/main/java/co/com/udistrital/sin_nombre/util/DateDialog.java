@@ -11,7 +11,7 @@ import android.widget.EditText;
 /**
  * Created by Rolando Baron on 21/09/2015.
  */
-public class DateDialog extends DialogFragment implements  DatePickerDialog.OnDateSetListener{
+public class  DateDialog extends DialogFragment implements  DatePickerDialog.OnDateSetListener{
 
     EditText txtDate;
 

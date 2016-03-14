@@ -22,7 +22,7 @@ import co.com.udistrital.sin_nombre.R;
 /**
  * Created by Fernando on 02/03/2016.
  */
-public class ProgressCircle extends View {
+public class  ProgressCircle extends View {
 
     private final RectF mOval = new RectF();
     private float mSweepAngle = 0;
