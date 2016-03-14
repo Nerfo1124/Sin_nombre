@@ -12,6 +12,7 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 public class PerfilUsuario extends AppCompatActivity {
 
     private EditText txtNameUsuario, txtFechaUsuario, txtSexo, txtIdSesion;
+    private UsuarioDAO userDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class PerfilUsuario extends AppCompatActivity {
         setContentView(R.layout.activity_perfil_usuario);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
 
-        UsuarioDAO userDao = new UsuarioDAO(this);
+        userDao = new UsuarioDAO(this);
 
         txtNameUsuario = (EditText) findViewById(R.id.txtNombreUsuario);
         txtFechaUsuario = (EditText) findViewById(R.id.txtFechaNacimiento);
