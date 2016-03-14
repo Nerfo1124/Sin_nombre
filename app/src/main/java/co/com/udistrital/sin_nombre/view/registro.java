@@ -513,7 +513,7 @@ public class registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         llenarUsuario();
         startService(new Intent(registro.this, pantalla_on_off.class));
         try {
-            Intent i= new Intent(this,Principal.class);
+            Intent i= new Intent(this,PerfilUsuario.class);
             startActivity(i);
             this.finish();
         } catch (Exception ex) {

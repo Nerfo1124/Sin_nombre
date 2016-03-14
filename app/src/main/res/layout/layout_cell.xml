@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center">
 
-    <co.com.udistrital.pantalla3.widgets.ProgressCircle
+    <co.com.udistrital.sin_nombre.util.ProgressCircle.
         android:id="@+id/progress_circle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

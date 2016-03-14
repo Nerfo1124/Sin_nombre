@@ -16,7 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.registro" />
-        <activity android:name=".view.Principal" />
         <activity android:name=".view.PerfilUsuario" />
 
         <receiver android:name="util.Recevier">
