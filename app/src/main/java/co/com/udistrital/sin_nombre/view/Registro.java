@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import co.com.udistrital.sin_nombre.Principal;
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
@@ -528,7 +529,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         llenarUsuario();
         startService(new Intent(Registro.this, pantalla_on_off.class));
         try {
-            Intent i = new Intent(this, PerfilUsuario.class);
+            Intent i = new Intent(this, Principal.class);
             startActivity(i);
             this.finish();
         } catch (Exception ex) {
