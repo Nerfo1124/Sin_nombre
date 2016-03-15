@@ -55,8 +55,8 @@ public class Pruebas extends AppCompatActivity {
         sesionVO.setContrasena("fernando1124");
         sistemaVO.setFrecuencia(1);
         sistemaVO.setTamanoFuente(40);
-        formulaVO.setaVisualOD("2.0");
-        formulaVO.setaVisualOI("2.0");
+        formulaVO.setaVisualOD((float) 2.0);
+        formulaVO.setaVisualOI((float) 2.0);
 
         usuarioVO.setNombreUsuario("Fernando");
         usuarioVO.setApellido1Usuario("Hernandez");

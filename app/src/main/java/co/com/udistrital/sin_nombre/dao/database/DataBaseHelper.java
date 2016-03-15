@@ -22,7 +22,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     + FORMULA_ID + " integer primary key autoincrement not null, "
                     + FORMULA_OJO_DER + " integer not null, "
                     + FORMULA_OJO_IZQ + " integer not null, "
-                    + FORMULA_TAM_FUENTE + " integer not null "
+                    + FORMULA_TAM_FUENTE + " text not null "
                     + " ) ";
     // Tabla de Sesion
     public static final String TABLE_NAME_SESION = "SESION";

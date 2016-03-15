@@ -48,8 +48,8 @@ public class FormulaDAO {
                 do{
                     FormulaVO vo = new FormulaVO();
                     vo.setIdFormula(listFormulas.getInt(0));
-                    vo.setaVisualOD(listFormulas.getString(1));
-                    vo.setaVisualOI(listFormulas.getString(2));
+                    vo.setaVisualOD(listFormulas.getFloat(1));
+                    vo.setaVisualOI(listFormulas.getFloat(2));
                     vo.setTamanioFuente(listFormulas.getString(3));
                     listaFormula.add(vo);
                 } while(listFormulas.moveToNext());
@@ -81,8 +81,8 @@ public class FormulaDAO {
             fila.moveToFirst();
             if (fila != null){
                 objFormula.setIdFormula(fila.getInt(0));
-                objFormula.setaVisualOD(fila.getString(1));
-                objFormula.setaVisualOI(fila.getString(2));
+                objFormula.setaVisualOD(fila.getFloat(1));
+                objFormula.setaVisualOI(fila.getFloat(2));
                 objFormula.setTamanioFuente(fila.getString(3));
             }
             return objFormula;

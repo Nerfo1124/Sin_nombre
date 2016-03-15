@@ -8,8 +8,8 @@ import java.util.Date;
 public class FormulaVO {
 
     private int idFormula;
-    private String aVisualOD;
-    private String aVisualOI;
+    private float aVisualOD;
+    private float aVisualOI;
     private String tamanioFuente;
 
     // Bloque Getter
@@ -17,11 +17,11 @@ public class FormulaVO {
         return idFormula;
     }
 
-    public String getaVisualOD() {
+    public float getaVisualOD() {
         return aVisualOD;
     }
 
-    public String getaVisualOI() {
+    public float getaVisualOI() {
         return aVisualOI;
     }
 
@@ -34,11 +34,11 @@ public class FormulaVO {
         this.idFormula = idFormula;
     }
 
-    public void setaVisualOD(String aVisualOD) {
+    public void setaVisualOD(float aVisualOD) {
         this.aVisualOD = aVisualOD;
     }
 
-    public void setaVisualOI(String aVisualOI) {
+    public void setaVisualOI(float aVisualOI) {
         this.aVisualOI = aVisualOI;
     }
 
