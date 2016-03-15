@@ -30,6 +30,8 @@
             android:exported="true" />
 
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+        <activity android:name=".view.Registro"></activity>
     </application>
 
 </manifest>

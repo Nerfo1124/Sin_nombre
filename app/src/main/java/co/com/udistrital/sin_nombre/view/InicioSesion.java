@@ -52,7 +52,7 @@ public class InicioSesion extends AppCompatActivity {
      * @param v
      */
     public void registrar(View v) {
-        Intent intento = new Intent(getApplicationContext(), registro.class);
+        Intent intento = new Intent(getApplicationContext(), Registro.class);
         startActivity(intento);
     }
 
