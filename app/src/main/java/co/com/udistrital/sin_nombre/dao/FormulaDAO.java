@@ -103,8 +103,8 @@ public class FormulaDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO ").append(dbh.TABLE_NAME_FORMULA).append("(");
             sb.append(dbh.FORMULA_OJO_DER + " , ").append(dbh.FORMULA_OJO_IZQ + " , ").append(dbh.FORMULA_TAM_FUENTE).append(")");
-            sb.append(" VALUES ('");
-            sb.append(vo.getaVisualOD() + "','").append(vo.getaVisualOI() + " , ").append(vo.getTamanioFuente());
+            sb.append(" VALUES (");
+            sb.append(vo.getaVisualOD() + ",").append(vo.getaVisualOI() + ", '").append(vo.getTamanioFuente());
             sb.append("')");
 
             Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());

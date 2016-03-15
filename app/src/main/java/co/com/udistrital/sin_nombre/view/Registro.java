@@ -496,8 +496,13 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     public FormulaVO llenarFormula() {
         FormulaVO datoFormula = new FormulaVO();
-        datoFormula.setaVisualOD(Float.parseFloat(iz.getText().toString()));
-        datoFormula.setaVisualOI(Float.parseFloat(de.getText().toString()));
+        if (!iz.getText().toString().trim().equals("") && !de.getText().toString().trim().equals("")) {
+            datoFormula.setaVisualOD(Float.parseFloat(iz.getText().toString()));
+            datoFormula.setaVisualOI(Float.parseFloat(de.getText().toString()));
+        } else {
+            datoFormula.setaVisualOD((float) 0.0);
+            datoFormula.setaVisualOI((float) 0.0);
+        }
         datoFormula.setTamanioFuente("" + texto.getTextSize());
         return datoFormula;
     }
@@ -526,9 +531,9 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
     public void terminar(View v) {
-        llenarUsuario();
-        startService(new Intent(Registro.this, pantalla_on_off.class));
         try {
+            llenarUsuario();
+            startService(new Intent(Registro.this, pantalla_on_off.class));
             Intent i = new Intent(this, Principal.class);
             startActivity(i);
             this.finish();
