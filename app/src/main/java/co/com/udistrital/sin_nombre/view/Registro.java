@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-import co.com.udistrital.sin_nombre.Principal;
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;

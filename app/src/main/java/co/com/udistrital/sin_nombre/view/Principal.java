@@ -1,10 +1,11 @@
-package co.com.udistrital.sin_nombre;
+package co.com.udistrital.sin_nombre.view;
 
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.util.Contador;
 import co.com.udistrital.sin_nombre.util.ProgressCircle;
 
