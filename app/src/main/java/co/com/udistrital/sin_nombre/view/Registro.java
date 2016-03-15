@@ -496,13 +496,8 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     public FormulaVO llenarFormula() {
         FormulaVO datoFormula = new FormulaVO();
-        if (!iz.getText().toString().trim().equals("") && !de.getText().toString().trim().equals("")) {
-            datoFormula.setaVisualOD(Float.parseFloat(iz.getText().toString()));
-            datoFormula.setaVisualOI(Float.parseFloat(de.getText().toString()));
-        } else {
-            datoFormula.setaVisualOD((float) 0.0);
-            datoFormula.setaVisualOI((float) 0.0);
-        }
+        datoFormula.setaVisualOD(Float.parseFloat(iz.getText().toString()));
+        datoFormula.setaVisualOI(Float.parseFloat(de.getText().toString()));
         datoFormula.setTamanioFuente("" + texto.getTextSize());
         return datoFormula;
     }
