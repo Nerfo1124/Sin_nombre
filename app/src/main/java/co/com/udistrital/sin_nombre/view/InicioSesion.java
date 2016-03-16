@@ -15,8 +15,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import co.com.udistrital.sin_nombre.R;
+import co.com.udistrital.sin_nombre.dao.RestablecerDAO;
+import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
+import co.com.udistrital.sin_nombre.util.pantalla_on_off;
+import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
+import co.com.udistrital.sin_nombre.vo.SesionVO;
+import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 /**
  * Created by Fernando on 06/03/2016.
@@ -35,8 +43,8 @@ public class InicioSesion extends AppCompatActivity {
         setContentView(R.layout.activity_inicio_sesion);
         getSupportActionBar().setTitle("Inicio Sesion");
         //getSupportActionBar().setIcon(R.drawable.icono_home);
-        txtUsuario = (EditText) findViewById(R.id.txtUsuario);
-        txtPassword = (EditText) findViewById(R.id.txtPassword);
+        txtUsuario = (EditText) findViewById(R.id.txtUserSesion);
+        txtPassword = (EditText) findViewById(R.id.txtPassSesion);
     }
 
     @Override
@@ -47,66 +55,138 @@ public class InicioSesion extends AppCompatActivity {
     }
 
     /**
-     * metodo para generar nueva actividad
+     * <b>Descripcion: </b> Metodo para iniciar la Actividad de Registro.
      *
      * @param v
      */
-    public void registrar(View v) {
+    public void registrarCuenta(View v) {
         Intent intento = new Intent(getApplicationContext(), Registro.class);
         startActivity(intento);
     }
 
     /**
-     * metodo para generar un dialogo llamando un archivo  xml, el  cual permite la autentificacion del usuario y posteriormente
-     * realiza el cambio de contraseña
+     * <b>Descripcion: </b> Metodo para generar un dialogo llamando un archivo  xml, el  cual permite la
+     * autentificacion del usuario y posteriormente realiza el cambio de contraseña
      *
      * @param v
      */
-    public void olvido(View v) {
+    public void olvidoCuenta(View v) {
         UsuarioDAO userDao = new UsuarioDAO(this);
         userDao.consult(1);
         final Dialog personal = new Dialog(this);
         personal.setContentView(R.layout.recuperar_cuenta);
-        personal.setTitle("\tRecuperar Cuenta");
-        final EditText txtUsuario = (EditText) personal.findViewById(R.id.txtnusuario);
-        final EditText txtrespuesta = (EditText) personal.findViewById(R.id.txtrespuesta);
-        final TextView txtpregunta = (TextView) personal.findViewById(R.id.txtpregunta);
-        Button btnbuscar = (Button) personal.findViewById(R.id.btnbuscar);
-        final Button btnenviar = (Button) personal.findViewById(R.id.btnenviar);
-        btnenviar.setEnabled(false);
-        btnbuscar.setOnClickListener(new View.OnClickListener() {
+        personal.setTitle("\tRestablecer Contraseña");
+        final EditText txtUsuario = (EditText) personal.findViewById(R.id.txtUserSearch);
+        final EditText txtRespuestaUno = (EditText) personal.findViewById(R.id.txtAnswerUno);
+        final EditText txtRespuestaDos = (EditText) personal.findViewById(R.id.txtAnswerDos);
+        final TextView txtPreguntaUno = (TextView) personal.findViewById(R.id.lblQuestUno);
+        final TextView txtPreguntaDos = (TextView) personal.findViewById(R.id.lblQuestDos);
+        final TextView lblRestablecer = (TextView) personal.findViewById(R.id.lblPreguntas);
+        final EditText txtPassUno = (EditText) personal.findViewById(R.id.txtPassResUno);
+        final EditText txtPassDos = (EditText) personal.findViewById(R.id.txtPassResDos);
+        final Button btnCambiarPass = (Button) personal.findViewById(R.id.btnRestablecerPassOlv);
+        final Button btnBuscar = (Button) personal.findViewById(R.id.btnBuscar);
+        final Button btnRestablecer = (Button) personal.findViewById(R.id.btnRestablecerPass);
+        btnRestablecer.setEnabled(false);
+        final SesionDAO sesion = new SesionDAO(this);
+        final RestablecerDAO dao = new RestablecerDAO(this);
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String r = "";//Buscar(txtUsuario.getText().toString());
-                if (r == " -1 ") {
-                    txtUsuario.setText("");
-                    txtUsuario.setHint("No se encontro ese usuario");
-
+                int codSesion;
+                if (txtUsuario.getText().toString().trim().equals("")) {
+                    txtUsuario.setHint("Debe digitar un usuario");
                 } else {
-                    if (r == " -2 ")
-                        txtUsuario.setHint("Debe digitar un usuario");
-                    else {
-                        txtpregunta.setText(r);
-                        btnenviar.setEnabled(true);
-                        txtUsuario.setEnabled(false);
+                    codSesion = sesion.consultaNombreU(txtUsuario.getText().toString());
+                    if (codSesion == 0) {
+                        txtUsuario.setText("");
+                        txtUsuario.setHint("No se encontro ese usuario");
+                    } else {
+                        ReestablecerVO restablecer = dao.consult(codSesion);
+                        txtPreguntaUno.setText("" + restablecer.getPregunta1());
+                        txtPreguntaDos.setText("" + restablecer.getPregunta2());
+                        btnRestablecer.setEnabled(true);
                     }
                 }
             }
         });
 
-        btnenviar.setOnClickListener(new View.OnClickListener() {
+        btnRestablecer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (txtrespuesta.getText().toString().equals("")) {
-                    txtrespuesta.setHint("Debe digitar una respuesta");
+                Log.d("[Sin_nombre]", "Accionando boton Reestablecer");
+                if (txtRespuestaUno.getText().toString().trim().equals("") &&
+                        txtRespuestaDos.getText().toString().trim().equals("")) {
+                    Log.d("[Sin_nombre]", "Valores vacios");
+                    txtRespuestaUno.setHint("Debe digitar una respuesta");
+                    txtRespuestaUno.setHintTextColor(Color.parseColor("#51FF1218"));
+                    txtRespuestaDos.setHint("Debe digitar una respuesta");
+                    txtRespuestaDos.setHintTextColor(Color.parseColor("#51FF1218"));
                 } else {
-                    if (txtrespuesta.getText().toString().equals("")) {//Respuesta(txtUsuario.getText().toString()))){
-                        Toast.makeText(getApplicationContext(), "Cambiar Contraseña", Toast.LENGTH_SHORT).show();
+                    int codSesion = sesion.consultaNombreU(txtUsuario.getText().toString());
+                    ReestablecerVO restablecer = dao.consult(codSesion);
+                    if (txtRespuestaUno.getText().toString().trim().equals(restablecer.getRespuesta1())) {
+                        if (txtRespuestaDos.getText().toString().trim().equals(restablecer.getRespuesta2())) {
+                            txtPreguntaUno.setVisibility(View.INVISIBLE);
+                            txtRespuestaUno.setVisibility(View.INVISIBLE);
+                            txtPreguntaDos.setVisibility(View.INVISIBLE);
+                            txtRespuestaDos.setVisibility(View.INVISIBLE);
+                            btnRestablecer.setVisibility(View.INVISIBLE);
+                            lblRestablecer.setText("Ingrese los valores de su nueva contraseña");
+                            txtPassUno.setVisibility(View.VISIBLE);
+                            txtPassDos.setVisibility(View.VISIBLE);
+                            btnCambiarPass.setVisibility(View.VISIBLE);
+                        } else {
+                            txtRespuestaDos.setText("");
+                            txtRespuestaDos.setHint("Ingrese una respuesta valida");
+                            txtRespuestaDos.setHintTextColor(Color.parseColor("#51FF1218"));
+                        }
                     } else {
-                        txtrespuesta.setText("");
-                        txtrespuesta.setHint("Respuesta Incorrecta");
+                        txtRespuestaUno.setText("");
+                        txtRespuestaUno.setHint("Ingrese una respuesta valida");
+                        txtRespuestaUno.setHintTextColor(Color.parseColor("#51FF1218"));
                     }
+                }
+            }
+        });
 
+        btnCambiarPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtPassUno.getText().toString().trim().equals("") &&
+                        txtPassDos.getText().toString().trim().equals("")) {
+                    Log.d("[Sin_nombre]", "Valores vacios");
+                    txtPassUno.setHint("Debe digitar una contraseña");
+                    txtPassUno.setHintTextColor(Color.parseColor("#51FF1218"));
+                    txtPassDos.setHint("Debe digitar una contraseña");
+                    txtPassDos.setHintTextColor(Color.parseColor("#51FF1218"));
+                } else {
+                    int codSesion = sesion.consultaNombreU(txtUsuario.getText().toString());
+                    SesionVO sesionNew = sesion.consult(codSesion);
+                    if ("".equals(txtPassUno.getText().toString())) {
+                        txtPassUno.setText("");
+                        txtPassUno.setHint("Debe ingresar una contraseña");
+                        txtPassUno.setHintTextColor(Color.parseColor("#51FF1218"));
+                    } else {
+                        if ("".equals(txtPassDos.getText().toString())) {
+                            txtPassDos.setText("");
+                            txtPassDos.setHint("Debe ingresar la contraseña");
+                            txtPassDos.setHintTextColor(Color.parseColor("#51FF1218"));
+                        } else {
+                            if (txtPassUno.getText().toString().equals(txtPassDos.getText().toString())) {
+                                sesionNew.setContrasena("" + txtPassDos.getText().toString());
+                                sesion.update(sesionNew);
+                                personal.cancel();
+                            } else {
+                                txtPassUno.setText("");
+                                txtPassUno.setHint("Las contraseñas no coinciden, repitala");
+                                txtPassUno.setHintTextColor(Color.parseColor("#51FF1218"));
+                                txtPassDos.setText("");
+                                txtPassDos.setHint("Las contraseñas no coinciden, repitala");
+                                txtPassDos.setHintTextColor(Color.parseColor("#51FF1218"));
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -116,93 +196,66 @@ public class InicioSesion extends AppCompatActivity {
     }
 
     /**
-     * metodo encargador de revisar si el usuario ingresado en el dialogo fue encontrado y si lo esta
-     *busca las preguntas que permiten realizar el cambio de contraseña
-     * @param txt recibe el nombre del usuario
-     * @return retorna un ' -1 ' si no se encontro el usuario digitado o un ' -2 ' si  no se ha
-     * digitado  un usuario  o en caso contrario retorna un valor string con las preguntas del usuario
-     */
-
-   /* public String Buscar(String txt){
-        if(!txt.equals("")){
-            if (this.verificarUsuario(txt,2)==1){
-                //DBManager manager2 = new DBManager(this);
-                //String r=manager2.consultapregunta(txt);
-                return "";//r;
-            }else
-                return " -1 ";
-        }
-        else
-            return " -2 ";
-    }*/
-
-    /**
      * metodo encargado de buscar el usuario ingresado en el dialogo y si no lo esta devuelbe mensaje
-     * @param usu es un  string el cual lleva el  nombre del usuario
+     * @param user es un  string el cual lleva el  nombre del usuario
      * @param opc es un int el  cual puede ser un 1 o un 2  el cual permite decidir que respuesta dar
      *            en caso de que no se encuentre el usuario
      * @return
      */
-    /*public int verificarUsuario(String usu, int opc){
-        DBManager manager2 = new DBManager(this);
-        int r=manager2.consultanombreu(usu);
-        if(r==0 && opc==1 ){
+    public int verificarUsuario(String user, int opc, SesionDAO sesion) {
+        int r = sesion.consultaNombreU(user);
+        if (r == 0 && opc == 1) {
             txtUsuario.setText("");
-            txtUsuario.setHint("No hay un usuario con este nombre");
+            txtUsuario.setHint("No hay un usuario registrado con este nombre");
             txtUsuario.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtPassword.setText("");
             return 0;
         }
-        if(r==0 && opc==2 )
+        if (r == 0 && opc == 2)
             return 0;
         return 1;
-    }*/
+    }
 
     /**
-     * metodo encargado de retornar las preguntas correspondiente al usuario digitado en el dialogo
-     * @param txt variable string que lleva el  nombre de usuario para buscar su correspondientes
-     *            preguntas
-     * @return
-     */
-    /*public String Respuesta(String txt){
-        DBManager manager2 = new DBManager(this);
-        String r=manager2.consultarespuesta(txt);
-        return r;
-    }*/
-
-    /**
-     * metodo encargado de iniciar la actividad correspondiente al iniciar sesion o en caso contrario
-     * devuelve mensaje de error en los datos ingresados
+     * <b>Descripcion: </b>metodo encargado de iniciar la actividad correspondiente al iniciar sesion o en
+     * caso contrario devuelve mensaje de error en los datos ingresados
      * @param v
      */
-    public void entrar (View v){
-        //manager = new DBManager(this);
-        int e=espaciosblancos();
-        int u=0;
-       /* if( e==1) {
-            u = verificarUsuario(txtUsuario.getText().toString(),1);
+    public void iniciarSesion(View v) {
+        SesionDAO sesion = new SesionDAO(this);
+        SesionVO sesionU = new SesionVO();
+        int e = espaciosBlancos();
+        int codSesion = 0;
+        if (e == 1) {
+            codSesion = verificarUsuario(txtUsuario.getText().toString(), 1, sesion);
+            Log.d("[Sin_nombre]", "[iniciarSesion] Verificacion de Usuario, codigo = " + codSesion);
+            if (codSesion != 0) {
+                sesionU = sesion.consult(codSesion);
+            }
         }
-        if(e==1 && u==1){
-            if(manager.consultacontrasenia(txtUsuario.getText().toString()).equals(txtPassword.getText().toString())){
-                Intent intento = new Intent(this,Inicio.class);
-                intento.putExtra("1 2 3", txtUsuario.getText().toString());
+        if (e == 1 && codSesion != 0) {
+            if (sesionU.getContrasena().equals(txtPassword.getText().toString())) {
+                Intent intento = new Intent(this, Principal.class);
+                intento.putExtra("idUsuario", "" + sesionU.getIdSesion());
                 startActivity(intento);
                 finish();
             }else{
                 Dialogo("Mensaje","La Contraseña ingresada es incorrecta",3);
                 txtPassword.setText("");
-                txtPassword.setHint(" La Contraseña ingresada es incorrecta");
+                txtPassword.setHint("La Contraseña ingresada es incorrecta");
                 txtPassword.setHintTextColor(Color.parseColor("#51FF1218"));
             }
-
-        }*/
+        }
     }
 
     /**
-     * metodo encargado de verificar que los elementos editables del xml no se encuentren en blanco
+     * <b>Descripcion: </b> Metodo encargado de verificar que los elementos editables del xml no se encuentren
+     * en blanco
      *
-     * @return r=1 si no ahi espacion en blanco y  r=0 si hay espacios en blanco
+     * @return r = 1 si no hay espacion en blanco y
+     *         r = 0 si hay espacios en blanco
      */
-    public int espaciosblancos() {
+    public int espaciosBlancos() {
         int r = 1;
         if ("".equals(txtUsuario.getText().toString())) {
             r = 0;
@@ -218,7 +271,7 @@ public class InicioSesion extends AppCompatActivity {
     }
 
     /**
-     * metodo que genera un dialogo el cual puede mostrar cualquier tipo de mensaje
+     * <b>Descripcion: </b>metodo que genera un dialogo el cual puede mostrar cualquier tipo de mensaje
      *
      * @param tit variable string que lleva en nombre del titulo del  dialogo
      * @param men variable string que lleva el mensaje que se quiere mostrar

@@ -1,7 +1,6 @@
 package co.com.udistrital.sin_nombre.view;
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +25,6 @@ import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.util.DateDialog;
-import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
@@ -46,6 +44,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             "¿Lugar de nacimiento de tu padre?",
             "¿Cancion favorita?",
             "¿Mejor amigo?"};
+
     private UsuarioVO usuarioReg = new UsuarioVO();
     private UsuarioDAO objUsuarioDao;
     private SesionDAO objSesionDao;
@@ -527,7 +526,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     public void terminar(View v) {
         try {
-            //llenarUsuario();
+            llenarUsuario();
             startService(new Intent(Registro.this, pantalla_on_off.class));
             Intent i = new Intent(this, Principal.class);
             startActivity(i);

@@ -39,25 +39,27 @@ public class SesionDAO {
      * <b>Descripcion: </b>Metodo para consultar un nombre de usuario en la BDD
      */
     public int consultaNombreU( String userName) {
+        int r = 0;
         try {
-            int r;
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT  COUNT(*) FROM ").append(dbh.TABLE_NAME_SESION).append(" WHERE ");
+            sb.append("SELECT  * FROM ").append(dbh.TABLE_NAME_SESION).append(" WHERE ");
             sb.append(dbh.SESION_USER).append(" = '").append(userName).append("'");
 
             Log.d("[Sin_nombre]", "[consultaNombreU] SQL: " + sb.toString());
 
             Cursor fila = db.rawQuery( sb.toString() , null);
-            fila.moveToFirst();
-            r=Integer.parseInt(fila.getString(0));
-            Toast.makeText(contexto,"Entro: "+r,Toast.LENGTH_SHORT).show();
-
+            if (fila.getCount() == 1) {
+                fila.moveToFirst();
+                if (fila != null) {
+                    r = fila.getInt(0);
+                }
+            }
             return r;
         }catch (Exception e){
             Toast.makeText(contexto,"Error:"+ e.toString(),Toast.LENGTH_SHORT).show();
             Log.e("[Sin_nombre]","[consultaNombreU] Error en SesionDAO:" + e.toString());
         }
-        return -1;
+        return r;
     }
 
     /**

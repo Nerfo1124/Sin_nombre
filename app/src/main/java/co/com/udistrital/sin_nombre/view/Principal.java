@@ -4,15 +4,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.util.Contador;
@@ -23,10 +17,17 @@ public class Principal extends AppCompatActivity {
 
     ProgressCircle progressCircle;
     MyTask myTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
+        // Recibiendo parametros de la Actividad InicioSesion
+        Bundle bundle = getIntent().getExtras();
+        int idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
+        Log.d("[Sin_nombre]", "Parametro recibido: " + idUsuarioSesion);
+
         Switch s=(Switch)findViewById( R.id.contador);
         progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
         progressCircle.startAnimation();
