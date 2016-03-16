@@ -1,6 +1,7 @@
 package co.com.udistrital.sin_nombre.view;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.util.DateDialog;
+import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;

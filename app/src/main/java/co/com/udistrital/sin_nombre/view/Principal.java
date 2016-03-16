@@ -9,9 +9,11 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import co.com.udistrital.sin_nombre.R;
+import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.util.Contador;
 import co.com.udistrital.sin_nombre.util.ProgressCircle;
 import co.com.udistrital.sin_nombre.util.pantalla_on_off;
+import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class Principal extends AppCompatActivity {
 
@@ -27,6 +29,11 @@ public class Principal extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         int idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
         Log.d("[Sin_nombre]", "Parametro recibido: " + idUsuarioSesion);
+
+        //
+        UsuarioDAO daoU=new UsuarioDAO(this);
+        UsuarioVO objU=daoU.consult(idUsuarioSesion);
+        getSupportActionBar().setTitle("BIENVENIDO: " + objU.getNombreUsuario());
 
         Switch s=(Switch)findViewById( R.id.contador);
         progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);

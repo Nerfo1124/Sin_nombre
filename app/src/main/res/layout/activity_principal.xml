@@ -19,7 +19,7 @@
         app:progressColor="#BBD452"
         app:incompleteProgressColor="#D4D4D4"
         app:strokeWidth="35dp"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/contador"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -56,6 +56,6 @@
         android:textColor="#42cb35"
         android:textOff="Activar contador"
         android:textOn="Desactivar contador"
-        android:textSize="25dp" />
+        android:textSize="35dp" />
 
 </RelativeLayout>
