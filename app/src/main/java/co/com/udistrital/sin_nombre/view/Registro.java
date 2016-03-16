@@ -495,8 +495,13 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     public FormulaVO llenarFormula() {
         FormulaVO datoFormula = new FormulaVO();
-        datoFormula.setaVisualOD(Float.parseFloat(iz.getText().toString()));
-        datoFormula.setaVisualOI(Float.parseFloat(de.getText().toString()));
+        if(!iz.getText().toString().trim().equals("") && !de.getText().toString().trim().equals("")) {
+            datoFormula.setaVisualOD(Float.parseFloat(iz.getText().toString()));
+            datoFormula.setaVisualOI(Float.parseFloat(de.getText().toString()));
+        } else {
+            datoFormula.setaVisualOD((float) 0.0);
+            datoFormula.setaVisualOI((float) 0.0);
+        }
         datoFormula.setTamanioFuente("" + texto.getTextSize());
         return datoFormula;
     }
@@ -524,10 +529,18 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         return datorestablecer;
     }
 
+    /**
+     * <b>Descripcion: </b> Metodo del boton Terminar, realiza la insercion de los datos de la actividad
+     * registro en la BDD y finaliza la actividad.
+     *
+     * @param v
+     */
     public void terminar(View v) {
         try {
             llenarUsuario();
+            //Log.d("[Sin_nombre]", "Se inserto satisfactoriamente el nuevo usuario.");
             this.finish();
+            //Log.d("[Sin_nombre]","Debio terminarse la Actividad");
         } catch (Exception ex) {
             Log.d("[Sin_nombre]", "Error al mostrar Perfil de Usuario", ex);
         }
