@@ -527,9 +527,6 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     public void terminar(View v) {
         try {
             llenarUsuario();
-            startService(new Intent(Registro.this, pantalla_on_off.class));
-            Intent i = new Intent(this, Principal.class);
-            startActivity(i);
             this.finish();
         } catch (Exception ex) {
             Log.d("[Sin_nombre]", "Error al mostrar Perfil de Usuario", ex);
