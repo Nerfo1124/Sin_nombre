@@ -98,8 +98,9 @@ public class  ProgressCircle extends View {
                 progressPaint);
 
         mOval.set(strokeWidth / 2, strokeWidth / 2, getWidth() - (strokeWidth / 2), getWidth() - (strokeWidth / 2));
-        canvas.drawArc(mOval, mSweepAngle * 360- startAngle + currentAngleGap, 360 - (mSweepAngle * 360) - currentAngleGap, false,
+        canvas.drawArc(mOval, mSweepAngle * 360 - startAngle + currentAngleGap, 360 - (mSweepAngle * 360) - currentAngleGap, false,
                 incompletePaint);
+
 
         drawText(canvas,textPaint, String.valueOf(Contador.tiempo/*"f"+(int) (mSweepAngle * 100)+"g"*/), percentagePaint);
 

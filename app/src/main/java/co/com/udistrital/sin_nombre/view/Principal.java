@@ -10,6 +10,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.util.Contador;
 import co.com.udistrital.sin_nombre.util.ProgressCircle;
@@ -18,7 +22,6 @@ import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 public class Principal extends AppCompatActivity {
 
     ProgressCircle progressCircle;
-    TextView t;
     MyTask myTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +35,19 @@ public class Principal extends AppCompatActivity {
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
+                if (isChecked) {
                     startService(new Intent(getApplicationContext(), pantalla_on_off.class));
-                    myTask.cent=true;
-                }
-                else {
+
+                } else {
                     stopService(new Intent(getApplicationContext(), pantalla_on_off.class));
-                    myTask.cent=false;
                 }
             }
         });
     }
 
+        private class MyTask extends AsyncTask<String, String, String> {
 
-    private class MyTask extends AsyncTask<String, String, String> {
-
-        private boolean cent;
+        public boolean cent;
 
         @Override
         protected void onPreExecute() {

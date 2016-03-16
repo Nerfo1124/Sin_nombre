@@ -1,5 +1,7 @@
 package co.com.udistrital.sin_nombre.util;
 
+import android.widget.Toast;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,7 +13,7 @@ public class  Contador extends Thread {
 
 
     boolean continua=true,siempre=true;
-    int centesimas = 00,minutos=00, segundos=00, horas=00,res=1;
+    int centesimas = 00,minutos=00, segundos=00, horas=00;
     public static String tiempo="";
     public DateFormat dateFormat=new SimpleDateFormat("HH:mm:ss");;
     public String date;
@@ -22,7 +24,7 @@ public class  Contador extends Thread {
     public void run() {
         while(siempre) {
          Calendar c=Calendar.getInstance();
-            if(c.get(Calendar.HOUR_OF_DAY)==23&&c.get(Calendar.MINUTE)==59&&c.get(Calendar.SECOND)==59) {
+            if(c.get(Calendar.HOUR_OF_DAY)==23&&c.get(Calendar.MINUTE)==59) {
                 segundos=0;
                 minutos=0;
                 horas=0;
@@ -34,11 +36,11 @@ public class  Contador extends Thread {
                             centesimas = 00;
                             segundos++;
                         }
-                        if (segundos == 59) {
+                        if (segundos == 59){
                             segundos = 00;
                             minutos++;
                         }
-                        if (minutos == 59) {
+                        if (minutos == 59){
                             minutos = 00;
                             horas++;
                         }

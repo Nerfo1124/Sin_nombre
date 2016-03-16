@@ -31,6 +31,8 @@ public class  pantalla_on_off extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        contador.continua=false;
+        guardartiempo();
         // TODO: Return the communication channel to the service.
         Toast.makeText(this, "Servicio destruído!", Toast.LENGTH_SHORT).show();
     }
