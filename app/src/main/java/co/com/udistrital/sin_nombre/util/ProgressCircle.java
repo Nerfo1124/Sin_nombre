@@ -1,6 +1,7 @@
 package co.com.udistrital.sin_nombre.util;
 
 import android.animation.ValueAnimator;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -16,7 +17,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import co.com.udistrital.sin_nombre.util.Contador;
 import co.com.udistrital.sin_nombre.R;
-
+import co.com.udistrital.sin_nombre.view.Principal;
 
 
 /**
@@ -101,12 +102,13 @@ public class  ProgressCircle extends View {
         canvas.drawArc(mOval, mSweepAngle * 360 - startAngle + currentAngleGap, 360 - (mSweepAngle * 360) - currentAngleGap, false,
                 incompletePaint);
 
-
         drawText(canvas,textPaint, String.valueOf(Contador.tiempo/*"f"+(int) (mSweepAngle * 100)+"g"*/), percentagePaint);
 
         if(icon != null)
             canvas.drawBitmap(icon, canvas.getWidth() / 2 - icon.getWidth() / 2, strokeWidth + (canvas.getHeight() / 15), null);
     }
+
+
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

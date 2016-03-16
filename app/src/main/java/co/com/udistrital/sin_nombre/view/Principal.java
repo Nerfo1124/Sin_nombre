@@ -1,12 +1,25 @@
 package co.com.udistrital.sin_nombre.view;
 
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
@@ -18,6 +31,7 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 public class Principal extends AppCompatActivity {
 
     ProgressCircle progressCircle;
+    Switch s;
     MyTask myTask;
 
     @Override
@@ -35,23 +49,122 @@ public class Principal extends AppCompatActivity {
         UsuarioVO objU=daoU.consult(idUsuarioSesion);
         getSupportActionBar().setTitle("BIENVENIDO: " + objU.getNombreUsuario());
 
-        Switch s=(Switch)findViewById( R.id.contador);
+        s=(Switch)findViewById( R.id.contador);
         progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
         progressCircle.startAnimation();
-        myTask = new MyTask();
-        myTask.execute();
+        //myTask = new MyTask();
+        //myTask.execute();
+        if(isMyServiceRunning(pantalla_on_off.class)==false) {
+            Toast.makeText(this, "El servicio esta parado", Toast.LENGTH_LONG).show();
+            s.setChecked(false);
+        }else {
+            myTask = new MyTask();
+            myTask.execute();
+            s.setChecked(true);
+        }
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     startService(new Intent(getApplicationContext(), pantalla_on_off.class));
-
+                    myTask = new MyTask();
+                    myTask.execute();
                 } else {
                     stopService(new Intent(getApplicationContext(), pantalla_on_off.class));
+                    //myTask.cent=false;
+                    myTask.onCancelled();
                 }
             }
         });
     }
+
+    public void crear(View v){
+        myTask = new MyTask();
+        myTask.execute();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_inicio, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.boton) {
+            Toast.makeText(this, "Se presionó el ícono de la *", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if (id == R.id.ejercicio) {
+            Toast.makeText(this, "Se presionó la opción ejercicio", Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+        if (id == R.id.cuenta) {
+
+        }
+        if (id == R.id.cerrar) {
+            Dialogo("¿Cerrar Sesion?","\tDesea Cerrar Sesion?",0);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Salir?")
+                    .setMessage("No hay marcha atras")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Salir
+                            //Inicio.this.finish();
+                        }
+                    })
+                    .show();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void Dialogo(String tit, final String men, final int opc) {
+        try {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(tit)
+                    .setMessage(men)
+                    .setCancelable(false)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (opc == 0) {
+                                myTask.onCancelled();
+                                Intent i = new Intent(getApplicationContext(), InicioSesion.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+                            }
+                        }
+                    }).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error Inicio - Dialogo:" + e.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
         private class MyTask extends AsyncTask<String, String, String> {
 
