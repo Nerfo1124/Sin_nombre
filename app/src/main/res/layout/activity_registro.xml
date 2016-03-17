@@ -384,7 +384,6 @@
                                         android:id="@+id/lblizq"
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
-                                        android:layout_marginStart="10dp"
                                         android:background="@android:color/holo_green_light"
                                         android:backgroundTint="@android:color/holo_blue_dark"
                                         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -395,7 +394,7 @@
                                         style="?android:attr/buttonStyleSmall"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginStart="10dp"
+
                                         android:background="@android:color/holo_green_light"
                                         android:onClick="mas"
                                         android:text="+" />
@@ -446,7 +445,6 @@
                                         android:id="@+id/lblder"
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
-                                        android:layout_marginStart="10dp"
                                         android:background="@android:color/holo_green_light"
                                         android:backgroundTint="@android:color/holo_blue_dark"
                                         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -457,7 +455,6 @@
                                         style="?android:attr/buttonStyleSmall"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginStart="10dp"
                                         android:background="@android:color/holo_green_light"
                                         android:onClick="mas2"
                                         android:text="+" />
@@ -554,7 +551,6 @@
                                             style="?android:attr/buttonStyleSmall"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginStart="15dp"
                                             android:background="@android:color/holo_green_light"
                                             android:onClick="masET"
                                             android:text="+" />
@@ -663,7 +659,6 @@
                                     android:id="@+id/lblhora"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
                                     android:text="Horas"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
                                     android:textSize="20dp" />
