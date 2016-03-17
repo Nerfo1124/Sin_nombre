@@ -2,11 +2,9 @@ package co.com.udistrital.sin_nombre.view;
 
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,9 +13,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -29,6 +25,11 @@ import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class Principal extends AppCompatActivity {
+
+    /**
+     * Variable del Usuario que mantenien la sesion
+     */
+    private UsuarioVO usuarioSesion;
 
     ProgressCircle progressCircle;
     Switch s;
@@ -46,8 +47,8 @@ public class Principal extends AppCompatActivity {
 
         //
         UsuarioDAO daoU=new UsuarioDAO(this);
-        UsuarioVO objU=daoU.consult(idUsuarioSesion);
-        getSupportActionBar().setTitle("BIENVENIDO: " + objU.getNombreUsuario());
+        usuarioSesion = daoU.consult(idUsuarioSesion);
+        getSupportActionBar().setTitle("BIENVENIDO: " + usuarioSesion.getNombreUsuario());
 
         s=(Switch)findViewById( R.id.contador);
         progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
@@ -102,7 +103,9 @@ public class Principal extends AppCompatActivity {
         }
 
         if (id == R.id.cuenta) {
-
+            Intent perfil = new Intent(this, PerfilUsuario.class);
+            perfil.putExtra("idUsuario", "" + usuarioSesion.getIdUsuario());
+            startActivity(perfil);
         }
         if (id == R.id.cerrar) {
             Dialogo("¿Cerrar Sesion?","\tDesea Cerrar Sesion?",0);

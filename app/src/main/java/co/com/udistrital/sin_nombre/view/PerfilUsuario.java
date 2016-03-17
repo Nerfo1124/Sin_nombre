@@ -21,6 +21,11 @@ public class PerfilUsuario extends AppCompatActivity {
         setContentView(R.layout.activity_perfil_usuario);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
 
+        // Recibiendo parametros de la Actividad InicioSesion
+        Bundle bundle = getIntent().getExtras();
+        int idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
+        Log.d("[Sin_nombre]", "Parametro recibido: " + idUsuarioSesion);
+
         userDao = new UsuarioDAO(this);
 
         txtNameUsuario = (EditText) findViewById(R.id.txtNombreUsuario);
@@ -31,7 +36,7 @@ public class PerfilUsuario extends AppCompatActivity {
         // TODO Mostrando Valores en la Vista de Perfil
         try {
             UsuarioVO user;
-            user = userDao.consult(1);
+            user = userDao.consult(idUsuarioSesion);
 
             txtNameUsuario.setText(user.getNombreUsuario() + " " + user.getApellido1Usuario() + " " + user.getApellido2Usuario());
             txtFechaUsuario.setText(user.getFechaNacimiento());

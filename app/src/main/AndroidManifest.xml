@@ -9,7 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".view.InicioSesion">
+        <activity
+            android:name=".view.InicioSesion"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,7 +19,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.PerfilUsuario" />
+        <activity
+            android:name=".view.PerfilUsuario"
+            android:windowSoftInputMode="stateHidden" />
 
         <receiver android:name="util.Recevier">
             <intent-filter>
@@ -33,10 +37,12 @@
 
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-        <activity android:name=".view.Registro"></activity>
+        <activity
+            android:name=".view.Registro"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".view.Principal"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>
