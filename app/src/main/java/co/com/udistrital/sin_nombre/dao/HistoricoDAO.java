@@ -29,8 +29,8 @@ public class HistoricoDAO {
             dbh = new DataBaseHelper(context);
             db = dbh.getWritableDatabase();
         } catch (Exception e) {
-            Toast.makeText(context, "[HistoricoDAO] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[HistoricoDAO] Error en HistoricoDAO: " + e.toString());
+            //Toast.makeText(context, "[HistoricoDAO] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("[Sin_nombre]", "[HistoricoDAO] Error en HistoricoDAO: " + e.toString(),e);
         }
     }
 
@@ -48,14 +48,14 @@ public class HistoricoDAO {
                 do {
                     HistoricoVO vo = new HistoricoVO();
                     vo.setId(listFormulas.getInt(0));
-                    vo.setTiempo(listFormulas.getInt(1));
+                    vo.setTiempo(listFormulas.getString(1));
                     vo.setFechaHistorico(sdf.parse(listFormulas.getString(2)));
                     listHistorico.add(vo);
                 } while (listFormulas.moveToNext());
             }
             return listHistorico;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[list] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(contexto, "[list] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e("[Sin_nombre]", "[list] Error en HistoricoDAO: " + e.toString());
             return null;
         }
@@ -81,12 +81,12 @@ public class HistoricoDAO {
             fila.moveToFirst();
             if (fila != null) {
                 objHistorico.setId(fila.getInt(0));
-                objHistorico.setTiempo(fila.getInt(1));
+                objHistorico.setTiempo(fila.getString(1));
                 objHistorico.setFechaHistorico(sdf.parse(fila.getString(2)));
             }
             return objHistorico;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e("[Sin_nombre]", "[consult] Error en HistoricoDAO - consult: " + e.toString());
             return null;
         }
@@ -112,7 +112,7 @@ public class HistoricoDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[insert] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(contexto, "[insert] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e("[Sin_nombre]", "[insert] Error en HistoricoDAO: " + e.toString());
             return false;
         }
@@ -139,7 +139,7 @@ public class HistoricoDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e("[Sin_nombre]", "[update] Error en FormulaDAO: " + e.toString());
             return false;
         }
@@ -162,7 +162,7 @@ public class HistoricoDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[delete] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(contexto, "[delete] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e("[Sin_nombre]", "[delete] Error en FormulaDAO: " + e.toString());
             return false;
         }

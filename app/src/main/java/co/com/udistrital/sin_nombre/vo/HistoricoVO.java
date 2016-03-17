@@ -8,7 +8,7 @@ import java.util.Date;
 public class HistoricoVO {
 
     private int id;
-    private int tiempo;
+    private String tiempo;
     private Date fechaHistorico;
 
     public HistoricoVO() {
@@ -22,11 +22,11 @@ public class HistoricoVO {
         this.id = id;
     }
 
-    public int getTiempo() {
+    public String getTiempo() {
         return tiempo;
     }
 
-    public void setTiempo(int tiempo) {
+    public void setTiempo(String tiempo) {
         this.tiempo = tiempo;
     }
 

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class  pantalla_on_off extends Service {
 
-    Contador contador=new Contador();
+    Contador contador=new Contador(this);
     public pantalla_on_off() {
 
     }
