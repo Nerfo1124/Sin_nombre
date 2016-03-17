@@ -52,8 +52,10 @@ public class SesionDAO {
                 fila.moveToFirst();
                 if (fila != null) {
                     r = fila.getInt(0);
+                    Log.d("[Sin_nombre]", "Codigo del usuario: " + r);
                 }
             }
+            Log.d("[Sin_nombre]", "R a retornar: " + r);
             return r;
         }catch (Exception e){
             Toast.makeText(contexto,"Error:"+ e.toString(),Toast.LENGTH_SHORT).show();

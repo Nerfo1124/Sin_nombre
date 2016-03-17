@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.Date;
+import java.util.List;
+
 import co.com.udistrital.sin_nombre.dao.FormulaDAO;
 import co.com.udistrital.sin_nombre.dao.RestablecerDAO;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
@@ -35,7 +38,8 @@ public class Pruebas extends AppCompatActivity {
         setContentView(R.layout.activity_pruebas);
 
         formula = new FormulaDAO(this);
-        restablecer = new RestablecerDAO(this);
+        usuario = new UsuarioDAO(this);
+        /*restablecer = new RestablecerDAO(this);
         sesion = new SesionDAO(this);
         sistema = new SistemaDAO(this);
         usuario = new UsuarioDAO(this);
@@ -92,17 +96,25 @@ public class Pruebas extends AppCompatActivity {
         int ultimo = formula.consultLastID();
         Log.d("[Sin_nombre]", " Ultimo registro en Formula: " + ultimo);*/
 
-        usuarioVO = usuario.consult(1);
-        Log.d("[Sin_nombre]", "Id: " + usuarioVO.getIdUsuario());
-        Log.d("[Sin_nombre]", "Nombre: " + usuarioVO.getNombreUsuario());
-        Log.d("[Sin_nombre]", "Apellido1: " + usuarioVO.getApellido1Usuario());
-        Log.d("[Sin_nombre]", "Apellido2: " + usuarioVO.getApellido2Usuario());
-        Log.d("[Sin_nombre]", "Fecha Nacimiento: " + usuarioVO.getFechaNacimiento());
-        Log.d("[Sin_nombre]", "Sexo: " + usuarioVO.getSexo());
-
-        Log.d("[Sin_nombre]", "Id Sesion: " + usuarioVO.getSesionUsuario().getIdSesion());
-        Log.d("[Sin_nombre]", "Id Formula: " + usuarioVO.getFormulaUsuario().getIdFormula());
-        Log.d("[Sin_nombre]", "Id Sistema: " + usuarioVO.getConfigUsuario().getIdSistema());
-        Log.d("[Sin_nombre]", "Id Restablecer: " + usuarioVO.getRestablecerUsuario().getIdReestablecer());
+        try {
+            List<UsuarioVO> list = usuario.list();
+            for (int i = 0; i < list.size(); i++) {
+                usuarioVO = list.get(i);
+                Log.d("[Sin_nombre]", "===================================================================================");
+                Log.d("[Sin_nombre]", "Id: " + usuarioVO.getIdUsuario());
+                Log.d("[Sin_nombre]", "Nombre: " + usuarioVO.getNombreUsuario());
+                Log.d("[Sin_nombre]", "Apellido1: " + usuarioVO.getApellido1Usuario());
+                Log.d("[Sin_nombre]", "Apellido2: " + usuarioVO.getApellido2Usuario());
+                Log.d("[Sin_nombre]", "Fecha Nacimiento: " + usuarioVO.getFechaNacimiento());
+                Log.d("[Sin_nombre]", "Sexo: " + usuarioVO.getSexo());
+                Log.d("[Sin_nombre]", "Formular " + (i + 1) + ": " + usuarioVO.getFormulaUsuario().getIdFormula());
+                Log.d("[Sin_nombre]", "Sesion " + (i + 1) + ": " + usuarioVO.getSesionUsuario().getIdSesion());
+                Log.d("[Sin_nombre]", "Sistema " + (i + 1) + ": " + usuarioVO.getConfigUsuario().getIdSistema());
+                Log.d("[Sin_nombre]", "Restablecer " + (i + 1) + ": " + usuarioVO.getRestablecerUsuario().getIdReestablecer());
+                Log.d("[Sin_nombre]", "===================================================================================");
+            }
+        } catch (Exception ex) {
+            Log.e("[Sin_nombre]", "Ocurrio un error en la consulta" + new Date(), ex);
+        }
     }
 }

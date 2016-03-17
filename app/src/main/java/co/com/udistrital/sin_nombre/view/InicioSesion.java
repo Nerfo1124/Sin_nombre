@@ -204,6 +204,7 @@ public class InicioSesion extends AppCompatActivity {
      */
     public int verificarUsuario(String user, int opc, SesionDAO sesion) {
         int r = sesion.consultaNombreU(user);
+        Log.d("[Sin_nombre]", "Valor retornado: " + r);
         if (r == 0 && opc == 1) {
             txtUsuario.setText("");
             txtUsuario.setHint("No hay un usuario registrado con este nombre");
@@ -211,9 +212,10 @@ public class InicioSesion extends AppCompatActivity {
             txtPassword.setText("");
             return 0;
         }
-        if (r == 0 && opc == 2)
+        if (r == 0 && opc == 2) {
             return 0;
-        return 1;
+        }
+        return r;
     }
 
     /**
