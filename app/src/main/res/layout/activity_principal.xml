@@ -22,9 +22,35 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center|center_vertical|center_horizontal">
+
             <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 android:id="@+id/layoutPri0"
-                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Letra Manual"
+                    android:id="@+id/letramanual"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:checked="false"
+                    android:textColor="#42cb35"
+                    android:textOff="Activar ajuste"
+                    android:textOn="Desactivar ajuste"
+                    android:textSize="35dp"
+                    android:layout_gravity="center_vertical" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutPri1"
+                android:layout_below="@+id/layoutPri0"
+                android:layout_marginTop="30dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -41,13 +67,13 @@
                     android:textOff="Activar contador"
                     android:textOn="Desactivar contador"
                     android:textSize="35dp"
-                    android:gravity="center_horizontal" />
+                    android:layout_gravity="center_vertical" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_below="@+id/layoutPri0"
-                android:id="@+id/layoutPri1"
+                android:layout_below="@+id/layoutPri1"
+                android:id="@+id/layoutPri2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -67,10 +93,11 @@
                     />
             </LinearLayout>
 
+
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_below="@+id/layoutPri1"
-                android:id="@+id/layoutPri2"
+                android:layout_below="@+id/layoutPri2"
+                android:id="@+id/layoutPri3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -98,6 +125,7 @@
                     android:onClick="crear"
                     android:layout_column="2" />
             </LinearLayout>
+
 
         </RelativeLayout>
     </ScrollView>

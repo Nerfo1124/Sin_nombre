@@ -78,7 +78,7 @@ public class  Contador extends Thread {
                 HistoricoDAO objBD= new HistoricoDAO(this.c);
                 objH.setTiempo(tiempo);
                 objH.setFechaHistorico(new Date());
-                Log.d("[Sin_nombre]", "Tiempo "+ tiempo+" fecha "+new Date());
+                Log.d("[Sin_nombre]", " Tiempo "+ tiempo+" fecha "+new Date());
                 //objBD.insert(objH);
                 segundos = 0;
                 minutos = 0;

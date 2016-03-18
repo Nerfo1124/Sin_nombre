@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,9 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -31,15 +34,21 @@ public class Principal extends AppCompatActivity {
      */
     private UsuarioVO usuarioSesion;
 
+    ArrayAdapter<CharSequence> adapter;
     ProgressCircle progressCircle;
-    Switch s;
+    Switch s1,s2,s3;
     MyTask myTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+        cargarDatosIniciales();
+        cargarSwitchLetra();
+        cargarSwitchYProgress();
+    }
 
+    public void cargarDatosIniciales(){
         // Recibiendo parametros de la Actividad InicioSesion
         Bundle bundle = getIntent().getExtras();
         int idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
@@ -49,21 +58,42 @@ public class Principal extends AppCompatActivity {
         UsuarioDAO daoU=new UsuarioDAO(this);
         usuarioSesion = daoU.consult(idUsuarioSesion);
         getSupportActionBar().setTitle("BIENVENIDO: " + usuarioSesion.getNombreUsuario());
+    }
 
-        s=(Switch)findViewById( R.id.contador);
+    public void cargarSwitchLetra(){
+       s1=(Switch)findViewById(R.id.letramanual);
+        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                try {
+                    if (isChecked) {
+                        Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 1.5);
+                        //Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 0.5);
+                    } else {
+                        Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 1);
+                    }
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "Error" + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+
+    public void cargarSwitchYProgress(){
+        s3=(Switch)findViewById( R.id.contador);
         progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
         progressCircle.startAnimation();
-        //myTask = new MyTask();
-        //myTask.execute();
         if(isMyServiceRunning(pantalla_on_off.class)==false) {
             Toast.makeText(this, "El servicio esta parado", Toast.LENGTH_LONG).show();
-            s.setChecked(false);
+            s3.setChecked(false);
         }else {
             myTask = new MyTask();
             myTask.execute();
-            s.setChecked(true);
+            s3.setChecked(true);
         }
-        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        s3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -77,11 +107,6 @@ public class Principal extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public void crear(View v){
-        myTask = new MyTask();
-        myTask.execute();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

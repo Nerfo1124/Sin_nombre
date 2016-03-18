@@ -22,4 +22,9 @@
     <string name="RE_TV_formula">¿Tiene Formula Medica?</string>
     <string name="RE_RB_yes">SI</string>
     <string name="RE_RB_no">NO</string>
+
+    <string-array name="letra">
+        <item>Tamaño de letra automatico</item>
+        <item>Tamaño de letra manual</item>
+    </string-array>
 </resources>
