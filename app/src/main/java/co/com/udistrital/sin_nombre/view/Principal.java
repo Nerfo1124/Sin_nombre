@@ -73,7 +73,7 @@ public class Principal extends AppCompatActivity {
                         Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 1);
                     }
                 }catch (Exception e){
-                    Toast.makeText(getApplicationContext(), "Error" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), " Error" + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
