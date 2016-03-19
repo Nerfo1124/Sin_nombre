@@ -6,25 +6,32 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import co.com.udistrital.sin_nombre.R;
+import co.com.udistrital.sin_nombre.dao.FormulaDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.util.Contador;
 import co.com.udistrital.sin_nombre.util.ProgressCircle;
 import co.com.udistrital.sin_nombre.util.pantalla_on_off;
+import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class Principal extends AppCompatActivity {
@@ -33,8 +40,8 @@ public class Principal extends AppCompatActivity {
      * Variable del Usuario que mantenien la sesion
      */
     private UsuarioVO usuarioSesion;
+    int idUsuarioSesion,cont=1;
 
-    ArrayAdapter<CharSequence> adapter;
     ProgressCircle progressCircle;
     Switch s1,s2,s3;
     MyTask myTask;
@@ -45,13 +52,14 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
         cargarDatosIniciales();
         cargarSwitchLetra();
+        cargarSwitchLetra2();
         cargarSwitchYProgress();
     }
 
     public void cargarDatosIniciales(){
         // Recibiendo parametros de la Actividad InicioSesion
         Bundle bundle = getIntent().getExtras();
-        int idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
+        idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
         Log.d("[Sin_nombre]", "Parametro recibido: " + idUsuarioSesion);
 
         //
@@ -61,18 +69,67 @@ public class Principal extends AppCompatActivity {
     }
 
     public void cargarSwitchLetra(){
-       s1=(Switch)findViewById(R.id.letramanual);
-        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        try {
+            s1=(Switch)findViewById(R.id.letramanual);
+            FormulaVO objF = new FormulaVO();
+            FormulaDAO objBD = new FormulaDAO(getApplicationContext());
+            objF = objBD.consult(idUsuarioSesion);
+            s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        if(cont!=0) {
+                            bloquearSwitch();
+                            s2.setChecked(false);
+                            FormulaVO objF = new FormulaVO();
+                            FormulaDAO objBD = new FormulaDAO(getApplicationContext());
+                            objF = objBD.consult(idUsuarioSesion);
+                            Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) Float.parseFloat(objF.getTamanioFuente()) / 40);
+                            toast();
+                        }else
+                            cont=1;
+                    } else {
+                        bloquearSwitch();
+                        Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 1);
+                        toast();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), " Error" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    public void cargarSwitchLetra2(){
+        FormulaVO objF = new FormulaVO();
+        FormulaDAO objBD = new FormulaDAO(getApplicationContext());
+        objF = objBD.consult(idUsuarioSesion);
+        s2=(Switch)findViewById(R.id.letraautomatica);
+        revisarletra(objF);
+        s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 try {
                     if (isChecked) {
-                        Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 1.5);
-                        //Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 0.5);
+                        if(cont!=0){
+                            bloquearSwitch();
+                            s1.setChecked(false);
+                            FormulaVO objF = new FormulaVO();
+                            FormulaDAO objBD = new FormulaDAO(getApplicationContext());
+                            objF = objBD.consult(idUsuarioSesion);
+                            Toast.makeText(getApplicationContext(), "OD: " + objF.getaVisualOD()+"OI: "+objF.getaVisualOI(), Toast.LENGTH_LONG).show();
+                            //Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) Float.parseFloat(objF.getTamanioFuente()) / 40);
+                             toast();
+                        }
+                        else
+                            cont=1;
                     } else {
+                        bloquearSwitch();
                         Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 1);
+                        toast();
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), " Error" + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
@@ -108,11 +165,51 @@ public class Principal extends AppCompatActivity {
             }
         });
     }
+
+    public void revisarletra(FormulaVO o){
+        try{
+            Float s=Settings.System.getFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE);
+            Toast.makeText(getApplicationContext(), "Letra sistema "+s+" tamaño usuario"+o.getTamanioFuente(), Toast.LENGTH_LONG).show();
+            if(s==1){
+                s1.setChecked(false);
+                s2.setChecked(false);
+            }else{
+                if(s==Float.parseFloat(o.getTamanioFuente()) / 40){
+                    cont=0;
+                    s1.setChecked(true);
+                }else{
+                    cont=0;
+                    if(false){
+                        s2.setChecked(true);
+                    }else
+                        s2.setChecked(false);
+                }
+            }
+        }catch (Exception e) {
+            Toast.makeText(getApplicationContext(), " Error" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void bloquearSwitch(){
+        s1.setEnabled(false);
+        s2.setEnabled(false);
+    }
+    public void toast(){
+        Toast toast3 = new Toast(getApplicationContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.notificacion, (ViewGroup) findViewById(R.id.lytLayout));
+        TextView txtMsg = (TextView)layout.findViewById(R.id.txtMensaje);
+        txtMsg.setText("Debe reiniciar su dispositivo para poder aplicar los cambios en el tamaño de letra");
+        toast3.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
+        toast3.setDuration(Toast.LENGTH_LONG);
+        toast3.setView(layout);
+        toast3.show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_inicio, menu);
-        return true;
-    }
+    return true;
+}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -133,7 +230,7 @@ public class Principal extends AppCompatActivity {
             startActivity(perfil);
         }
         if (id == R.id.cerrar) {
-            Dialogo("¿Cerrar Sesion?","\tDesea Cerrar Sesion?",0);
+            Dialogo("¿Cerrar Sesion?", "\tDesea Cerrar Sesion?",0);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -171,10 +268,12 @@ public class Principal extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (opc == 0) {
-                                myTask.onCancelled();
+                                if (myTask.cent)
+                                    myTask.onCancelled();
                                 Intent i = new Intent(getApplicationContext(), InicioSesion.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
+                                Principal.this.finish();
                             }
                         }
                     }).show();

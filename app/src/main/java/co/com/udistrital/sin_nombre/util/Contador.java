@@ -61,7 +61,6 @@ public class  Contador extends Thread {
                             tiempo = horas + ":" + minutos + ":" + segundos;
                         this.sleep(9);
                 }
-                this.sleep(1000);
             }
         }catch (Exception ex) {
             ex.printStackTrace();
@@ -78,8 +77,8 @@ public class  Contador extends Thread {
                 HistoricoDAO objBD= new HistoricoDAO(this.c);
                 objH.setTiempo(tiempo);
                 objH.setFechaHistorico(new Date());
+                objBD.insert(objH);
                 Log.d("[Sin_nombre]", " Tiempo "+ tiempo+" fecha "+new Date());
-                //objBD.insert(objH);
                 segundos = 0;
                 minutos = 0;
                 horas = 0;
