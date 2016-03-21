@@ -67,4 +67,8 @@ public class  pantalla_on_off extends Service {
         editor.putString("mail", contador.tiempo);
         editor.commit();
     }
+
+    public Contador getContador() {
+        return contador;
+    }
 }

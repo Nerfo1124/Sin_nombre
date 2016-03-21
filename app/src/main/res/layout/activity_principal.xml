@@ -69,33 +69,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutPri2"
-                android:layout_below="@+id/layoutPri1"
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Switch
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Medidor de uso"
-                    android:id="@+id/contador"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:checked="false"
-                    android:textColor="#42cb35"
-                    android:textOff="Activar contador"
-                    android:textOn="Desactivar contador"
-                    android:textSize="35dp"
-                    android:layout_gravity="center_vertical" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_below="@+id/layoutPri2"
                 android:id="@+id/layoutPri3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_below="@+id/layoutPri1">
 
                 <co.com.udistrital.sin_nombre.util.ProgressCircle
                     android:id="@+id/progress_circle"

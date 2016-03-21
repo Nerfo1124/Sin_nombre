@@ -42,7 +42,7 @@ public class Principal extends AppCompatActivity {
     int idUsuarioSesion,cont=1;
 
     ProgressCircle progressCircle;
-    Switch s1,s2,s3;
+    Switch s1,s2;
     MyTask myTask=null;
 
     @Override
@@ -140,31 +140,18 @@ public class Principal extends AppCompatActivity {
 
 
     public void cargarSwitchYProgress(){
-        s3=(Switch)findViewById( R.id.contador);
         progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
         progressCircle.startAnimation();
         if(isMyServiceRunning(pantalla_on_off.class)==false) {
             Toast.makeText(this, "El servicio esta parado", Toast.LENGTH_LONG).show();
-            s3.setChecked(false);
-        }else {
+            startService(new Intent(this,pantalla_on_off.class));
             myTask = new MyTask();
             myTask.execute();
-            s3.setChecked(true);
         }
-        s3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    startService(new Intent(getApplicationContext(), pantalla_on_off.class));
-                    myTask = new MyTask();
-                    myTask.execute();
-                } else {
-                    stopService(new Intent(getApplicationContext(), pantalla_on_off.class));
-                    //myTask.cent=false;
-                    myTask.onCancelled();
-                }
-            }
-        });
+        else {
+            myTask = new MyTask();
+            myTask.execute();
+        }
     }
 
     public void revisarletra(FormulaVO o){
