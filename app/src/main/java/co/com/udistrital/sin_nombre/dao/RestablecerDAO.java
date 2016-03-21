@@ -21,6 +21,8 @@ import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
  */
 public class RestablecerDAO {
 
+    private static String TAG_LOG = "[Sin_nombre]";
+
     public DataBaseHelper dbh;
     public SQLiteDatabase db;
     public Context contexto;
@@ -32,7 +34,7 @@ public class RestablecerDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[RestablecerDAO] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]","[RestablecerDAO] Error en RestablecerDAO: " + e.toString());
+            Log.e(TAG_LOG, "[RestablecerDAO] Error en RestablecerDAO: " + e.toString());
         }
     }
 
@@ -57,7 +59,7 @@ public class RestablecerDAO {
             return listaRes;
         } catch (Exception e){
             Toast.makeText(contexto, "[list] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[list] Error en RestablecerDAO: " + e.toString());
+            Log.e(TAG_LOG, "[list] Error en RestablecerDAO: " + e.toString());
             return null;
         }
     }
@@ -69,7 +71,7 @@ public class RestablecerDAO {
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_RESTABLECER);
             sb.append(" WHERE ").append(dbh.RESTABLECER_ID).append(" = ").append(idRestablecer);
 
-            Log.d("[Sin_nombre]", "[consult] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[consult] SQL: " + sb.toString());
 
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
@@ -84,7 +86,7 @@ public class RestablecerDAO {
             return objRes;
         } catch (Exception e){
             Toast.makeText(contexto, "[consult] Error en FormulaDAO - consult: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            Log.e("[Sin_nombre]", "[consult] Error en FormulaDAO - consult: " + e.toString());
+            Log.e(TAG_LOG, "[consult] Error en FormulaDAO - consult: " + e.toString());
             return null;
         }
     }
@@ -101,13 +103,13 @@ public class RestablecerDAO {
             sb.append("'" + vo.getTamanoFuente() + "'");
             sb.append(")");
 
-            Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[insert] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
             Toast.makeText(contexto, "[insert] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            Log.e("[Sin_nombre]", "[insert] Error en RestablecerDAO: " + e.toString());
+            Log.e(TAG_LOG, "[insert] Error en RestablecerDAO: " + e.toString());
             return false;
         }
     }
@@ -123,13 +125,13 @@ public class RestablecerDAO {
             sb.append(dbh.RESTABLECER_TAMANO_FUENTE).append("=").append(vo.getTamanoFuente()).append(" ");
             sb.append("WHERE ").append(dbh.RESTABLECER_ID).append("=").append(vo.getIdReestablecer());
 
-            Log.d("[Sin_nombre]", "[update] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[update] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[update] Error en FormulaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[update] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -140,13 +142,13 @@ public class RestablecerDAO {
             sb.append("DELETE FROM ").append(dbh.TABLE_NAME_RESTABLECER);
             sb.append(" WHERE ").append(dbh.RESTABLECER_ID).append(" = ").append(idRestablecer);
 
-            Log.d("[Sin_nombre]", "[delete] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[delete] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[delete] Error en RestablecerDAO: " + e.toString());
+            Log.e(TAG_LOG, "[delete] Error en RestablecerDAO: " + e.toString());
             return false;
         }
     }
@@ -162,14 +164,14 @@ public class RestablecerDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT MAX(" + dbh.RESTABLECER_ID + ") FROM " + dbh.TABLE_NAME_RESTABLECER);
 
-            Log.d("[Sin_nombre]", "[consultLastID] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[consultLastID] SQL: " + sb.toString());
 
             Cursor id = db.rawQuery(sb.toString(), null);
             if (id.moveToFirst()) {
                 response = id.getInt(0);
             }
         } catch (Exception ex) {
-            Log.e("[Sin_nombre]", "[consultLastID] Error durante la ejecucion del metodo.");
+            Log.e(TAG_LOG, "[consultLastID] Error durante la ejecucion del metodo.");
         }
         return response;
     }

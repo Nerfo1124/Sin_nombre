@@ -1,8 +1,13 @@
 package co.com.udistrital.sin_nombre;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Date;
 import java.util.List;
@@ -13,6 +18,7 @@ import co.com.udistrital.sin_nombre.dao.RestablecerDAO;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.SistemaDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
+import co.com.udistrital.sin_nombre.security.Encrypter;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.HistoricoVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
@@ -23,6 +29,9 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 public class Pruebas extends AppCompatActivity {
 
     private static final String TAG_LOG = "[Sin_nombre]";
+    Button btnComparar;
+    EditText txtClave;
+    TextView txtMensaje;
 
     private FormulaVO formulaVO;
     private ReestablecerVO restablecerVO;
@@ -42,6 +51,10 @@ public class Pruebas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pruebas);
+
+        btnComparar = (Button) findViewById(R.id.btnEncriptar);
+        txtClave = (EditText) findViewById(R.id.txtPassPrueba);
+        txtMensaje = (TextView) findViewById(R.id.txtMensajeR);
 
         formula = new FormulaDAO(this);
         usuario = new UsuarioDAO(this);
@@ -103,7 +116,13 @@ public class Pruebas extends AppCompatActivity {
         int ultimo = formula.consultLastID();
         Log.d("[Sin_nombre]", " Ultimo registro en Formula: " + ultimo);*/
 
-        try {
+        String msgEncriptar = "fernando1124";
+        String msgEncriptado = Encrypter.getStringMessageDigest(msgEncriptar, Encrypter.SHA256);
+
+        Log.d(TAG_LOG, "Mensaje Original: " + msgEncriptar);
+        Log.d(TAG_LOG, "Mensaje Encriptado: " + msgEncriptado);
+
+        /*try {
             List<HistoricoVO> historicos = historico.list();
             List<UsuarioVO> list = usuario.list();
             for (int i = 0; i < list.size(); i++) {
@@ -141,6 +160,26 @@ public class Pruebas extends AppCompatActivity {
             }
         } catch (Exception ex) {
             Log.e("[Sin_nombre]", "Ocurrio un error en la consulta" + new Date(), ex);
+        }*/
+    }
+
+    public void compararEncriptado(View v) {
+        String respuesta = null;
+        if (txtClave != null && !txtClave.getText().toString().trim().equals("")) {
+            String claveCorrecta = "fernando1124";
+            String claveIngresada = txtClave.getText().toString();
+
+            String claveOriginalEncryptada = Encrypter.getStringMessageDigest(claveCorrecta, Encrypter.SHA256);
+            if (Encrypter.getStringMessageDigest(claveIngresada, Encrypter.SHA256).equals(claveOriginalEncryptada)) {
+                respuesta = "Clave ingresada correctamente: \n" + "Clave Encriptada: " + claveOriginalEncryptada;
+                txtMensaje.setText(respuesta);
+            } else {
+                respuesta = "Clave ingresada no es correcta";
+            }
+        } else {
+            respuesta = "Ingrese un valor valido";
+            txtClave.setHint(respuesta);
+            txtClave.setHintTextColor(Color.parseColor("#51FF1218"));
         }
     }
 }

@@ -20,6 +20,8 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
  */
 public class UsuarioDAO {
 
+    private static String TAG_LOG = "[Sin_nombre]";
+
     public Context contexto;
     private DataBaseHelper dbh;
     private SQLiteDatabase db;
@@ -31,7 +33,7 @@ public class UsuarioDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[UsuarioDAO] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[UsuarioDAO] Error en UsuarioDAO: " + e.toString());
+            Log.e(TAG_LOG, "[UsuarioDAO] Error en UsuarioDAO: " + e.toString());
         }
     }
 
@@ -73,7 +75,7 @@ public class UsuarioDAO {
             return listaUsuario;
         } catch (Exception e){
             Toast.makeText(contexto, "[list] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[list] Error en UsuarioDAO: " + e.toString());
+            Log.e(TAG_LOG, "[list] Error en UsuarioDAO: " + e.toString());
             return null;
         }
     }
@@ -91,7 +93,7 @@ public class UsuarioDAO {
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_USUARIO);
             sb.append(" WHERE ").append(dbh.USUARIO_ID).append(" = ").append(idUsuario);
 
-            Log.d("[Sin_nombre]", "[consult] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[consult] SQL: " + sb.toString());
 
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
@@ -116,7 +118,7 @@ public class UsuarioDAO {
             return objUsuario;
         } catch (Exception e) {
             Toast.makeText(contexto, "[consult] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[consult] Error en UsuarioDAO: " + e.toString(), e);
+            Log.e(TAG_LOG, "[consult] Error en UsuarioDAO: " + e.toString(), e);
             return null;
         }
     }
@@ -151,7 +153,7 @@ public class UsuarioDAO {
             sb.append(")");
 
             System.out.println("[insert] SQL: " + sb.toString());
-            Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[insert] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
@@ -217,13 +219,13 @@ public class UsuarioDAO {
             sb.append("DELETE FROM ").append(dbh.TABLE_NAME_USUARIO);
             sb.append(" WHERE ").append(dbh.USUARIO_ID).append(" = ").append(idUsuario);
 
-            Log.d("[Sin_nombre]", "[delete] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[delete] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[delete] Error en UsuarioDAO: " + e.toString());
+            Log.e(TAG_LOG, "[delete] Error en UsuarioDAO: " + e.toString());
             return false;
         }
     }

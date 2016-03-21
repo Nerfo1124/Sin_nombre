@@ -23,7 +23,7 @@ public class  Recevier extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context=context;
-        p.guardartiempo();
+        p.guardarTiempo();
         if(intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
             contador.continua=true;
             Toast.makeText(context, " ENCENDIDO "+contador.tiempo, Toast.LENGTH_LONG).show();

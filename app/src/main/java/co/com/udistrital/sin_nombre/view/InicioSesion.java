@@ -32,6 +32,8 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
  */
 public class InicioSesion extends AppCompatActivity {
 
+    private static String TAG_LOG = "[Sin_nombre]";
+
     /**
      * Variables para el manejo de los componentes de aplicacion.
      */
@@ -39,7 +41,7 @@ public class InicioSesion extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("[Sin_nombre]", "Iniciando vista principal de la aplicacion.");
+        Log.d(TAG_LOG, "Iniciando vista principal de la aplicacion.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
         getSupportActionBar().setTitle("Inicio Sesion");
@@ -115,10 +117,10 @@ public class InicioSesion extends AppCompatActivity {
         btnRestablecer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("[Sin_nombre]", "Accionando boton Reestablecer");
+                Log.d(TAG_LOG, "Accionando boton Reestablecer");
                 if (txtRespuestaUno.getText().toString().trim().equals("") &&
                         txtRespuestaDos.getText().toString().trim().equals("")) {
-                    Log.d("[Sin_nombre]", "Valores vacios");
+                    Log.d(TAG_LOG, "Valores vacios");
                     txtRespuestaUno.setHint("Debe digitar una respuesta");
                     txtRespuestaUno.setHintTextColor(Color.parseColor("#51FF1218"));
                     txtRespuestaDos.setHint("Debe digitar una respuesta");
@@ -156,7 +158,7 @@ public class InicioSesion extends AppCompatActivity {
             public void onClick(View v) {
                 if (txtPassUno.getText().toString().trim().equals("") &&
                         txtPassDos.getText().toString().trim().equals("")) {
-                    Log.d("[Sin_nombre]", "Valores vacios");
+                    Log.d(TAG_LOG, "Valores vacios");
                     txtPassUno.setHint("Debe digitar una contraseña");
                     txtPassUno.setHintTextColor(Color.parseColor("#51FF1218"));
                     txtPassDos.setHint("Debe digitar una contraseña");
@@ -205,7 +207,7 @@ public class InicioSesion extends AppCompatActivity {
      */
     public int verificarUsuario(String user, int opc, SesionDAO sesion) {
         int r = sesion.consultaNombreU(user);
-        Log.d("[Sin_nombre]", "Valor retornado: " + r);
+        Log.d(TAG_LOG, "Valor retornado: " + r);
         if (r == 0 && opc == 1) {
             txtUsuario.setText("");
             txtUsuario.setHint("No hay un usuario registrado con este nombre");
@@ -231,7 +233,7 @@ public class InicioSesion extends AppCompatActivity {
         int codSesion = 0;
         if (e == 1) {
             codSesion = verificarUsuario(txtUsuario.getText().toString(), 1, sesion);
-            Log.d("[Sin_nombre]", "[iniciarSesion] Verificacion de Usuario, codigo = " + codSesion);
+            Log.d(TAG_LOG, "[iniciarSesion] Verificacion de Usuario, codigo = " + codSesion);
             if (codSesion != 0) {
                 sesionU = sesion.consult(codSesion);
             }

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,9 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +32,8 @@ import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class Principal extends AppCompatActivity {
+
+    private static String TAG_LOG = "[Sin_nombre]";
 
     /**
      * Variable del Usuario que mantenien la sesion
@@ -60,7 +59,7 @@ public class Principal extends AppCompatActivity {
         // Recibiendo parametros de la Actividad InicioSesion
         Bundle bundle = getIntent().getExtras();
         idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
-        Log.d("[Sin_nombre]", "Parametro recibido: " + idUsuarioSesion);
+        Log.d(TAG_LOG, "Parametro recibido: " + idUsuarioSesion);
 
         //
         UsuarioDAO daoU=new UsuarioDAO(this);

@@ -25,6 +25,7 @@ import java.util.Calendar;
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
+import co.com.udistrital.sin_nombre.security.Encrypter;
 import co.com.udistrital.sin_nombre.util.DateDialog;
 import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
@@ -37,6 +38,8 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
  * Created by Fernando on 06/03/2016.
  */
 public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+
+    private static String TAG_LOG = "[Sin_nombre]";
 
     /**
      * vector que almacena cada una de las preguntas separadamente
@@ -80,7 +83,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("[Sin_nombre]", "Ingresando a la vista principal de Registro.");
+        Log.d(TAG_LOG, "Ingresando a la vista principal de Registro.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
@@ -269,11 +272,11 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             if (r2 == 1) {
                 // Codigo o funcion que determina si el usuario ingresado  ya esta creado
                 String nombreUsuario = txtNombreu.getText().toString();
-                Log.d("[Sin_nombre]", "[continuar] Nombre de usuario a consultar: " + nombreUsuario);
+                Log.d(TAG_LOG, "[continuar] Nombre de usuario a consultar: " + nombreUsuario);
                 r3 = objSesionDao.consultaNombreU(nombreUsuario);
                 if (r3 == 1) {
                     txtNombreu.setText("");
-                    Log.d("[Sin_nombre]", "[continuar] Ya hay un usuario con el nombre ingresado.");
+                    Log.d(TAG_LOG, "[continuar] Ya hay un usuario con el nombre ingresado.");
                     txtNombreu.setHint("Ya hay un usuario con este nombre");
                     txtNombreu.setHintTextColor(Color.parseColor("#51FF1218"));
                 }
@@ -463,10 +466,10 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     public void llenarUsuario() {
         usuarioReg.setNombreUsuario(txtNombre.getText().toString());
-        Log.d("[Sin_nombre]", "Nombre: " + txtNombre.getText());
+        Log.d(TAG_LOG, "Nombre: " + txtNombre.getText());
         String[] apellidos = txtApellido.getText().toString().split(" ");
         usuarioReg.setApellido1Usuario(apellidos[0]);
-        Log.d("[Sin_nombre]", "[llenarUsuario] Tamaño del array: " + apellidos.length);
+        Log.d(TAG_LOG, "[llenarUsuario] Tamaño del array: " + apellidos.length);
         if (apellidos.length > 1) {
             if (apellidos[1] != null && apellidos[1] != "") {
                 usuarioReg.setApellido2Usuario(apellidos[1]);
@@ -485,13 +488,13 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
         objUsuarioDao.insert(usuarioReg);
         Toast.makeText(this, ":D :D :D :(", Toast.LENGTH_LONG).show();
-        Log.i("[Sin_nombre]", " [llenarUsuario] Usuario registrado satisfactoriamente.");
+        Log.i(TAG_LOG, " [llenarUsuario] Usuario registrado satisfactoriamente.");
     }
 
     public SesionVO llenarSesion() {
         SesionVO datoSesion = new SesionVO();
         datoSesion.setUsuario(txtNombreu.getText().toString());
-        datoSesion.setContrasena(txtPassDos.getText().toString());
+        datoSesion.setContrasena(Encrypter.getStringMessageDigest(txtPassDos.getText().toString(), Encrypter.SHA256));
         return datoSesion;
     }
 
@@ -540,11 +543,11 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     public void terminar(View v) {
         try {
             llenarUsuario();
-            //Log.d("[Sin_nombre]", "Se inserto satisfactoriamente el nuevo usuario.");
+            //Log.d(TAG_LOG, "Se inserto satisfactoriamente el nuevo usuario.");
             this.finish();
-            //Log.d("[Sin_nombre]","Debio terminarse la Actividad");
+            //Log.d(TAG_LOG,"Debio terminarse la Actividad");
         } catch (Exception ex) {
-            Log.d("[Sin_nombre]", "Error al mostrar Perfil de Usuario", ex);
+            Log.d(TAG_LOG, "Error al mostrar Perfil de Usuario", ex);
         }
     }
 }

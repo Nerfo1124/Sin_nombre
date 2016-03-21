@@ -11,6 +11,8 @@ import android.widget.Toast;
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
 
+    private static String TAG_LOG = "[Sin_nombre]";
+
     //Tabla de Formula
     public static final String TABLE_NAME_FORMULA = "FORMULA";
     public static final String FORMULA_ID = "for_id";
@@ -125,24 +127,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public DataBaseHelper(Context context) {
         super(context, DB_NAME, null, DB_SCHEMA_VERSION);
-        Log.d("[Sin_nombre]", "[DataBaseHelper] DataBase Name: " + DB_NAME + " Version: " + DB_SCHEMA_VERSION);
+        Log.d(TAG_LOG, "[DataBaseHelper] DataBase Name: " + DB_NAME + " Version: " + DB_SCHEMA_VERSION);
         contexto = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_FORMULA);
-        Log.d("[Sin_nombre]", "[DataBaseHelper] SQL: " + CREATE_TABLE_FORMULA);
+        Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_FORMULA);
         db.execSQL(CREATE_TABLE_SISTEMA);
-        Log.d("[Sin_nombre]", "[DataBaseHelper] SQL: " + CREATE_TABLE_SISTEMA);
+        Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_SISTEMA);
         db.execSQL(CREATE_TABLE_SESION);
-        Log.d("[Sin_nombre]", "[DataBaseHelper] SQL: " + CREATE_TABLE_SESION);
+        Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_SESION);
         db.execSQL(CREATE_TABLE_RESTABLECER);
-        Log.d("[Sin_nombre]", "[DataBaseHelper] SQL: " + CREATE_TABLE_RESTABLECER);
+        Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_RESTABLECER);
         db.execSQL(CREATE_TABLE_USUARIO);
-        Log.d("[Sin_nombre]", "[DataBaseHelper] SQL: " + CREATE_TABLE_USUARIO);
+        Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_USUARIO);
         db.execSQL(CREATE_TABLE_HISTORICO);
-        Log.d("[Sin_nombre]", "[DataBaseHelper] SQL: " + CREATE_TABLE_HISTORICO);
+        Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_HISTORICO);
         Toast.makeText(contexto, "CREO BASE DE DATOS", Toast.LENGTH_LONG).show();
     }
 

@@ -11,12 +11,14 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class PerfilUsuario extends AppCompatActivity {
 
+    private static String TAG_LOG = "[Sin_nombre]";
+
     private EditText txtNameUsuario, txtFechaUsuario, txtSexo, txtIdSesion;
     private UsuarioDAO userDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("[Sin_nombre]", "Ingresando a la vista principal de Perfil.");
+        Log.d(TAG_LOG, "Ingresando a la vista principal de Perfil.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_usuario);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
@@ -24,7 +26,7 @@ public class PerfilUsuario extends AppCompatActivity {
         // Recibiendo parametros de la Actividad InicioSesion
         Bundle bundle = getIntent().getExtras();
         int idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
-        Log.d("[Sin_nombre]", "Parametro recibido: " + idUsuarioSesion);
+        Log.d(TAG_LOG, "Parametro recibido: " + idUsuarioSesion);
 
         userDao = new UsuarioDAO(this);
 
@@ -41,10 +43,10 @@ public class PerfilUsuario extends AppCompatActivity {
             txtNameUsuario.setText(user.getNombreUsuario() + " " + user.getApellido1Usuario() + " " + user.getApellido2Usuario());
             txtFechaUsuario.setText(user.getFechaNacimiento());
             txtSexo.setText(user.getSexo());
-            Log.d("[Sin_nombre]", "[onCreate] Codigo usuario: " + user.getSesionUsuario().getIdSesion());
+            Log.d(TAG_LOG, "[onCreate] Codigo usuario: " + user.getSesionUsuario().getIdSesion());
             txtIdSesion.setText("" + user.getSesionUsuario().getIdSesion());
         } catch (Exception ex) {
-            Log.e("[Sin_nombre]", "[onCreate] Error en la consulta del usuario: ", ex);
+            Log.e(TAG_LOG, "[onCreate] Error en la consulta del usuario: ", ex);
         }
     }
 }

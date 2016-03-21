@@ -20,6 +20,8 @@ import co.com.udistrital.sin_nombre.vo.FormulaVO;
  */
 public class FormulaDAO {
 
+    private static String TAG_LOG = "[Sin_nombre]";
+
     public DataBaseHelper dbh;
     public SQLiteDatabase db;
     public Context contexto;
@@ -31,7 +33,7 @@ public class FormulaDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[FormulaDAO] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            Log.e("[Sin_nombre]","[FormulaDAO] Error en FormulaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[FormulaDAO] Error en FormulaDAO: " + e.toString());
         }
     }
 
@@ -57,7 +59,7 @@ public class FormulaDAO {
             return listaFormula;
         } catch (Exception e){
             Toast.makeText(contexto, "[list] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[list] Error en FormulaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[list] Error en FormulaDAO: " + e.toString());
             return null;
         }
     }
@@ -75,7 +77,7 @@ public class FormulaDAO {
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_FORMULA);
             sb.append(" WHERE for_id = ").append(idFormula);
 
-            Log.d("[Sin_nombre]","[consult] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[consult] SQL: " + sb.toString());
 
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
@@ -88,7 +90,7 @@ public class FormulaDAO {
             return objFormula;
         } catch (Exception e){
             Toast.makeText(contexto, "[consult] Error en FormulaDAO - consult: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            Log.e("[Sin_nombre]", "[consult] Error en FormulaDAO - consult: " + e.toString());
+            Log.e(TAG_LOG, "[consult] Error en FormulaDAO - consult: " + e.toString());
             return null;
         }
     }
@@ -107,13 +109,13 @@ public class FormulaDAO {
             sb.append(vo.getaVisualOD() + ",").append(vo.getaVisualOI() + ", '").append(vo.getTamanioFuente());
             sb.append("')");
 
-            Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[insert] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
             Toast.makeText(contexto, "[insert] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            Log.e("[Sin_nombre]","[insert] Error en FormulaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[insert] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -134,13 +136,13 @@ public class FormulaDAO {
             sb.append(dbh.FORMULA_TAM_FUENTE).append("='").append(vo.getTamanioFuente()).append("' ");
             sb.append("WHERE ").append(dbh.FORMULA_ID).append("=").append(vo.getIdFormula());
 
-            Log.d("[Sin_nombre]","SQL: " + sb.toString());
+            Log.d(TAG_LOG, "SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[update] Error en FormulaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[update] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -162,7 +164,7 @@ public class FormulaDAO {
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]","[delete] Error en FormulaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[delete] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -178,14 +180,14 @@ public class FormulaDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT MAX(" + dbh.FORMULA_ID + ") FROM " + dbh.TABLE_NAME_FORMULA);
 
-            Log.d("[Sin_nombre]", "[consultLastID] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[consultLastID] SQL: " + sb.toString());
 
             Cursor id = db.rawQuery(sb.toString(), null);
             if (id.moveToFirst()) {
                 response = id.getInt(0);
             }
         } catch (Exception ex) {
-            Log.e("[Sin_nombre]", "[consultLastID] Error durante la ejecucion del metodo.");
+            Log.e(TAG_LOG, "[consultLastID] Error durante la ejecucion del metodo.");
         }
         return response;
     }

@@ -15,6 +15,8 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class ModificacionDatos extends AppCompatActivity {
 
+    private static String TAG_LOG = "[Sin_nombre]";
+    
     /**
      * vector que almacena cada una de las preguntas separadamente
      */
@@ -60,12 +62,12 @@ public class ModificacionDatos extends AppCompatActivity {
         try {
             usuario = dao.consult(1);
 
-            Log.d("[Sin_nombre]", "Id: " + usuario.getIdUsuario());
-            Log.d("[Sin_nombre]", "Nombre: " + usuario.getNombreUsuario());
-            Log.d("[Sin_nombre]", "Apellido1: " + usuario.getApellido1Usuario());
-            Log.d("[Sin_nombre]", "Apellido2: " + usuario.getApellido2Usuario());
-            Log.d("[Sin_nombre]", "Fecha Nacimiento: " + usuario.getFechaNacimiento());
-            Log.d("[Sin_nombre]", "Sexo: " + usuario.getSexo());
+            Log.d(TAG_LOG, "Id: " + usuario.getIdUsuario());
+            Log.d(TAG_LOG, "Nombre: " + usuario.getNombreUsuario());
+            Log.d(TAG_LOG, "Apellido1: " + usuario.getApellido1Usuario());
+            Log.d(TAG_LOG, "Apellido2: " + usuario.getApellido2Usuario());
+            Log.d(TAG_LOG, "Fecha Nacimiento: " + usuario.getFechaNacimiento());
+            Log.d(TAG_LOG, "Sexo: " + usuario.getSexo());
 
             txtIdUsuario.setText("" + usuario.getIdUsuario());
             txtNombreCompleto.setText("" + usuario.getNombreUsuario());
@@ -78,17 +80,17 @@ public class ModificacionDatos extends AppCompatActivity {
             txtPassUno.setText("" + sesion.getContrasena());
             txtPassDos.setText("" + sesion.getContrasena());
         } catch (Exception e) {
-            Log.e("[Sin_nombre]", "Error en la ejecucion de la Actividad: ", e);
+            Log.e(TAG_LOG, "Error en la ejecucion de la Actividad: ", e);
         }
     }
 
     public void modificarDatos(View v) {
         dao = new UsuarioDAO(this);
-        Log.d("[Sin_nombre]", "Id: " + txtIdUsuario.getText().toString());
-        Log.d("[Sin_nombre]", "Id: " + txtNombreCompleto.getText().toString());
-        Log.d("[Sin_nombre]", "Id: " + txtApellidoCompleto.getText().toString());
-        Log.d("[Sin_nombre]", "Id: " + txtFechaNacimiento.getText().toString());
-        Log.d("[Sin_nombre]", "Id: " + txtSexoM.getText().toString());
+        Log.d(TAG_LOG, "Id: " + txtIdUsuario.getText().toString());
+        Log.d(TAG_LOG, "Id: " + txtNombreCompleto.getText().toString());
+        Log.d(TAG_LOG, "Id: " + txtApellidoCompleto.getText().toString());
+        Log.d(TAG_LOG, "Id: " + txtFechaNacimiento.getText().toString());
+        Log.d(TAG_LOG, "Id: " + txtSexoM.getText().toString());
 
         usuario.setIdUsuario(Integer.parseInt(txtIdUsuario.getText().toString()));
         usuario.setNombreUsuario(txtNombreCompleto.getText().toString());

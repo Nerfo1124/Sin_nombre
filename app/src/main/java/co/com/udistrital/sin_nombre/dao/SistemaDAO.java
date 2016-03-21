@@ -20,6 +20,8 @@ import co.com.udistrital.sin_nombre.vo.SistemaVO;
  */
 public class SistemaDAO {
 
+    private static String TAG_LOG = "[Sin_nombre]";
+
     public DataBaseHelper dbh;
     public SQLiteDatabase db;
     public Context contexto;
@@ -31,7 +33,7 @@ public class SistemaDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e){
             Toast.makeText(context, "[SistemaDAO] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[SistemaDAO] Error en SistemaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[SistemaDAO] Error en SistemaDAO: " + e.toString());
         }
     }
 
@@ -45,7 +47,7 @@ public class SistemaDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SISTEMA);
 
-            Log.d("[Sin_nombre]","[list] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[list] SQL: " + sb.toString());
 
             Cursor listSistemas = db.rawQuery(sb.toString(), null);
             if(listSistemas.moveToFirst()){
@@ -60,7 +62,7 @@ public class SistemaDAO {
             return listaSistema;
         } catch (Exception e){
             Toast.makeText(contexto, "[list] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[list] Error en SesionDAO: " + e.toString());
+            Log.e(TAG_LOG, "[list] Error en SesionDAO: " + e.toString());
             return null;
         }
     }
@@ -78,7 +80,7 @@ public class SistemaDAO {
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_SISTEMA);
             sb.append(" WHERE ").append(dbh.SISTEMA_ID).append(" = ").append(idSistema);
 
-            Log.d("[Sin_nombre]", "[consult] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[consult] SQL: " + sb.toString());
 
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
@@ -90,7 +92,7 @@ public class SistemaDAO {
             return objSistema;
         } catch (Exception e){
             Toast.makeText(contexto, "[consult] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            Log.e("[Sin_nombre]", "[consult] Error en SistemaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[consult] Error en SistemaDAO: " + e.toString());
             return null;
         }
     }
@@ -109,13 +111,13 @@ public class SistemaDAO {
             sb.append(vo.getTamanoFuente() + ",").append(vo.getFrecuencia());
             sb.append(")");
 
-            Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[insert] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
             Toast.makeText(contexto, "[insert] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
-            Log.e("[Sin_nombre]", "[insert] Error en SistemaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[insert] Error en SistemaDAO: " + e.toString());
             return false;
         }
     }
@@ -134,13 +136,13 @@ public class SistemaDAO {
             sb.append(dbh.SISTEMA_FRECUENCIA).append("=").append(vo.getFrecuencia()).append(" ");
             sb.append("WHERE ").append(dbh.SISTEMA_ID).append("=").append(vo.getIdSistema());
 
-            Log.d("[Sin_nombre]", "[update] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[update] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[update] Error en SistemanDAO " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[update] Error en SistemanDAO " + e.toString());
+            Log.e(TAG_LOG, "[update] Error en SistemanDAO " + e.toString());
             return false;
         }
     }
@@ -157,12 +159,12 @@ public class SistemaDAO {
             sb.append("DELETE FROM ").append(dbh.TABLE_NAME_SISTEMA);
             sb.append(" WHERE ").append(dbh.SISTEMA_ID).append(" = ").append(idSistema);
 
-            Log.d("[Sin_nombre]","[delete] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[delete] SQL: " + sb.toString());
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             Toast.makeText(contexto, "[delete] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]","[delete] Error en SistemaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[delete] Error en SistemaDAO: " + e.toString());
             return false;
         }
     }
@@ -178,14 +180,14 @@ public class SistemaDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT MAX(" + dbh.SISTEMA_ID + ") FROM " + dbh.TABLE_NAME_SISTEMA);
 
-            Log.d("[Sin_nombre]", "[consultLastID] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[consultLastID] SQL: " + sb.toString());
 
             Cursor id = db.rawQuery(sb.toString(), null);
             if (id.moveToFirst()) {
                 response = id.getInt(0);
             }
         } catch (Exception ex) {
-            Log.e("[Sin_nombre]", "[consultLastID] Error durante la ejecucion del metodo.");
+            Log.e(TAG_LOG, "[consultLastID] Error durante la ejecucion del metodo.");
         }
         return response;
     }

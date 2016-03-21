@@ -19,6 +19,8 @@ import co.com.udistrital.sin_nombre.vo.HistoricoVO;
  */
 public class HistoricoDAO {
 
+    private static String TAG_LOG = "[Sin_nombre]";
+
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
     public DataBaseHelper dbh;
     public SQLiteDatabase db;
@@ -31,7 +33,7 @@ public class HistoricoDAO {
             db = dbh.getWritableDatabase();
         } catch (Exception e) {
             //Toast.makeText(context, "[HistoricoDAO] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[HistoricoDAO] Error en HistoricoDAO: " + e.toString(),e);
+            Log.e(TAG_LOG, "[HistoricoDAO] Error en HistoricoDAO: " + e.toString(), e);
         }
     }
 
@@ -58,7 +60,7 @@ public class HistoricoDAO {
             return listHistorico;
         } catch (Exception e) {
             //Toast.makeText(contexto, "[list] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[list] Error en HistoricoDAO: " + e.toString(), e);
+            Log.e(TAG_LOG, "[list] Error en HistoricoDAO: " + e.toString(), e);
             return null;
         }
     }
@@ -77,7 +79,7 @@ public class HistoricoDAO {
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_HISTORICO);
             sb.append(" WHERE for_id = ").append(idFormula);
 
-            Log.d("[Sin_nombre]", "[consult] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[consult] SQL: " + sb.toString());
 
             Cursor fila = db.rawQuery(sb.toString(), null);
             fila.moveToFirst();
@@ -89,7 +91,7 @@ public class HistoricoDAO {
             return objHistorico;
         } catch (Exception e) {
             //Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[consult] Error en HistoricoDAO - consult: " + e.toString(), e);
+            Log.e(TAG_LOG, "[consult] Error en HistoricoDAO - consult: " + e.toString(), e);
             return null;
         }
     }
@@ -109,13 +111,13 @@ public class HistoricoDAO {
             sb.append(vo.getTiempo() + "','").append(sdf.format(vo.getFechaHistorico()));
             sb.append("')");
 
-            Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[insert] SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             //Toast.makeText(contexto, "[insert] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[insert] Error en HistoricoDAO: " + e.toString());
+            Log.e(TAG_LOG, "[insert] Error en HistoricoDAO: " + e.toString());
             return false;
         }
     }
@@ -136,13 +138,13 @@ public class HistoricoDAO {
             sb.append(dbh.HISTORICO_FECHA).append("='").append(vo.getFechaHistorico()).append("' ");
             sb.append("WHERE ").append(dbh.HISTORICO_ID).append("=").append(vo.getId());
 
-            Log.d("[Sin_nombre]", "SQL: " + sb.toString());
+            Log.d(TAG_LOG, "SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
             //Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[update] Error en FormulaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[update] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -165,7 +167,7 @@ public class HistoricoDAO {
             return true;
         } catch (Exception e) {
             //Toast.makeText(contexto, "[delete] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[delete] Error en FormulaDAO: " + e.toString());
+            Log.e(TAG_LOG, "[delete] Error en FormulaDAO: " + e.toString());
             return false;
         }
     }
@@ -181,14 +183,14 @@ public class HistoricoDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT MAX(" + dbh.FORMULA_ID + ") FROM " + dbh.TABLE_NAME_FORMULA);
 
-            Log.d("[Sin_nombre]", "[consultLastID] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[consultLastID] SQL: " + sb.toString());
 
             Cursor id = db.rawQuery(sb.toString(), null);
             if (id.moveToFirst()) {
                 response = id.getInt(0);
             }
         } catch (Exception ex) {
-            Log.e("[Sin_nombre]", "[consultLastID] Error durante la ejecucion del metodo.");
+            Log.e(TAG_LOG, "[consultLastID] Error durante la ejecucion del metodo.");
         }
         return response;
     }

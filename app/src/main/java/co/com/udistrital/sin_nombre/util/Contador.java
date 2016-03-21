@@ -17,6 +17,7 @@ import co.com.udistrital.sin_nombre.vo.HistoricoVO;
  */
 public class  Contador extends Thread {
 
+    private static String TAG_LOG = "[Sin_nombre]";
 
     boolean continua=true,siempre=true;
     int centesimas = 00,minutos=00, segundos=00, horas=00,band=0;
@@ -77,13 +78,13 @@ public class  Contador extends Thread {
                 objH.setTiempo(tiempo);
                 objH.setFechaHistorico(new Date());
                 objBD.insert(objH);
-                Log.d("[Sin_nombre]", " Tiempo "+ tiempo+" fecha "+new Date());
+                Log.d(TAG_LOG, " Tiempo " + tiempo + " fecha " + new Date());
                 segundos = 0;
                 minutos = 0;
                 horas = 0;
                 return true;
             }catch(Exception ex) {
-                Log.e("[Sin_nombre]", "Error en Reinciar Contador", ex);
+                Log.e(TAG_LOG, "Error en Reinciar Contador", ex);
             }
         }
         return false;
