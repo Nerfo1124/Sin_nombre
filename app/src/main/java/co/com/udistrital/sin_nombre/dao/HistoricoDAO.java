@@ -51,8 +51,9 @@ public class HistoricoDAO {
                 do {
                     HistoricoVO vo = new HistoricoVO();
                     vo.setId(listFormulas.getInt(0));
-                    vo.setTiempo(listFormulas.getString(1));
-                    Date fechaDate = sdf.parse(listFormulas.getString(2));
+                    vo.setIdUsuario(listFormulas.getInt(1));
+                    vo.setTiempo(listFormulas.getString(2));
+                    Date fechaDate = sdf.parse(listFormulas.getString(3));
                     vo.setFechaHistorico(fechaDate);
                     listHistorico.add(vo);
                 } while (listFormulas.moveToNext());
@@ -85,8 +86,9 @@ public class HistoricoDAO {
             fila.moveToFirst();
             if (fila != null) {
                 objHistorico.setId(fila.getInt(0));
-                objHistorico.setTiempo(fila.getString(1));
-                objHistorico.setFechaHistorico(sdf.parse(fila.getString(2)));
+                objHistorico.setIdUsuario(fila.getInt(1));
+                objHistorico.setTiempo(fila.getString(2));
+                objHistorico.setFechaHistorico(sdf.parse(fila.getString(3)));
             }
             return objHistorico;
         } catch (Exception e) {
