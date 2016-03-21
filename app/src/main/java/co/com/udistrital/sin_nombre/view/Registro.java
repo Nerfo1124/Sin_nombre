@@ -63,9 +63,10 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      */
     private RelativeLayout layoutAnimadoUno, layoutAnimadoDos;
     /**
-     * Elemento que permite almacenar en forma de lista preguntas
+     * Elementos que permite almacenar en forma de lista preguntas
      */
-    private Spinner selector;
+    private Spinner spPreguntasUno;
+    private Spinner spPreguntasDos;
     /**
      * Elemento que permite generar las pestañas
      */
@@ -73,7 +74,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     /**
      * Elementos que hacen referencia a los datos necesarios del usuario
      */
-    private EditText txtFecha, txtNombreu, txtPassUno, txtPassDos, txtNombre, txtApellido, txtRespuesta;
+    private EditText txtFecha, txtNombreu, txtPassUno, txtPassDos, txtNombre, txtApellido, txtRespuestaUno, txtRespuestaDos;
     private SeekBar barra, barra2;//elementos que permite seleccionar la formula(numero) de cada ojo
     private TextView iz, de;//elementos que llevaran el valor de formula del ojo izquierdo y  del ojo derecho
     private EditText texto;
@@ -90,9 +91,9 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         objUsuarioDao = new UsuarioDAO(this);
         objSesionDao = new SesionDAO(this);
         pestanias();
-        referenciasuno();
-        referenciasdos();
-        referenciastres();
+        referenciaUno();
+        referenciaDos();
+        referenciaTres();
         abrir();
     }
 
@@ -115,9 +116,9 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      * este metodo se encarga de referenciar los elementos creados globalmente con los elementos que hay en el XML en la primera pestaña
      * esto con el fin de poder hacer cambios en dichos elementos
      */
-    public void referenciasuno() {
-        layoutAnimadoUno = (RelativeLayout) findViewById(R.id.dinamico1);
-        layoutAnimadoDos = (RelativeLayout) findViewById(R.id.dinamico2);
+    public void referenciaUno() {
+        layoutAnimadoUno = (RelativeLayout) findViewById(R.id.dinamicoUno);
+        layoutAnimadoDos = (RelativeLayout) findViewById(R.id.dinamicoDos);
         grupoSexo = (RadioGroup) findViewById(R.id.radiogrupoR1);
         grupoFamilia = (RadioGroup) findViewById(R.id.radiogrupo2R1);
         txtFecha = (EditText) findViewById(R.id.txtFechaR1);
@@ -126,19 +127,22 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         txtPassDos = (EditText) findViewById(R.id.txtPasswordDosR1);
         txtNombre = (EditText) findViewById(R.id.txtNombreR1);
         txtApellido = (EditText) findViewById(R.id.txtApellidoR1);
-        selector = (Spinner) findViewById(R.id.selectorR1);
-        txtRespuesta = (EditText) findViewById(R.id.txtRespuestaR1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opciones);
+        spPreguntasUno = (Spinner) findViewById(R.id.selectorUnoR1);
+        spPreguntasDos = (Spinner) findViewById(R.id.selectorDosR1);
+        txtRespuestaUno = (EditText) findViewById(R.id.txtRespuestaUnoR1);
+        txtRespuestaDos = (EditText) findViewById(R.id.txtRespuestaDosR1);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opciones);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opciones);
         //se agrega el  vector string a un vector adpatador  con el fin de que este se pueda ajustar al sppiner.
-        selector.setAdapter(adapter);
-
+        spPreguntasUno.setAdapter(adapter1);
+        spPreguntasDos.setAdapter(adapter2);
     }
 
     /**
      * este metodo se encarga de referenciar los elementos creados globalmente con los elementos que hay en el XML en la segunda pestaña
      * esto con el fin de poder hacer cambios en dichos elementos
      */
-    public void referenciasdos() {
+    public void referenciaDos() {
         seekBar = (SeekBar) findViewById(R.id.sbBarra);
         texto = (EditText) findViewById(R.id.txtTexto);
         seekBar.setProgress((int) texto.getTextSize());
@@ -170,7 +174,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         });
     }
 
-    public void referenciastres() {
+    public void referenciaTres() {
         fre = (NumberPicker) findViewById(R.id.numero);
         fre.setMaxValue(24);
         fre.setMinValue(1);
@@ -352,11 +356,17 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             txtPassDos.setHint("Debe ingresar la contraseña");
             txtPassDos.setHintTextColor(Color.parseColor("#51FF1218"));
         }
-        if ("".equals(txtRespuesta.getText().toString()) || 0 == espacios(txtRespuesta.getText().toString())) {
+        if ("".equals(txtRespuestaUno.getText().toString()) || 0 == espacios(txtRespuestaUno.getText().toString())) {
             r = 0;
-            txtRespuesta.setText("");
-            txtRespuesta.setHint("Debe ingresar una respuesta acorde");
-            txtRespuesta.setHintTextColor(Color.parseColor("#51FF1218"));
+            txtRespuestaUno.setText("");
+            txtRespuestaUno.setHint("Debe ingresar una respuesta acorde");
+            txtRespuestaUno.setHintTextColor(Color.parseColor("#51FF1218"));
+        }
+        if ("".equals(txtRespuestaDos.getText().toString()) || 0 == espacios(txtRespuestaDos.getText().toString())) {
+            r = 0;
+            txtRespuestaDos.setText("");
+            txtRespuestaDos.setHint("Debe ingresar una respuesta acorde");
+            txtRespuestaDos.setHintTextColor(Color.parseColor("#51FF1218"));
         }
         return r;
     }
@@ -526,10 +536,10 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      */
     public ReestablecerVO llenarCuenta() {
         ReestablecerVO datorestablecer = new ReestablecerVO();
-        datorestablecer.setPregunta1(selector.getSelectedItem().toString());
-        datorestablecer.setRespuesta1(txtRespuesta.getText().toString());
-        datorestablecer.setPregunta2(selector.getSelectedItem().toString());
-        datorestablecer.setRespuesta2(txtRespuesta.getText().toString());
+        datorestablecer.setPregunta1(spPreguntasUno.getSelectedItem().toString());
+        datorestablecer.setRespuesta1(txtRespuestaUno.getText().toString());
+        datorestablecer.setPregunta2(spPreguntasDos.getSelectedItem().toString());
+        datorestablecer.setRespuesta2(txtRespuestaDos.getText().toString());
         datorestablecer.setTamanoFuente(tamanioSistema);
         return datorestablecer;
     }

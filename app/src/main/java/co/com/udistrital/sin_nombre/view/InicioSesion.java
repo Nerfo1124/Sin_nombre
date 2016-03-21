@@ -22,6 +22,7 @@ import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.RestablecerDAO;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
+import co.com.udistrital.sin_nombre.security.Encrypter;
 import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
@@ -239,7 +240,8 @@ public class InicioSesion extends AppCompatActivity {
             }
         }
         if (e == 1 && codSesion != 0) {
-            if (sesionU.getContrasena().equals(txtPassword.getText().toString())) {
+            String clave = Encrypter.getStringMessageDigest(txtPassword.getText().toString(), Encrypter.SHA256);
+            if (sesionU.getContrasena().equals(clave)) {
                 Intent intento = new Intent(this, Principal.class);
                 intento.putExtra("idUsuario", "" + sesionU.getIdSesion());
                 startActivity(intento);

@@ -45,7 +45,7 @@ public class HistoricoDAO {
     public List<HistoricoVO> list() {
         try {
             List<HistoricoVO> listHistorico = new ArrayList<HistoricoVO>();
-            String columns[] = {dbh.HISTORICO_ID, dbh.HISTORICO_TIEMPO, dbh.HISTORICO_FECHA};
+            String columns[] = {dbh.HISTORICO_ID, dbh.HISTORICO_ID_USUARIO, dbh.HISTORICO_TIEMPO, dbh.HISTORICO_FECHA};
             Cursor listFormulas = db.query(dbh.TABLE_NAME_HISTORICO, columns, null, null, null, null, null);
             if (listFormulas.moveToFirst()) {
                 do {
@@ -106,9 +106,9 @@ public class HistoricoDAO {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO ").append(dbh.TABLE_NAME_HISTORICO).append("(");
-            sb.append(dbh.HISTORICO_TIEMPO + " , ").append(dbh.HISTORICO_FECHA).append(")");
-            sb.append(" VALUES ('");
-            sb.append(vo.getTiempo() + "','").append(sdf.format(vo.getFechaHistorico()));
+            sb.append(dbh.HISTORICO_ID_USUARIO + " , ").append(dbh.HISTORICO_TIEMPO + " , ").append(dbh.HISTORICO_FECHA).append(")");
+            sb.append(" VALUES (");
+            sb.append(vo.getIdUsuario() + ",'").append(vo.getTiempo() + "','").append(sdf.format(vo.getFechaHistorico()));
             sb.append("')");
 
             Log.d(TAG_LOG, "[insert] SQL: " + sb.toString());
@@ -134,6 +134,7 @@ public class HistoricoDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("UPDATE ").append(dbh.TABLE_NAME_HISTORICO).append(" SET ");
             sb.append(dbh.HISTORICO_ID).append("=").append(vo.getId()).append(",");
+            sb.append(dbh.HISTORICO_ID_USUARIO).append("=").append(vo.getIdUsuario()).append(",");
             sb.append(dbh.HISTORICO_TIEMPO).append("='").append(vo.getTiempo()).append("',");
             sb.append(dbh.HISTORICO_FECHA).append("='").append(vo.getFechaHistorico()).append("' ");
             sb.append("WHERE ").append(dbh.HISTORICO_ID).append("=").append(vo.getId());

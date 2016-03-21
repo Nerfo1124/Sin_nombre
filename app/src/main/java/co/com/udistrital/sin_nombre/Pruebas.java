@@ -122,7 +122,7 @@ public class Pruebas extends AppCompatActivity {
         Log.d(TAG_LOG, "Mensaje Original: " + msgEncriptar);
         Log.d(TAG_LOG, "Mensaje Encriptado: " + msgEncriptado);
 
-        /*try {
+        try {
             List<HistoricoVO> historicos = historico.list();
             List<UsuarioVO> list = usuario.list();
             for (int i = 0; i < list.size(); i++) {
@@ -150,17 +150,17 @@ public class Pruebas extends AppCompatActivity {
                 Log.d(TAG_LOG, "Restablecer " + (i + 1) + ": " + usuarioVO.getRestablecerUsuario().getTamanoFuente());
                 Log.d(TAG_LOG, "===================================================================================");
             }
-            for (int j = 0; j < historicos.size(); j++) {
+            /*for (int j = 0; j < historicos.size(); j++) {
                 historicoVO = historicos.get(j);
                 Log.d(TAG_LOG, "===================================================================================");
                 Log.d(TAG_LOG, "Historio " + (j + 1) + ": " + historicoVO.getId());
                 Log.d(TAG_LOG, "Historio " + (j + 1) + ": " + historicoVO.getTiempo());
                 Log.d(TAG_LOG, "Historio " + (j + 1) + ": " + historicoVO.getFechaHistorico());
                 Log.d(TAG_LOG, "===================================================================================");
-            }
+            }*/
         } catch (Exception ex) {
             Log.e("[Sin_nombre]", "Ocurrio un error en la consulta" + new Date(), ex);
-        }*/
+        }
     }
 
     public void compararEncriptado(View v) {

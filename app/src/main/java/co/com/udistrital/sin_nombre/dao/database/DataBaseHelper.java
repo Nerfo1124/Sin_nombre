@@ -13,6 +13,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     private static String TAG_LOG = "[Sin_nombre]";
 
+    // ========================================================
     //Tabla de Formula
     public static final String TABLE_NAME_FORMULA = "FORMULA";
     public static final String FORMULA_ID = "for_id";
@@ -26,10 +27,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     + FORMULA_OJO_IZQ + " integer not null, "
                     + FORMULA_TAM_FUENTE + " text not null "
                     + " ) ";
-    // Tabla de Sesion
-    public static final String TABLE_NAME_SESION = "SESION";
 
-    // Metodos para generar la BDD
+    // ========================================================
+    // Tabla de Sesion
+
+    public static final String TABLE_NAME_SESION = "SESION";
     public static final String SESION_ID = "ses_id";
     public static final String SESION_USER = "ses_user";
     public static final String SESION_PASS = "ses_pass";
@@ -39,10 +41,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     + SESION_USER + " text not null, "
                     + SESION_PASS + " text not null "
             + " ) ";
-    // Tabla de Sistema
-    public static final String TABLE_NAME_SISTEMA = "SISTEMA";
 
     // ========================================================
+    // Tabla de Sistema
+    public static final String TABLE_NAME_SISTEMA = "SISTEMA";
     public static final String SISTEMA_ID = "sis_id";
     public static final String SISTEMA_TAM_FUENTE = "sis_tam_fuente";
     public static final String SISTEMA_FRECUENCIA = "sis_frecuencia";
@@ -53,17 +55,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     + SISTEMA_FRECUENCIA + " integer not null "
             + " ) ";
 
+    // ========================================================
     // Tabla de Restablecer
     public static final String TABLE_NAME_RESTABLECER = "RESTABLECER";
-
-    // ========================================================
     public static final String RESTABLECER_ID = "res_id";
     public static final String RESTABLECER_QUEST1 = "res_pregunta1";
     public static final String RESTABLECER_ANSW1 = "res_respuesta1";
     public static final String RESTABLECER_QUEST2 = "res_pregunta2";
     public static final String RESTABLECER_ANSW2 = "res_respuesta2";
-
-    // ========================================================
     public static final String RESTABLECER_TAMANO_FUENTE = "res_tam_fuente_sistema";
     public static final String CREATE_TABLE_RESTABLECER =
             "CREATE TABLE " + TABLE_NAME_RESTABLECER + " ( "
@@ -74,6 +73,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + RESTABLECER_ANSW2 + " text, "
             + RESTABLECER_TAMANO_FUENTE+ " text ) ";
 
+    // ========================================================
     // Tabla de Usuarios
     public static final String TABLE_NAME_USUARIO = "USUARIO";
     public static final String USUARIO_ID = "usu_id";
@@ -81,8 +81,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String USUARIO_APELLIDO1 = "usu_apellido1";
     public static final String USUARIO_APELLIDO2 = "usu_apellido2";
     public static final String USUARIO_NACIMIENTO = "usu_fecha_nacimiento";
-
-    // ========================================================
     public static final String USUARIO_SEXO = "usu_sexo";
     public static final String USUARIO_SESION = "Sesion_id";
     public static final String USUARIO_FORMULA = "Formula_id";
@@ -106,22 +104,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     + "foreign key(" + USUARIO_REESTABLECER + ") references RESTABLECER(" + RESTABLECER_ID + ")"
                     + " ) ";
 
+    // ========================================================
     // Tabla de Historico Uso de Dispositivo
     public static final String TABLE_NAME_HISTORICO = "HISTORICO_USO_DISPOSITIVO";
     public static final String HISTORICO_ID = "his_id";
+    public static final String HISTORICO_ID_USUARIO = "his_id_user";
     public static final String HISTORICO_TIEMPO = "his_tiempo_uso";
     public static final String HISTORICO_FECHA = "his_fecha_registro";
-
-    // ========================================================
     public static final String CREATE_TABLE_HISTORICO =
             "CREATE TABLE " + TABLE_NAME_HISTORICO + "("
                     + HISTORICO_ID + " integer primary key autoincrement not null, "
+                    + HISTORICO_ID_USUARIO + " integer not null, "
                     + HISTORICO_TIEMPO + " text not null, "
                     + HISTORICO_FECHA + " text not null "
                     + " ) ";
-    private static final String DB_NAME = "presbicia.sqlite";
 
     // ========================================================
+    private static final String DB_NAME = "presbicia.sqlite";
     private static final int DB_SCHEMA_VERSION = 1;
     Context contexto;
 
@@ -152,6 +151,4 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Pendiente por validar con Rolando.
     }
-
-    // ========================================================
 }
