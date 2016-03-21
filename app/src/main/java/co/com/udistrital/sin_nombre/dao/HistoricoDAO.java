@@ -77,7 +77,7 @@ public class HistoricoDAO {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_HISTORICO);
-            sb.append(" WHERE for_id = ").append(idFormula);
+            sb.append(" WHERE his_id = ").append(idFormula);
 
             Log.d(TAG_LOG, "[consult] SQL: " + sb.toString());
 

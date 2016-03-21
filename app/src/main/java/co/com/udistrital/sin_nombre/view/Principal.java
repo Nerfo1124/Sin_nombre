@@ -43,7 +43,7 @@ public class Principal extends AppCompatActivity {
 
     ProgressCircle progressCircle;
     Switch s1,s2,s3;
-    MyTask myTask;
+    MyTask myTask=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +77,7 @@ public class Principal extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
+                        Toast.makeText(getApplicationContext(),"contador: "+cont,Toast.LENGTH_LONG).show();
                         if(cont!=0) {
                             bloquearSwitch();
                             s2.setChecked(false);
@@ -168,7 +169,7 @@ public class Principal extends AppCompatActivity {
     public void revisarletra(FormulaVO o){
         try{
             Float s=Settings.System.getFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE);
-            Toast.makeText(getApplicationContext(), "Letra sistema "+s+" tamaño usuario"+o.getTamanioFuente(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Letra sistema "+s+" tamaño usuario "+o.getTamanioFuente(), Toast.LENGTH_LONG).show();
             if(s==1){
                 s1.setChecked(false);
                 s2.setChecked(false);
@@ -185,7 +186,7 @@ public class Principal extends AppCompatActivity {
                 }
             }
         }catch (Exception e) {
-            Toast.makeText(getApplicationContext(), " Error" + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), " Error " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -267,7 +268,7 @@ public class Principal extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (opc == 0) {
-                                if (myTask.cent)
+                                 if (myTask!=null)
                                     myTask.onCancelled();
                                 Intent i = new Intent(getApplicationContext(), InicioSesion.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -291,6 +292,17 @@ public class Principal extends AppCompatActivity {
         return false;
     }
 
+    public void seg(View v){
+        try{
+            Toast.makeText(this, "Hola :D", Toast.LENGTH_SHORT).show();
+            Intent seg = new Intent(this, Seguimiento.class);
+            seg.putExtra("idUsuario", "" + usuarioSesion.getIdUsuario());
+            startActivity(seg);
+        }catch (Exception e){
+            Toast.makeText(this, "Error Inicio - Dialogo:" + e.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
         private class MyTask extends AsyncTask<String, String, String> {
 
@@ -309,7 +321,7 @@ public class Principal extends AppCompatActivity {
                     if (Contador.tiempo.toString() != "") {
                         String v[] = Contador.tiempo.split(":");
                         int minutos = (Integer.parseInt(v[0]) * 60) + (Integer.parseInt(v[1]));
-                        float min = (float) minutos / 720;
+                        float min = (float) minutos / 480;
                         publishProgress("" + min);
                     } else {
                         publishProgress("" + 0);
