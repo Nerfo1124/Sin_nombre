@@ -8,11 +8,13 @@ import java.util.Date;
 import java.util.List;
 
 import co.com.udistrital.sin_nombre.dao.FormulaDAO;
+import co.com.udistrital.sin_nombre.dao.HistoricoDAO;
 import co.com.udistrital.sin_nombre.dao.RestablecerDAO;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.SistemaDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
+import co.com.udistrital.sin_nombre.vo.HistoricoVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
 import co.com.udistrital.sin_nombre.vo.SistemaVO;
@@ -20,17 +22,21 @@ import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class Pruebas extends AppCompatActivity {
 
+    private static final String TAG_LOG = "[Sin_nombre]";
+
     private FormulaVO formulaVO;
     private ReestablecerVO restablecerVO;
     private SesionVO sesionVO;
     private SistemaVO sistemaVO;
     private UsuarioVO usuarioVO;
+    private HistoricoVO historicoVO;
 
     private FormulaDAO formula;
     private RestablecerDAO restablecer;
     private SesionDAO sesion;
     private SistemaDAO sistema;
     private UsuarioDAO usuario;
+    private HistoricoDAO historico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,7 @@ public class Pruebas extends AppCompatActivity {
 
         formula = new FormulaDAO(this);
         usuario = new UsuarioDAO(this);
+        historico = new HistoricoDAO(this);
         /*restablecer = new RestablecerDAO(this);
         sesion = new SesionDAO(this);
         sistema = new SistemaDAO(this);
@@ -97,21 +104,40 @@ public class Pruebas extends AppCompatActivity {
         Log.d("[Sin_nombre]", " Ultimo registro en Formula: " + ultimo);*/
 
         try {
+            List<HistoricoVO> historicos = historico.list();
             List<UsuarioVO> list = usuario.list();
             for (int i = 0; i < list.size(); i++) {
                 usuarioVO = list.get(i);
-                Log.d("[Sin_nombre]", "===================================================================================");
-                Log.d("[Sin_nombre]", "Id: " + usuarioVO.getIdUsuario());
-                Log.d("[Sin_nombre]", "Nombre: " + usuarioVO.getNombreUsuario());
-                Log.d("[Sin_nombre]", "Apellido1: " + usuarioVO.getApellido1Usuario());
-                Log.d("[Sin_nombre]", "Apellido2: " + usuarioVO.getApellido2Usuario());
-                Log.d("[Sin_nombre]", "Fecha Nacimiento: " + usuarioVO.getFechaNacimiento());
-                Log.d("[Sin_nombre]", "Sexo: " + usuarioVO.getSexo());
-                Log.d("[Sin_nombre]", "Formular " + (i + 1) + ": " + usuarioVO.getFormulaUsuario().getIdFormula());
-                Log.d("[Sin_nombre]", "Sesion " + (i + 1) + ": " + usuarioVO.getSesionUsuario().getIdSesion());
-                Log.d("[Sin_nombre]", "Sistema " + (i + 1) + ": " + usuarioVO.getConfigUsuario().getIdSistema());
-                Log.d("[Sin_nombre]", "Restablecer " + (i + 1) + ": " + usuarioVO.getRestablecerUsuario().getIdReestablecer());
-                Log.d("[Sin_nombre]", "===================================================================================");
+                Log.d(TAG_LOG, "===================================================================================");
+                Log.d(TAG_LOG, "Id: " + usuarioVO.getIdUsuario());
+                Log.d(TAG_LOG, "Nombre: " + usuarioVO.getNombreUsuario());
+                Log.d(TAG_LOG, "Apellido1: " + usuarioVO.getApellido1Usuario());
+                Log.d(TAG_LOG, "Apellido2: " + usuarioVO.getApellido2Usuario());
+                Log.d(TAG_LOG, "Fecha Nacimiento: " + usuarioVO.getFechaNacimiento());
+                Log.d(TAG_LOG, "Sexo: " + usuarioVO.getSexo());
+                Log.d(TAG_LOG, "Formula: " + (i + 1) + ": " + usuarioVO.getFormulaUsuario().getIdFormula());
+                Log.d(TAG_LOG, "Formula Iz " + (i + 1) + ": " + usuarioVO.getFormulaUsuario().getaVisualOI());
+                Log.d(TAG_LOG, "Formula Dr " + (i + 1) + ": " + usuarioVO.getFormulaUsuario().getaVisualOD());
+                Log.d(TAG_LOG, "Formula Tam " + (i + 1) + ": " + usuarioVO.getFormulaUsuario().getTamanioFuente());
+                Log.d(TAG_LOG, "Sesion " + (i + 1) + ": " + usuarioVO.getSesionUsuario().getIdSesion());
+                Log.d(TAG_LOG, "Sesion " + (i + 1) + ": " + usuarioVO.getSesionUsuario().getUsuario());
+                Log.d(TAG_LOG, "Sesion " + (i + 1) + ": " + usuarioVO.getSesionUsuario().getContrasena());
+                Log.d(TAG_LOG, "Sistema " + (i + 1) + ": " + usuarioVO.getConfigUsuario().getIdSistema());
+                Log.d(TAG_LOG, "Sistema " + (i + 1) + ": " + usuarioVO.getConfigUsuario().getFrecuencia());
+                Log.d(TAG_LOG, "Sistema " + (i + 1) + ": " + usuarioVO.getConfigUsuario().getTamanoFuente());
+                Log.d(TAG_LOG, "Restablecer " + (i + 1) + ": " + usuarioVO.getRestablecerUsuario().getIdReestablecer());
+                Log.d(TAG_LOG, "Restablecer " + (i + 1) + ": " + usuarioVO.getRestablecerUsuario().getPregunta1());
+                Log.d(TAG_LOG, "Restablecer " + (i + 1) + ": " + usuarioVO.getRestablecerUsuario().getPregunta2());
+                Log.d(TAG_LOG, "Restablecer " + (i + 1) + ": " + usuarioVO.getRestablecerUsuario().getTamanoFuente());
+                Log.d(TAG_LOG, "===================================================================================");
+            }
+            for (int j = 0; j < historicos.size(); j++) {
+                historicoVO = historicos.get(j);
+                Log.d(TAG_LOG, "===================================================================================");
+                Log.d(TAG_LOG, "Historio " + (j + 1) + ": " + historicoVO.getId());
+                Log.d(TAG_LOG, "Historio " + (j + 1) + ": " + historicoVO.getTiempo());
+                Log.d(TAG_LOG, "Historio " + (j + 1) + ": " + historicoVO.getFechaHistorico());
+                Log.d(TAG_LOG, "===================================================================================");
             }
         } catch (Exception ex) {
             Log.e("[Sin_nombre]", "Ocurrio un error en la consulta" + new Date(), ex);

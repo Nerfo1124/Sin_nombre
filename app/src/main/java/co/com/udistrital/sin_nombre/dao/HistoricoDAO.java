@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import co.com.udistrital.sin_nombre.dao.database.DataBaseHelper;
@@ -43,20 +44,21 @@ public class HistoricoDAO {
         try {
             List<HistoricoVO> listHistorico = new ArrayList<HistoricoVO>();
             String columns[] = {dbh.HISTORICO_ID, dbh.HISTORICO_TIEMPO, dbh.HISTORICO_FECHA};
-            Cursor listFormulas = db.query(dbh.TABLE_NAME_FORMULA, columns, null, null, null, null, null);
+            Cursor listFormulas = db.query(dbh.TABLE_NAME_HISTORICO, columns, null, null, null, null, null);
             if (listFormulas.moveToFirst()) {
                 do {
                     HistoricoVO vo = new HistoricoVO();
                     vo.setId(listFormulas.getInt(0));
                     vo.setTiempo(listFormulas.getString(1));
-                    vo.setFechaHistorico(sdf.parse(listFormulas.getString(2)));
+                    Date fechaDate = sdf.parse(listFormulas.getString(2));
+                    vo.setFechaHistorico(fechaDate);
                     listHistorico.add(vo);
                 } while (listFormulas.moveToNext());
             }
             return listHistorico;
         } catch (Exception e) {
             //Toast.makeText(contexto, "[list] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[list] Error en HistoricoDAO: " + e.toString());
+            Log.e("[Sin_nombre]", "[list] Error en HistoricoDAO: " + e.toString(), e);
             return null;
         }
     }
@@ -87,7 +89,7 @@ public class HistoricoDAO {
             return objHistorico;
         } catch (Exception e) {
             //Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.e("[Sin_nombre]", "[consult] Error en HistoricoDAO - consult: " + e.toString());
+            Log.e("[Sin_nombre]", "[consult] Error en HistoricoDAO - consult: " + e.toString(), e);
             return null;
         }
     }
@@ -104,7 +106,7 @@ public class HistoricoDAO {
             sb.append("INSERT INTO ").append(dbh.TABLE_NAME_HISTORICO).append("(");
             sb.append(dbh.HISTORICO_TIEMPO + " , ").append(dbh.HISTORICO_FECHA).append(")");
             sb.append(" VALUES ('");
-            sb.append(vo.getTiempo() + "','").append(vo.getFechaHistorico());
+            sb.append(vo.getTiempo() + "','").append(sdf.format(vo.getFechaHistorico()));
             sb.append("')");
 
             Log.d("[Sin_nombre]", "[insert] SQL: " + sb.toString());

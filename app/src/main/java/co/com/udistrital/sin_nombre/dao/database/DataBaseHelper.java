@@ -50,6 +50,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     + SISTEMA_TAM_FUENTE + " integer not null, "
                     + SISTEMA_FRECUENCIA + " integer not null "
             + " ) ";
+
     // Tabla de Restablecer
     public static final String TABLE_NAME_RESTABLECER = "RESTABLECER";
 
@@ -70,6 +71,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             + RESTABLECER_QUEST2 + " text, "
             + RESTABLECER_ANSW2 + " text, "
             + RESTABLECER_TAMANO_FUENTE+ " text ) ";
+
     // Tabla de Usuarios
     public static final String TABLE_NAME_USUARIO = "USUARIO";
     public static final String USUARIO_ID = "usu_id";
@@ -101,11 +103,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     + "foreign key(" + USUARIO_SISTEMA + ") references SISTEMA(" + SISTEMA_ID + "), "
                     + "foreign key(" + USUARIO_REESTABLECER + ") references RESTABLECER(" + RESTABLECER_ID + ")"
                     + " ) ";
+
     // Tabla de Historico Uso de Dispositivo
     public static final String TABLE_NAME_HISTORICO = "HISTORICO_USO_DISPOSITIVO";
     public static final String HISTORICO_ID = "his_id";
     public static final String HISTORICO_TIEMPO = "his_tiempo_uso";
     public static final String HISTORICO_FECHA = "his_fecha_registro";
+
+    // ========================================================
     public static final String CREATE_TABLE_HISTORICO =
             "CREATE TABLE " + TABLE_NAME_HISTORICO + "("
                     + HISTORICO_ID + " integer primary key autoincrement not null, "

@@ -63,7 +63,6 @@ public class  Contador extends Thread {
                 }
             }
         }catch (Exception ex) {
-            ex.printStackTrace();
             Log.d("Sin_nombre", "Error en la ejecucion del servicio", ex);
         }
 
@@ -84,7 +83,6 @@ public class  Contador extends Thread {
                 horas = 0;
                 return true;
             }catch(Exception ex) {
-                ex.printStackTrace();
                 Log.e("[Sin_nombre]", "Error en Reinciar Contador", ex);
             }
         }
