@@ -59,6 +59,7 @@ public class Principal extends AppCompatActivity {
         // Recibiendo parametros de la Actividad InicioSesion
         Bundle bundle = getIntent().getExtras();
         idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
+        Contador.setIdSesion(idUsuarioSesion);
         Log.d(TAG_LOG, "Parametro recibido: " + idUsuarioSesion);
 
         //

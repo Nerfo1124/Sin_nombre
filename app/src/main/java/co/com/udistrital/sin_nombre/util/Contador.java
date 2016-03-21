@@ -19,6 +19,8 @@ public class  Contador extends Thread {
 
     private static String TAG_LOG = "[Sin_nombre]";
 
+    public static int idUsuarioSesion;
+
     boolean continua=true,siempre=true;
     int centesimas = 00,minutos=00, segundos=00, horas=00,band=0;
     public static String tiempo="";
@@ -90,5 +92,9 @@ public class  Contador extends Thread {
         return false;
     }
 
+    public static void setIdSesion(int idSesion) {
+        idUsuarioSesion = idSesion;
+        Log.d(TAG_LOG, "Valor de la Variable Sesion en Contador: " + idUsuarioSesion);
+    }
 }
 
