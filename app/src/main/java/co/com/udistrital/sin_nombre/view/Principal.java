@@ -24,11 +24,13 @@ import android.widget.Toast;
 
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.FormulaDAO;
+import co.com.udistrital.sin_nombre.dao.HistoricoDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.util.Contador;
 import co.com.udistrital.sin_nombre.util.ProgressCircle;
 import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
+import co.com.udistrital.sin_nombre.vo.HistoricoVO;
 import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class Principal extends AppCompatActivity {
@@ -49,7 +51,17 @@ public class Principal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+        int aux=Contador.idUsuarioSesion;
+       /* if(aux==idUsuarioSesion){
+
+        }else{
+            HistoricoVO objH= new HistoricoVO();
+            HistoricoDAO objBD = new HistoricoDAO(this);
+            objH=objBD.consult(idUsuarioSesion);
+            Toast.makeText(this,objH.toString(),Toast.LENGTH_LONG).show();
+        }*/
         cargarDatosIniciales();
+        Toast.makeText(this,"usuario anterior "+aux+" usuario  actual "+idUsuarioSesion,Toast.LENGTH_LONG).show();
         cargarSwitchLetra();
         cargarSwitchLetra2();
         cargarSwitchYProgress();
@@ -59,7 +71,6 @@ public class Principal extends AppCompatActivity {
         // Recibiendo parametros de la Actividad InicioSesion
         Bundle bundle = getIntent().getExtras();
         idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
-        Contador.setIdSesion(idUsuarioSesion);
         Log.d(TAG_LOG, "Parametro recibido: " + idUsuarioSesion);
 
         //
@@ -143,8 +154,8 @@ public class Principal extends AppCompatActivity {
         progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
         progressCircle.startAnimation();
         if(isMyServiceRunning(pantalla_on_off.class)==false) {
-            Toast.makeText(this, "El servicio esta parado", Toast.LENGTH_LONG).show();
-            startService(new Intent(this,pantalla_on_off.class));
+            startService(new Intent(this, pantalla_on_off.class));
+            Contador.setIdSesion(idUsuarioSesion);
             myTask = new MyTask();
             myTask.execute();
         }

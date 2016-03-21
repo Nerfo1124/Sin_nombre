@@ -79,8 +79,9 @@ public class  Contador extends Thread {
                 HistoricoDAO objBD= new HistoricoDAO(this.c);
                 objH.setTiempo(tiempo);
                 objH.setFechaHistorico(new Date());
+                objH.setIdUsuario(idUsuarioSesion);
                 objBD.insert(objH);
-                Log.d(TAG_LOG, " Tiempo " + tiempo + " fecha " + new Date());
+                Log.d(TAG_LOG, " Tiempo " + tiempo + " fecha " + new Date()+ "id "+idUsuarioSesion);
                 segundos = 0;
                 minutos = 0;
                 horas = 0;
@@ -101,5 +102,6 @@ public class  Contador extends Thread {
         idUsuarioSesion = idSesion;
         Log.d(TAG_LOG, "Valor de la Variable Sesion en Contador: " + idUsuarioSesion);
     }
+
 }
 

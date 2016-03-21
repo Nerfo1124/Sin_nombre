@@ -70,15 +70,15 @@ public class HistoricoDAO {
      * <b>Descripcion: </b>Metodo encargado de realizar la consulta de un Registro en la tabla
      * FORMULA de la BDD recibiendo como parametro el id del Registro.
      *
-     * @param idFormula
+     * @param idHistoricoU
      * @return
      */
-    public HistoricoVO consult(int idFormula) {
+    public HistoricoVO consult(int idHistoricoU) {
         HistoricoVO objHistorico = new HistoricoVO();
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_HISTORICO);
-            sb.append(" WHERE his_id = ").append(idFormula);
+            sb.append(" WHERE his_id_user = ").append(idHistoricoU);
 
             Log.d(TAG_LOG, "[consult] SQL: " + sb.toString());
 
