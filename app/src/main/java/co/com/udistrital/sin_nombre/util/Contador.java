@@ -92,6 +92,11 @@ public class  Contador extends Thread {
         return false;
     }
 
+    /**
+     * <b>Descripcion: </b> Metodo encargado de recibir el id de Sesion desde la actividad Principal.
+     *
+     * @param idSesion
+     */
     public static void setIdSesion(int idSesion) {
         idUsuarioSesion = idSesion;
         Log.d(TAG_LOG, "Valor de la Variable Sesion en Contador: " + idUsuarioSesion);
