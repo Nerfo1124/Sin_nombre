@@ -19,7 +19,9 @@ public class  Contador extends Thread {
 
     private static String TAG_LOG = "[Sin_nombre]";
 
-    boolean siempre=true,continua=true;;
+    public static int idUsuarioSesion;
+
+    boolean continua=true,siempre=true;
     int centesimas = 00,minutos=00, segundos=00, horas=00,band=0;
     public static String tiempo="";
     Context c;
@@ -90,5 +92,14 @@ public class  Contador extends Thread {
         return false;
     }
 
+    /**
+     * <b>Descripcion: </b> Metodo encargado de recibir el id de Sesion desde la actividad Principal.
+     *
+     * @param idSesion
+     */
+    public static void setIdSesion(int idSesion) {
+        idUsuarioSesion = idSesion;
+        Log.d(TAG_LOG, "Valor de la Variable Sesion en Contador: " + idUsuarioSesion);
+    }
 }
 
