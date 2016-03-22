@@ -21,7 +21,7 @@ public class HistoricoDAO {
 
     private static String TAG_LOG = "[Sin_nombre]";
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     public DataBaseHelper dbh;
     public SQLiteDatabase db;
     public Context contexto;
@@ -83,14 +83,46 @@ public class HistoricoDAO {
             Log.d(TAG_LOG, "[consult] SQL: " + sb.toString());
 
             Cursor fila = db.rawQuery(sb.toString(), null);
-            fila.moveToFirst();
-            if (fila != null) {
+
+            if (fila.moveToFirst()) {
                 objHistorico.setId(fila.getInt(0));
                 objHistorico.setIdUsuario(fila.getInt(1));
                 objHistorico.setTiempo(fila.getString(2));
                 objHistorico.setFechaHistorico(sdf.parse(fila.getString(3)));
+                return objHistorico;
+            }else
+                return null;
+
+        } catch (Exception e) {
+            //Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
+            Log.e(TAG_LOG, "[consult] Error en HistoricoDAO - consult: " + e.toString(), e);
+            return null;
+        }
+    }
+
+    public HistoricoVO consult2(int idHistoricoU) {
+        HistoricoVO objHistorico = new HistoricoVO();
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_HISTORICO);
+            sb.append(" WHERE his_id_user = ").append(idHistoricoU);
+            sb.append(" and his_fecha_registro = '").append(sdf.format(new Date())).append("'");
+
+            Log.d(TAG_LOG, "[consult] SQL: " + sb.toString());
+
+            Cursor fila = db.rawQuery(sb.toString(), null);
+
+            if (fila.moveToFirst()) {
+                objHistorico.setId(fila.getInt(0));
+                objHistorico.setIdUsuario(fila.getInt(1));
+                objHistorico.setTiempo(fila.getString(2));
+                objHistorico.setFechaHistorico(sdf.parse(fila.getString(3)));
+                return objHistorico;
+            }else{
+                return null;
             }
-            return objHistorico;
+
+
         } catch (Exception e) {
             //Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[consult] Error en HistoricoDAO - consult: " + e.toString(), e);
@@ -135,11 +167,11 @@ public class HistoricoDAO {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("UPDATE ").append(dbh.TABLE_NAME_HISTORICO).append(" SET ");
-            sb.append(dbh.HISTORICO_ID).append("=").append(vo.getId()).append(",");
             sb.append(dbh.HISTORICO_ID_USUARIO).append("=").append(vo.getIdUsuario()).append(",");
             sb.append(dbh.HISTORICO_TIEMPO).append("='").append(vo.getTiempo()).append("',");
-            sb.append(dbh.HISTORICO_FECHA).append("='").append(vo.getFechaHistorico()).append("' ");
-            sb.append("WHERE ").append(dbh.HISTORICO_ID).append("=").append(vo.getId());
+            sb.append(dbh.HISTORICO_FECHA).append("='").append(sdf.format(vo.getFechaHistorico())).append("' ");
+            sb.append(" WHERE ").append(dbh.HISTORICO_ID_USUARIO).append("=").append(vo.getIdUsuario());
+            sb.append(" and "+dbh.HISTORICO_FECHA).append("='").append(sdf.format(vo.getFechaHistorico())).append("'");
 
             Log.d(TAG_LOG, "SQL: " + sb.toString());
 

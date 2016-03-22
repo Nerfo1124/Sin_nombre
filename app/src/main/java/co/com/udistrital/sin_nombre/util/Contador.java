@@ -22,7 +22,7 @@ public class  Contador extends Thread {
     public static int idUsuarioSesion;
 
     boolean continua=true,siempre=true;
-    int centesimas = 00,minutos=00, segundos=00, horas=00,band=0;
+    public static  int centesimas = 00,minutos=00, segundos=00, horas=00,band=0;
     public static String tiempo="";
     Context c;
 
@@ -76,11 +76,16 @@ public class  Contador extends Thread {
         if(c.get(Calendar.HOUR_OF_DAY)==23&&c.get(Calendar.MINUTE)==59) {
             try{
                 HistoricoVO objH= new HistoricoVO();
+                HistoricoVO objC= new HistoricoVO();
                 HistoricoDAO objBD= new HistoricoDAO(this.c);
                 objH.setTiempo(tiempo);
                 objH.setFechaHistorico(new Date());
                 objH.setIdUsuario(idUsuarioSesion);
-                objBD.insert(objH);
+                objC=objBD.consult2(idUsuarioSesion);
+                if(objC==null)
+                    objBD.insert(objH);
+                else
+                    objBD.update(objH);
                 Log.d(TAG_LOG, " Tiempo " + tiempo + " fecha " + new Date()+ "id "+idUsuarioSesion);
                 segundos = 0;
                 minutos = 0;
@@ -101,6 +106,10 @@ public class  Contador extends Thread {
     public static void setIdSesion(int idSesion) {
         idUsuarioSesion = idSesion;
         Log.d(TAG_LOG, "Valor de la Variable Sesion en Contador: " + idUsuarioSesion);
+    }
+
+    public  void iniciaTiempo(){
+        segundos=0;
     }
 
 }

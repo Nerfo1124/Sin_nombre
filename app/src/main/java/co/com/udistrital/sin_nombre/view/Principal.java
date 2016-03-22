@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,8 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Date;
 
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.FormulaDAO;
@@ -41,36 +44,65 @@ public class Principal extends AppCompatActivity {
      * Variable del Usuario que mantenien la sesion
      */
     private UsuarioVO usuarioSesion;
-    int idUsuarioSesion,cont=1;
+    int idUsuarioSesion,cont=1,aux,guardado;
 
     ProgressCircle progressCircle;
     Switch s1,s2;
     MyTask myTask=null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        int aux=Contador.idUsuarioSesion;
-       /* if(aux==idUsuarioSesion){
-
-        }else{
-            HistoricoVO objH= new HistoricoVO();
-            HistoricoDAO objBD = new HistoricoDAO(this);
-            objH=objBD.consult(idUsuarioSesion);
-            Toast.makeText(this,objH.toString(),Toast.LENGTH_LONG).show();
-        }*/
+        ponerTiempo();
         cargarDatosIniciales();
-        Toast.makeText(this,"usuario anterior "+aux+" usuario  actual "+idUsuarioSesion,Toast.LENGTH_LONG).show();
         cargarSwitchLetra();
         cargarSwitchLetra2();
+        Toast.makeText(this,"anterior "+aux+" actual "+idUsuarioSesion,Toast.LENGTH_LONG).show();
+        if(aux==idUsuarioSesion){
+
+        }else{
+            guardarContador();
+            HistoricoVO objH= new HistoricoVO();
+            HistoricoDAO objBD = new HistoricoDAO(this);
+            objH=objBD.consult2(idUsuarioSesion);
+            if(objH==null){
+                Log.e(TAG_LOG, "[1] ");
+                Contador.horas=0;
+                Contador.minutos=0;
+                Contador.segundos=0;
+            }else{
+                Log.e(TAG_LOG, "[2] ");
+                String v[]= objH.getTiempo().split(":");
+                Contador.horas=Integer.parseInt(v[0]);
+                Contador.minutos=Integer.parseInt(v[1]);
+                Contador.segundos=Integer.parseInt(v[2]);
+            }
+        }
         cargarSwitchYProgress();
+    }
+
+    public void guardarContador(){
+        HistoricoVO objH= new HistoricoVO();
+        HistoricoVO objC= new HistoricoVO();
+        HistoricoDAO objBD = new HistoricoDAO(this);
+        objH.setIdUsuario(aux);
+        objH.setTiempo(Contador.tiempo);
+        objH.setFechaHistorico(new Date());
+        objC=objBD.consult2(aux);
+        if(objC==null)
+            objBD.insert(objH);
+        else
+            objBD.update(objH);
+
     }
 
     public void cargarDatosIniciales(){
         // Recibiendo parametros de la Actividad InicioSesion
         Bundle bundle = getIntent().getExtras();
         idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
+        guardarTiempo(idUsuarioSesion);
         Log.d(TAG_LOG, "Parametro recibido: " + idUsuarioSesion);
 
         //
@@ -124,18 +156,17 @@ public class Principal extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 try {
                     if (isChecked) {
-                        if(cont!=0){
+                        if (cont != 0) {
                             bloquearSwitch();
                             s1.setChecked(false);
                             FormulaVO objF = new FormulaVO();
                             FormulaDAO objBD = new FormulaDAO(getApplicationContext());
                             objF = objBD.consult(idUsuarioSesion);
-                            Toast.makeText(getApplicationContext(), "OD: " + objF.getaVisualOD()+"OI: "+objF.getaVisualOI(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "OD: " + objF.getaVisualOD() + "OI: " + objF.getaVisualOI(), Toast.LENGTH_LONG).show();
                             //Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) Float.parseFloat(objF.getTamanioFuente()) / 40);
-                             toast();
-                        }
-                        else
-                            cont=1;
+                            toast();
+                        } else
+                            cont = 1;
                     } else {
                         bloquearSwitch();
                         Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 1);
@@ -153,9 +184,9 @@ public class Principal extends AppCompatActivity {
     public void cargarSwitchYProgress(){
         progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
         progressCircle.startAnimation();
+        Contador.setIdSesion(idUsuarioSesion);
         if(isMyServiceRunning(pantalla_on_off.class)==false) {
             startService(new Intent(this, pantalla_on_off.class));
-            Contador.setIdSesion(idUsuarioSesion);
             myTask = new MyTask();
             myTask.execute();
         }
@@ -278,6 +309,7 @@ public class Principal extends AppCompatActivity {
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                                 Principal.this.finish();
+                                guardarTiempo(idUsuarioSesion);
                             }
                         }
                     }).show();
@@ -298,13 +330,30 @@ public class Principal extends AppCompatActivity {
 
     public void seg(View v){
         try{
-            Toast.makeText(this, "Hola :D", Toast.LENGTH_SHORT).show();
             Intent seg = new Intent(this, Seguimiento.class);
             seg.putExtra("idUsuario", "" + usuarioSesion.getIdUsuario());
             startActivity(seg);
         }catch (Exception e){
             Toast.makeText(this, "Error Inicio - Dialogo:" + e.toString(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void ponerTiempo() {
+        try{
+            SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
+            aux=Integer.parseInt(prefe.getString("1234", "1"));
+        }catch (Exception e){
+            Toast.makeText(this, "Error!: "+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
+
+    }
+
+    public void guardarTiempo(int id) {
+        SharedPreferences preferencias=getSharedPreferences("usuario",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferencias.edit();
+        editor.putString("1234", ""+id);
+        editor.commit();
     }
 
 
