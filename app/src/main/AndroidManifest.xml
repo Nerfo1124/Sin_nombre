@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.com.udistrital.sin_nombre">
 
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
+
 
     <application
         android:allowBackup="true"
@@ -10,6 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".view.InicioSesion"
             android:windowSoftInputMode="stateHidden">
@@ -19,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".view.PerfilUsuario"
             android:windowSoftInputMode="stateHidden" />
@@ -35,8 +38,11 @@
             android:enabled="true"
             android:exported="true" />
 
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <activity
+            android:name=".view.ModificacionDatos"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.Registro"
             android:windowSoftInputMode="stateHidden" />
@@ -44,7 +50,7 @@
             android:name=".view.Principal"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".view.Seguimiento"></activity>
     </application>
+
 
 </manifest>

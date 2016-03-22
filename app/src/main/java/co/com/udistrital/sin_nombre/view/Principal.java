@@ -228,6 +228,11 @@ public class Principal extends AppCompatActivity {
             perfil.putExtra("idUsuario", "" + usuarioSesion.getIdUsuario());
             startActivity(perfil);
         }
+        if (id == R.id.modificar) {
+            Intent modificar = new Intent(this, ModificacionDatos.class);
+            modificar.putExtra("idUsuarioM", "" + idUsuarioSesion);
+            startActivity(modificar);
+        }
         if (id == R.id.cerrar) {
             Dialogo("¿Cerrar Sesion?", "\tDesea Cerrar Sesion?",0);
             return true;

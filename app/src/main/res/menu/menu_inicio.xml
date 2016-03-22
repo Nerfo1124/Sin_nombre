@@ -18,6 +18,12 @@
         android:id="@+id/cuenta"
         app:showAsAction="never"
         android:title="Mi cuenta"/>
+
+    <item
+        android:id="@+id/modificar"
+        app:showAsAction="never"
+        android:title="Modificar Datos" />
+
     <item
         android:id="@+id/cerrar"
         app:showAsAction="never"

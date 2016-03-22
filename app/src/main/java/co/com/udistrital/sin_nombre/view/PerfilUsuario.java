@@ -13,7 +13,7 @@ public class PerfilUsuario extends AppCompatActivity {
 
     private static String TAG_LOG = "[Sin_nombre]";
 
-    private EditText txtNameUsuario, txtFechaUsuario, txtSexo, txtIdSesion;
+    private EditText txtNameUsuario, txtFechaUsuario, txtSexo, txtIdSesion, txtFuentePerfil;
     private UsuarioDAO userDao;
 
     @Override
@@ -34,6 +34,7 @@ public class PerfilUsuario extends AppCompatActivity {
         txtFechaUsuario = (EditText) findViewById(R.id.txtFechaNacimiento);
         txtSexo = (EditText) findViewById(R.id.txtSexoUsuario);
         txtIdSesion = (EditText) findViewById(R.id.txtIdSesion);
+        txtFuentePerfil = (EditText) findViewById(R.id.txtFuentePerfil);
 
         // TODO Mostrando Valores en la Vista de Perfil
         try {
@@ -45,6 +46,7 @@ public class PerfilUsuario extends AppCompatActivity {
             txtSexo.setText(user.getSexo());
             Log.d(TAG_LOG, "[onCreate] Codigo usuario: " + user.getSesionUsuario().getIdSesion());
             txtIdSesion.setText("" + user.getSesionUsuario().getIdSesion());
+            txtFuentePerfil.setText("" + user.getConfigUsuario().getTamanoFuente());
         } catch (Exception ex) {
             Log.e(TAG_LOG, "[onCreate] Error en la consulta del usuario: ", ex);
         }

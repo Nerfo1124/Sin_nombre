@@ -37,10 +37,16 @@
                 android:id="@+id/llViewNombreU"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lblTituloApp"
                 android:layout_marginTop="50dp"
                 android:orientation="horizontal"
                 android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre:"
+                    android:id="@+id/lblNombre"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/txtNombreUsuario"
@@ -53,58 +59,109 @@
 
             <LinearLayout
                 android:id="@+id/llViewFecha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lblTituloApp"
-                android:layout_marginTop="100dp"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="110sp"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha Nac:"
+                    android:id="@+id/lblNacimiento"
+                    android:textSize="20sp" />
+
                 <EditText
                     android:id="@+id/txtFechaNacimiento"
-                    android:layout_width="350dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Fecha de Nacimiento"
                     android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llViewSexo"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lblTituloApp"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="160sp"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sexo:"
+                    android:id="@+id/lblSexo"
+                    android:textSize="20sp" />
+
                 <EditText
                     android:id="@+id/txtSexoUsuario"
-                    android:layout_width="350dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Sexo"
                     android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llViewSesion"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lblTituloApp"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="210sp"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Codigo Sesion: "
+                    android:id="@+id/lblSesion"
+                    android:textSize="20sp" />
+
                 <EditText
                     android:id="@+id/txtIdSesion"
-                    android:layout_width="350dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Id de Sesion"
                     android:inputType="textPersonName" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="350sp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tamaño:"
+                    android:id="@+id/lblTamanio"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtFuentePerfil"
+                    android:hint="Tamaño fuente" />
             </LinearLayout>
 
         </RelativeLayout>
 
     </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Informacion de Tamaño  Fuente"
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="151dp"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:textColor="#2c56c5" />
 
 
 </RelativeLayout>
