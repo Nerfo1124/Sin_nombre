@@ -26,4 +26,5 @@ dependencies {
     compile files('libs/log4j-1.1.3.jar')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    compile files('C:/Users/Usuario/Documents/Sin_nombre/mylibrary/libs/GraphView-4.0.1.jar')
 }

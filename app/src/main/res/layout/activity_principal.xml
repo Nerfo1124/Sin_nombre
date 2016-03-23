@@ -100,8 +100,8 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:layout_width="173dp"
-                    android:layout_height="fill_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="Seguimientos ->"
                     android:id="@+id/button3"
                     android:layout_alignParentBottom="true"
@@ -110,18 +110,20 @@
                     android:layout_toLeftOf="@+id/button4"
                     android:layout_toStartOf="@+id/button4"
                     android:layout_column="1"
-                    android:onClick="seg" />
+                    android:onClick="seg"
+                    android:layout_weight="0" />
 
                 <Button
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="Ejercicios"
                     android:id="@+id/button4"
                     android:layout_alignParentBottom="true"
                     android:layout_alignRight="@+id/progress_circle"
                     android:layout_alignEnd="@+id/progress_circle"
                     android:layout_alignTop="@+id/button3"
-                    android:layout_column="2" />
+                    android:layout_column="2"
+                    android:layout_weight="1" />
             </LinearLayout>
 
 
