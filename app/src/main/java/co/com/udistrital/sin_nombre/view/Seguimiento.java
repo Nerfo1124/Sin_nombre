@@ -35,19 +35,13 @@ public class Seguimiento extends AppCompatActivity {
 
     public void grafica(){
         Calendar calendar = Calendar.getInstance();
-        Date d7 = calendar.getTime();
-        calendar.add(Calendar.DATE, -1);
-        Date d6 = calendar.getTime();
-        calendar.add(Calendar.DATE, -1);
-        Date d5 = calendar.getTime();
-        calendar.add(Calendar.DATE, -1);
-        Date d4 = calendar.getTime();
-        calendar.add(Calendar.DATE, -1);
-        Date d3 = calendar.getTime();
-        calendar.add(Calendar.DATE, -1);
-        Date d2 = calendar.getTime();
-        calendar.add(Calendar.DATE, -1);
-        Date d1 = calendar.getTime();
+        Date d7 = retrocederfecha(calendar);
+        Date d6 = retrocederfecha(calendar);
+        Date d5 = retrocederfecha(calendar);
+        Date d4 = retrocederfecha(calendar);
+        Date d3 = retrocederfecha(calendar);
+        Date d2 = retrocederfecha(calendar);
+        Date d1 = retrocederfecha(calendar);
 
 
         graph= (GraphView) findViewById(R.id.graph);
@@ -76,5 +70,14 @@ public class Seguimiento extends AppCompatActivity {
         graph.getViewport().setMaxX(d7.getTime());
         graph.getViewport().setXAxisBoundsManual(true);
 
+    }
+
+    public Date retrocederfecha(Calendar calendar){
+        calendar.add(Calendar.DATE, -1);
+        return calendar.getTime();
+    }
+
+    public String [] consulta(){
+        return  null;
     }
 }
