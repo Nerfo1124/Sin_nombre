@@ -130,6 +130,36 @@ public class HistoricoDAO {
         }
     }
 
+    public HistoricoVO consultIdFecha(int idHistoricoU, Date d) {
+        HistoricoVO objHistorico = new HistoricoVO();
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_HISTORICO);
+            sb.append(" WHERE his_id_user = ").append(idHistoricoU);
+            sb.append(" and his_fecha_registro = '").append(sdf.format(d)).append("'");
+
+            Log.d(TAG_LOG, "[consult] SQL: " + sb.toString());
+
+            Cursor fila = db.rawQuery(sb.toString(), null);
+
+            if (fila.moveToFirst()) {
+                objHistorico.setId(fila.getInt(0));
+                objHistorico.setIdUsuario(fila.getInt(1));
+                objHistorico.setTiempo(fila.getString(2));
+                objHistorico.setFechaHistorico(sdf.parse(fila.getString(3)));
+                return objHistorico;
+            }else{
+                return null;
+            }
+
+
+        } catch (Exception e) {
+            //Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
+            Log.e(TAG_LOG, "[consult] Error en HistoricoDAO - consult: " + e.toString(), e);
+            return null;
+        }
+    }
+
     /**
      * <b>Descripcion: </b> Metodo encargado de insertar datos en la tabla de FORMULA en la BDD.
      *

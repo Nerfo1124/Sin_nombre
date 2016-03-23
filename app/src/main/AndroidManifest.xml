@@ -51,8 +51,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".view.Seguimiento"
-            android:windowSoftInputMode="stateHidden" />
+            android:name=".view.Seguimiento" />
     </application>
 
 
