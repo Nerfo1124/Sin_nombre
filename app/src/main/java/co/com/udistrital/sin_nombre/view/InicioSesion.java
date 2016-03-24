@@ -2,8 +2,10 @@ package co.com.udistrital.sin_nombre.view;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +51,14 @@ public class InicioSesion extends AppCompatActivity {
         //getSupportActionBar().setIcon(R.drawable.icono_home);
         txtUsuario = (EditText) findViewById(R.id.txtUserSesion);
         txtPassword = (EditText) findViewById(R.id.txtPassSesion);
+        String v[] = BuscarUltimoUsuario();
+        Toast.makeText(this,"1: "+v[0]+" 2: °"+v[1]+"a",Toast.LENGTH_LONG).show();
+        if(Integer.parseInt(v[1])==1){
+            Intent intento = new Intent(this, Principal.class);
+            intento.putExtra("idUsuario", "" +v[0]);
+            startActivity(intento);
+            finish();
+        }
     }
 
     @Override
@@ -301,4 +311,17 @@ public class InicioSesion extends AppCompatActivity {
             Toast.makeText(this, "Error iniciosesion - Dialogo:" + e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    public String[] BuscarUltimoUsuario() {
+        try{
+            SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
+            String v[]=prefe.getString("1234", "0:0").split(":");
+            return v;
+        }catch (Exception e){
+            Toast.makeText(this, "Error!: "+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
+        return null;
+    }
+
 }

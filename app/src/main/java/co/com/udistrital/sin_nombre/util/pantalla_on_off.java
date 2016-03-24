@@ -58,7 +58,6 @@ public class  pantalla_on_off extends Service {
             Toast.makeText(this, "Error!: "+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
-
     }
 
     public void guardarTiempo() {

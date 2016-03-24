@@ -55,7 +55,8 @@ public class Principal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        ponerTiempo();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
+        BuscarUltimoUsuario1();
         cargarDatosIniciales();
         cargarSwitchLetra();
         cargarSwitchLetra2();
@@ -102,9 +103,8 @@ public class Principal extends AppCompatActivity {
         // Recibiendo parametros de la Actividad InicioSesion
         Bundle bundle = getIntent().getExtras();
         idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
-        guardarTiempo(idUsuarioSesion);
         Log.d(TAG_LOG, "Parametro recibido: " + idUsuarioSesion);
-
+        guardarUltimoUsuario1(idUsuarioSesion,":1");
         //
         UsuarioDAO daoU=new UsuarioDAO(this);
         usuarioSesion = daoU.consult(idUsuarioSesion);
@@ -309,7 +309,7 @@ public class Principal extends AppCompatActivity {
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                                 Principal.this.finish();
-                                guardarTiempo(idUsuarioSesion);
+                                guardarUltimoUsuario1(idUsuarioSesion,":0");
                             }
                         }
                     }).show();
@@ -338,10 +338,11 @@ public class Principal extends AppCompatActivity {
         }
     }
 
-    public void ponerTiempo() {
+    public void BuscarUltimoUsuario1() {
         try{
             SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
-            aux=Integer.parseInt(prefe.getString("1234", "1"));
+            String v[]=prefe.getString("1234", "0:0").split(":");
+            aux=Integer.parseInt(v[0]);
         }catch (Exception e){
             Toast.makeText(this, "Error!: "+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "Error " + e.toString(), e);
@@ -349,10 +350,10 @@ public class Principal extends AppCompatActivity {
 
     }
 
-    public void guardarTiempo(int id) {
+    public void guardarUltimoUsuario1(int id,String s) {
         SharedPreferences preferencias=getSharedPreferences("usuario",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=preferencias.edit();
-        editor.putString("1234", ""+id);
+        editor.putString("1234", ""+id+s);
         editor.commit();
     }
 
