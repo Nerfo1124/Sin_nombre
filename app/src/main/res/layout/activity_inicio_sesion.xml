@@ -7,19 +7,22 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".view.InicioSesion">
+    tools:context=".view.InicioSesion"
+    android:gravity="center">
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/svInicioSesion"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:fillViewport="false">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="fill_parent"

@@ -104,7 +104,7 @@ public class Principal extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
         Log.d(TAG_LOG, "Parametro recibido: " + idUsuarioSesion);
-        guardarUltimoUsuario1(idUsuarioSesion,":1");
+        guardarUltimoUsuario1(idUsuarioSesion, ":1");
         //
         UsuarioDAO daoU=new UsuarioDAO(this);
         usuarioSesion = daoU.consult(idUsuarioSesion);
@@ -281,8 +281,6 @@ public class Principal extends AppCompatActivity {
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //Salir
-                            //Inicio.this.finish();
                         }
                     })
                     .show();
@@ -308,14 +306,22 @@ public class Principal extends AppCompatActivity {
                                 Intent i = new Intent(getApplicationContext(), InicioSesion.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
+                                guardarUltimoUsuario1(idUsuarioSesion, ":0");
+                                guardarTiempo();
                                 Principal.this.finish();
-                                guardarUltimoUsuario1(idUsuarioSesion,":0");
                             }
                         }
                     }).show();
         } catch (Exception e) {
             Toast.makeText(this, "Error Inicio - Dialogo:" + e.toString(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void guardarTiempo() {
+        SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferencias.edit();
+        editor.putString("mail", Contador.tiempo);
+        editor.commit();
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -381,6 +387,7 @@ public class Principal extends AppCompatActivity {
                         publishProgress("" + 0);
                     }
                     Thread.sleep(1000);
+                    guardarTiempo();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

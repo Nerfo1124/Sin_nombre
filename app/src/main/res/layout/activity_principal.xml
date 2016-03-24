@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".view.Principal">
+    tools:context=".view.Principal"
+    android:gravity="center">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -16,12 +17,13 @@
         android:id="@+id/scrollView2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true">
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="center|center_vertical|center_horizontal">
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_marginTop="10dp"
