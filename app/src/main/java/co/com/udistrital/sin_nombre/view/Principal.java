@@ -384,7 +384,7 @@ public class Principal extends AppCompatActivity {
                         float min = (float) minutos / 480;
                         publishProgress("" + min);
                     } else {
-                        publishProgress("" + 0);
+                        publishProgress( ""  + 0);
                     }
                     Thread.sleep(1000);
                     guardarTiempo();
