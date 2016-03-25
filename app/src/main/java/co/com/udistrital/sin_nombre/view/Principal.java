@@ -184,7 +184,7 @@ public class Principal extends AppCompatActivity {
     public void cargarSwitchYProgress(){
         progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
         progressCircle.startAnimation();
-        Contador.setIdSesion(idUsuarioSesion);
+        Contador.setIdSesion(idUsuarioSesion,getApplicationContext());
         if(isMyServiceRunning(pantalla_on_off.class)==false) {
             startService(new Intent(this, pantalla_on_off.class));
             myTask = new MyTask();

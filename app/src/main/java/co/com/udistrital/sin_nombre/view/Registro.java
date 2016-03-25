@@ -176,8 +176,8 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
 
     public void referenciaTres() {
         fre = (NumberPicker) findViewById(R.id.numero);
-        fre.setMaxValue(24);
-        fre.setMinValue(1);
+        fre.setMaxValue(300);
+        fre.setMinValue(30);
         fre.setWrapSelectorWheel(false);
     }
 

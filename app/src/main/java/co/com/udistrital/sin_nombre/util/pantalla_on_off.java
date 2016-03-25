@@ -67,7 +67,4 @@ public class  pantalla_on_off extends Service {
         editor.commit();
     }
 
-    public Contador getContador() {
-        return contador;
-    }
 }

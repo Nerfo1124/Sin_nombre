@@ -7,7 +7,7 @@ public class SistemaVO {
 
     private int idSistema;
     private float tamanoFuente;
-    private float frecuencia;
+    private int frecuencia;
 
     // Bloque Getter
     public int getIdSistema() {
@@ -18,7 +18,7 @@ public class SistemaVO {
         return tamanoFuente;
     }
 
-    public float getFrecuencia() {
+    public int getFrecuencia() {
         return frecuencia;
     }
 
@@ -31,7 +31,7 @@ public class SistemaVO {
         this.tamanoFuente = tamanoFuente;
     }
 
-    public void setFrecuencia(float frecuencia) {
+    public void setFrecuencia(int frecuencia) {
         this.frecuencia = frecuencia;
     }
 }

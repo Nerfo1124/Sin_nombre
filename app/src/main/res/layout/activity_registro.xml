@@ -572,7 +572,7 @@
                                     android:id="@+id/lblhora"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Horas"
+                                    android:text="Minutos"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
                                     android:textSize="20dp" />
                             </LinearLayout>

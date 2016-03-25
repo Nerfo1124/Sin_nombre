@@ -1,6 +1,12 @@
 package co.com.udistrital.sin_nombre.util;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,8 +15,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.HistoricoDAO;
+import co.com.udistrital.sin_nombre.dao.SistemaDAO;
+import co.com.udistrital.sin_nombre.view.Ejercicios;
 import co.com.udistrital.sin_nombre.vo.HistoricoVO;
+import co.com.udistrital.sin_nombre.vo.SistemaVO;
 
 /**
  * Created by Usuario on 19/02/2016.
@@ -18,6 +28,8 @@ import co.com.udistrital.sin_nombre.vo.HistoricoVO;
 public class  Contador extends Thread {
 
     private static String TAG_LOG = "[Sin_nombre]";
+    int notificationID = 1;
+    static int frecuencia=0,cont=0;
 
     public static int idUsuarioSesion;
 
@@ -38,31 +50,37 @@ public class  Contador extends Thread {
                     this.sleep(60000);
                 }
                 while (continua) {
+                    ponerfre();
                     if(ReiniciarContador()){
                         this.sleep(60000);
                     }
-                        if (centesimas == 99) {
-                            centesimas = 00;
-                            segundos++;
-                        }
-                        if (segundos == 59){
-                            segundos = 00;
-                            minutos++;
-                        }
-                        if (minutos == 59){
-                            minutos = 00;
-                            horas++;
-                        }
-                        centesimas++;
-                        if(minutos<=9)
-                            tiempo = horas + ":0" + minutos + ":" + segundos;
-                        else
-                            tiempo = horas + ":" + minutos + ":" + segundos;
-                        if(segundos<=9)
-                            tiempo = horas + ":" + minutos + ":0" + segundos;
-                        else
-                            tiempo = horas + ":" + minutos + ":" + segundos;
-                        this.sleep(9);
+
+                    if(frecuencia==(horas*60+minutos)){
+                        this.displayNotification();
+                        minutos++;
+                    }
+                    if (centesimas == 99) {
+                        centesimas = 00;
+                        segundos++;
+                    }
+                    if (segundos == 59){
+                        segundos = 00;
+                        minutos++;
+                    }
+                    if (minutos >= 59){
+                        minutos = 00;
+                        horas++;
+                    }
+                    centesimas++;
+                    if(minutos<=9)
+                        tiempo = horas + ":0" + minutos + ":" + segundos;
+                    else
+                        tiempo = horas + ":" + minutos + ":" + segundos;
+                    if(segundos<=9)
+                        tiempo = horas + ":" + minutos + ":0" + segundos;
+                    else
+                        tiempo = horas + ":" + minutos + ":" + segundos;
+                    this.sleep(9);
                 }
             }
         }catch (Exception ex) {
@@ -103,13 +121,69 @@ public class  Contador extends Thread {
      *
      * @param idSesion
      */
-    public static void setIdSesion(int idSesion) {
-        idUsuarioSesion = idSesion;
-        Log.d(TAG_LOG, "Valor de la Variable Sesion en Contador: " + idUsuarioSesion);
+    public static void setIdSesion(int idSesion,Context c) {
+        try{
+            Log.d(TAG_LOG, "Valor de la Variable Sesion en Contador: " + idUsuarioSesion);
+            idUsuarioSesion = idSesion;
+            SistemaVO objS= new SistemaVO();
+            SistemaDAO objBD = new SistemaDAO(c);
+            objS=objBD.consult(idSesion);
+            frecuencia= Integer.parseInt("" + objS.getFrecuencia());
+            guardarfre(c);
+            Log.e(TAG_LOG, "Error en  setIdsesion"+frecuencia);
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error en  setIdsesion", e);
+        }
+
+    }
+    public static void setcont() {
+        try{
+            Log.d(TAG_LOG, "Valor de la Variable Sesion en Contador: " + idUsuarioSesion);
+            cont=0;
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error en  setIdsesion", e);
+        }
+
     }
 
-    public  void iniciaTiempo(){
-        segundos=0;
+    protected void displayNotification(){
+        Intent i = new Intent(c, Ejercicios.class);
+        i.putExtra("notificationID", notificationID);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(c, 0, i, 0);
+
+        NotificationManager nm = (NotificationManager) c.getSystemService(c.NOTIFICATION_SERVICE);
+
+        CharSequence ticker ="Sin-nombre: Debe realizar sus ejercicios";
+        CharSequence contentTitle = "Sin-nombre - Ejercicios";
+        CharSequence contentText = "Realiza ahora los ejercicios";
+        Notification noti = new NotificationCompat.Builder(c)
+                .setContentIntent(pendingIntent)
+                .setTicker(ticker)
+                .setContentTitle(contentTitle)
+                .setContentText(contentText)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .addAction(R.mipmap.ic_launcher, ticker, pendingIntent)
+                .setVibrate(new long[] {100, 250, 100, 500})
+                .build();
+        nm.notify(notificationID, noti);
+    }
+
+    public void ponerfre() {
+        try{
+            SharedPreferences prefe= c.getSharedPreferences("frecuencia", Context.MODE_PRIVATE);
+            frecuencia=Integer.parseInt(prefe.getString("aic", "-1"));
+
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
+    }
+
+    public static void guardarfre(Context c) {
+        SharedPreferences preferencias=c.getSharedPreferences("frecuencia",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferencias.edit();
+        editor.putString("aic", ""+frecuencia);
+        editor.commit();
     }
 
 }
