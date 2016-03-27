@@ -20,6 +20,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String FORMULA_OJO_DER = "for_av_od";
     public static final String FORMULA_OJO_IZQ = "for_av_oi";
     public static final String FORMULA_TAM_FUENTE = "for_tam_fuente";
+
     public static final String CREATE_TABLE_FORMULA =
             "CREATE TABLE " + TABLE_NAME_FORMULA + " ( "
                     + FORMULA_ID + " integer primary key autoincrement not null, "
@@ -35,6 +36,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String SESION_ID = "ses_id";
     public static final String SESION_USER = "ses_user";
     public static final String SESION_PASS = "ses_pass";
+
     public static final String CREATE_TABLE_SESION =
             "CREATE TABLE " + TABLE_NAME_SESION + " ( "
                     + SESION_ID + " integer primary key autoincrement not null, "
@@ -48,6 +50,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String SISTEMA_ID = "sis_id";
     public static final String SISTEMA_TAM_FUENTE = "sis_tam_fuente";
     public static final String SISTEMA_FRECUENCIA = "sis_frecuencia";
+
     public static final String CREATE_TABLE_SISTEMA =
             "CREATE TABLE " + TABLE_NAME_SISTEMA + " ( "
                     + SISTEMA_ID + " integer primary key autoincrement not null, "
@@ -64,6 +67,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String RESTABLECER_QUEST2 = "res_pregunta2";
     public static final String RESTABLECER_ANSW2 = "res_respuesta2";
     public static final String RESTABLECER_TAMANO_FUENTE = "res_tam_fuente_sistema";
+
     public static final String CREATE_TABLE_RESTABLECER =
             "CREATE TABLE " + TABLE_NAME_RESTABLECER + " ( "
             + RESTABLECER_ID + " integer primary key autoincrement not null, "
@@ -86,6 +90,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String USUARIO_FORMULA = "Formula_id";
     public static final String USUARIO_SISTEMA = "Sistema_id";
     public static final String USUARIO_REESTABLECER = "Restablecer_id";
+
     public static final String CREATE_TABLE_USUARIO =
             "CREATE TABLE " + TABLE_NAME_USUARIO + " ( "
                     + USUARIO_ID + " integer primary key autoincrement not null, "
@@ -111,12 +116,48 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String HISTORICO_ID_USUARIO = "his_id_user";
     public static final String HISTORICO_TIEMPO = "his_tiempo_uso";
     public static final String HISTORICO_FECHA = "his_fecha_registro";
+
     public static final String CREATE_TABLE_HISTORICO =
             "CREATE TABLE " + TABLE_NAME_HISTORICO + "("
                     + HISTORICO_ID + " integer primary key autoincrement not null, "
                     + HISTORICO_ID_USUARIO + " integer not null, "
                     + HISTORICO_TIEMPO + " text not null, "
                     + HISTORICO_FECHA + " text not null "
+                    + " ) ";
+
+    // ========================================================
+    // Tabla de Ejercicios
+    public static final String TABLE_NAME_EJERCICIO = "EJERCICIO";
+    public static final String EJERCICIO_ID = "eje_id";
+    public static final String EJERCICIO_NOMBRE = "eje_nombre";
+    public static final String EJERCICIO_IMAGEN = "eje_imagen";
+    public static final String EJERCICIO_DESCRIPCION = "eje_descripcion";
+
+    public static final String CREATE_TABLE_EJERCICIO =
+            "CREATE TABLE " + TABLE_NAME_EJERCICIO + "("
+                    + EJERCICIO_ID + " integer primary key autoincrement not null, "
+                    + EJERCICIO_NOMBRE + " text not null, "
+                    + EJERCICIO_IMAGEN + " text not null, "
+                    + EJERCICIO_DESCRIPCION + " text not null "
+                    + " ) ";
+
+
+    // ========================================================
+    // Tabla de Historico ejercicios realizados.
+    public static final String TABLE_NAME_HISTORICO_EJER = "HISTORICO_EJERCICIO";
+    public static final String HISTORICO_EJER_ID = "his_eje_id";
+    public static final String HISTORICO_EJER_USU = "Usuario_id";
+    public static final String HISTORICO_EJER_EJERCICIO = "Ejercicio_id";
+    public static final String HISTORICO_EJER_FECHA = "his_eje_fecha";
+
+    public static final String CREATE_TABLE_HISTORICO_EX =
+            "CREATE TABLE " + TABLE_NAME_HISTORICO_EJER + "("
+                    + HISTORICO_EJER_ID + " integer primary key autoincrement not null, "
+                    + HISTORICO_EJER_USU + " integer, "
+                    + HISTORICO_EJER_EJERCICIO + " integer, "
+                    + HISTORICO_EJER_FECHA + " text not null, "
+                    + "foreign key(" + HISTORICO_EJER_USU + ") references " + TABLE_NAME_USUARIO + "(" + USUARIO_ID + "),"
+                    + "foreign key(" + HISTORICO_EJER_EJERCICIO + ") references " + TABLE_NAME_EJERCICIO + "(" + EJERCICIO_ID + ")"
                     + " ) ";
 
     // ========================================================
@@ -144,11 +185,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_USUARIO);
         db.execSQL(CREATE_TABLE_HISTORICO);
         Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_HISTORICO);
-        Toast.makeText(contexto, "CREO BASE DE DATOS", Toast.LENGTH_LONG).show();
+        db.execSQL(CREATE_TABLE_EJERCICIO);
+        Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_EJERCICIO);
+        db.execSQL("INSERT INTO EJERCICIO(eje_nombre , eje_imagen , eje_descripcion) VALUES ('Ejercicio1','John.png','Breve descripcion del ejercicio.')");
+        db.execSQL("INSERT INTO EJERCICIO(eje_nombre , eje_imagen , eje_descripcion) VALUES ('Ejercicio2','George.png','Breve descripcion del ejercicio.')");
+        db.execSQL("INSERT INTO EJERCICIO(eje_nombre , eje_imagen , eje_descripcion) VALUES ('Ejercicio3','Paul.png','Breve descripcion del ejercicio.')");
+        db.execSQL("INSERT INTO EJERCICIO(eje_nombre , eje_imagen , eje_descripcion) VALUES ('Ejercicio4','Ringo.png','Breve descripcion del ejercicio.')");
+        db.execSQL(CREATE_TABLE_HISTORICO_EX);
+        Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_HISTORICO_EX);
+
+        Log.i(TAG_LOG, "Base de Datos creada satisfactoriamente.");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Pendiente por validar con Rolando.
+        // TODO Pendiente por validar.
     }
 }

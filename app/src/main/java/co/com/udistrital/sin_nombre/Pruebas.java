@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.Date;
 import java.util.List;
 
+import co.com.udistrital.sin_nombre.dao.EjercicioDAO;
 import co.com.udistrital.sin_nombre.dao.FormulaDAO;
 import co.com.udistrital.sin_nombre.dao.HistoricoDAO;
 import co.com.udistrital.sin_nombre.dao.RestablecerDAO;
@@ -19,6 +20,7 @@ import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.SistemaDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.security.Encrypter;
+import co.com.udistrital.sin_nombre.vo.EjercicioVO;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.HistoricoVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
@@ -39,6 +41,7 @@ public class Pruebas extends AppCompatActivity {
     private SistemaVO sistemaVO;
     private UsuarioVO usuarioVO;
     private HistoricoVO historicoVO;
+    private EjercicioVO ejercicioVO;
 
     private FormulaDAO formula;
     private RestablecerDAO restablecer;
@@ -46,6 +49,7 @@ public class Pruebas extends AppCompatActivity {
     private SistemaDAO sistema;
     private UsuarioDAO usuario;
     private HistoricoDAO historico;
+    private EjercicioDAO ejercicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class Pruebas extends AppCompatActivity {
         formula = new FormulaDAO(this);
         usuario = new UsuarioDAO(this);
         historico = new HistoricoDAO(this);
+        ejercicio = new EjercicioDAO(this);
         /*restablecer = new RestablecerDAO(this);
         sesion = new SesionDAO(this);
         sistema = new SistemaDAO(this);
@@ -158,6 +163,8 @@ public class Pruebas extends AppCompatActivity {
                 Log.d(TAG_LOG, "Historio " + (j + 1) + ": " + historicoVO.getFechaHistorico());
                 Log.d(TAG_LOG, "===================================================================================");
             }*/
+            ejercicioVO = new EjercicioVO();
+            ejercicio.insert(ejercicioVO);
         } catch (Exception ex) {
             Log.e("[Sin_nombre]", "Ocurrio un error en la consulta" + new Date(), ex);
         }
