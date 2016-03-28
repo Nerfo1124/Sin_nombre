@@ -140,7 +140,6 @@ public class  Contador extends Thread {
             frecuencia= Integer.parseInt("" + objS.getFrecuencia());
             guardarfre(c);
             ponerfre(c);
-            Log.e(TAG_LOG, "Error en  setIdsesion"+frecuencia);
         }catch (Exception e){
             Log.e(TAG_LOG, "Error en  setIdsesion", e);
         }
