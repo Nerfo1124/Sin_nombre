@@ -119,6 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Ejercicios"
+                    android:onClick="ejercicio"
                     android:id="@+id/button4"
                     android:layout_alignParentBottom="true"
                     android:layout_alignRight="@+id/progress_circle"

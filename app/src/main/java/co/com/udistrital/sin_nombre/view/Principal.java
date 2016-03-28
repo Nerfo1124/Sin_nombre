@@ -184,7 +184,7 @@ public class Principal extends AppCompatActivity {
     public void cargarSwitchYProgress(){
         progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
         progressCircle.startAnimation();
-        Contador.setIdSesion(idUsuarioSesion,getApplicationContext());
+        Contador.setIdSesion(idUsuarioSesion, getApplicationContext());
         if(isMyServiceRunning(pantalla_on_off.class)==false) {
             startService(new Intent(this, pantalla_on_off.class));
             myTask = new MyTask();
@@ -344,6 +344,11 @@ public class Principal extends AppCompatActivity {
         }
     }
 
+    public void ejercicio(View v){
+        Intent intent  = new Intent(this,Ejercicios.class);
+        startActivity(intent);
+    }
+
     public void BuscarUltimoUsuario1() {
         try{
             SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
@@ -366,46 +371,46 @@ public class Principal extends AppCompatActivity {
 
         private class MyTask extends AsyncTask<String, String, String> {
 
-        public boolean cent;
+            public boolean cent;
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            cent = true;
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            while (cent) {
-                try {
-                    if (Contador.tiempo.toString() != "") {
-                        String v[] = Contador.tiempo.split(":");
-                        int minutos = (Integer.parseInt(v[0]) * 60) + (Integer.parseInt(v[1]));
-                        float min = (float) minutos / 480;
-                        publishProgress("" + min);
-                    } else {
-                        publishProgress( ""  + 0);
-                    }
-                    Thread.sleep(1000);
-                    guardarTiempo();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                cent = true;
             }
-            return null;
-        }
 
-        @Override
-        protected void onProgressUpdate(String... values) {
-            progressCircle.setProgress(Float.parseFloat(values[0]));
-            progressCircle.startAnimation();
-        }
+            @Override
+            protected String doInBackground(String... params) {
+                while (cent) {
+                    try {
+                        if (Contador.tiempo.toString() != "") {
+                            String v[] = Contador.tiempo.split(":");
+                            int minutos = (Integer.parseInt(v[0]) * 60) + (Integer.parseInt(v[1]));
+                            float min = (float) minutos / 480;
+                            publishProgress("" + min);
+                        } else {
+                            publishProgress("" + 0);
+                        }
+                        Thread.sleep(1000);
+                        guardarTiempo();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
+            }
 
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            cent = false;
+            @Override
+            protected void onProgressUpdate(String... values) {
+                progressCircle.setProgress(Float.parseFloat(values[0]));
+                progressCircle.startAnimation();
+            }
+
+            @Override
+            protected void onCancelled() {
+                super.onCancelled();
+                cent = false;
+            }
         }
-    }
 
 }
