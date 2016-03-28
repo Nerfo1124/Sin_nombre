@@ -50,7 +50,6 @@ public class  Contador extends Thread {
                     this.sleep(60000);
                 }
                 while (continua) {
-                    Log.e(TAG_LOG, "Fre: "+frecuencia+" min: "+(horas*60+minutos)+" id: "+idUsuarioSesion);
                     if(idUsuarioSesion==0){
                         idUsuarioSesion=BuscarUltimoUsuario1();
                         ponerfre(c);
