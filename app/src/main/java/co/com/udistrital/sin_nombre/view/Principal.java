@@ -55,7 +55,7 @@ public class Principal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
+
         BuscarUltimoUsuario1();
         cargarDatosIniciales();
         cargarSwitchLetra();
@@ -235,6 +235,7 @@ public class Principal extends AppCompatActivity {
         toast3.setView(layout);
         toast3.show();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_inicio, menu);
@@ -345,8 +346,10 @@ public class Principal extends AppCompatActivity {
     }
 
     public void ejercicio(View v){
-        Intent intent  = new Intent(this,Ejercicios.class);
+        Intent intent  = new Intent(this,Circulos.class);
         startActivity(intent);
+        myTask.onCancelled();
+        this.finish();
     }
 
     public void BuscarUltimoUsuario1() {
@@ -369,7 +372,7 @@ public class Principal extends AppCompatActivity {
     }
 
 
-        private class MyTask extends AsyncTask<String, String, String> {
+    private class MyTask extends AsyncTask<String, String, String> {
 
             public boolean cent;
 
@@ -411,6 +414,6 @@ public class Principal extends AppCompatActivity {
                 super.onCancelled();
                 cent = false;
             }
-        }
+    }
 
 }
