@@ -1,12 +1,14 @@
 package co.com.udistrital.sin_nombre;
 
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -51,12 +53,24 @@ public class Pruebas extends AppCompatActivity {
     private HistoricoDAO historico;
     private EjercicioDAO ejercicio;
 
+    AnimationDrawable frameAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pruebas);
 
-        btnComparar = (Button) findViewById(R.id.btnEncriptar);
+        ImageView rocketImage = (ImageView) findViewById(R.id.imagePruebas);
+        rocketImage.setBackgroundResource(R.drawable.rocket);
+
+        try {
+            frameAnimation = (AnimationDrawable) rocketImage.getBackground();
+            frameAnimation.start();
+        } catch (Exception ex) {
+            Log.e("[Sin_nombre]", "Error: ", ex);
+        }
+
+        /*btnComparar = (Button) findViewById(R.id.btnEncriptar);
         txtClave = (EditText) findViewById(R.id.txtPassPrueba);
         txtMensaje = (TextView) findViewById(R.id.txtMensajeR);
 
@@ -119,7 +133,7 @@ public class Pruebas extends AppCompatActivity {
         }
 
         int ultimo = formula.consultLastID();
-        Log.d("[Sin_nombre]", " Ultimo registro en Formula: " + ultimo);*/
+        Log.d("[Sin_nombre]", " Ultimo registro en Formula: " + ultimo);
 
         String msgEncriptar = "fernando1124";
         String msgEncriptado = Encrypter.getStringMessageDigest(msgEncriptar, Encrypter.SHA256);
@@ -162,12 +176,12 @@ public class Pruebas extends AppCompatActivity {
                 Log.d(TAG_LOG, "Historio " + (j + 1) + ": " + historicoVO.getTiempo());
                 Log.d(TAG_LOG, "Historio " + (j + 1) + ": " + historicoVO.getFechaHistorico());
                 Log.d(TAG_LOG, "===================================================================================");
-            }*/
+            }
             ejercicioVO = new EjercicioVO();
             ejercicio.insert(ejercicioVO);
         } catch (Exception ex) {
             Log.e("[Sin_nombre]", "Ocurrio un error en la consulta" + new Date(), ex);
-        }
+        }*/
     }
 
     public void compararEncriptado(View v) {

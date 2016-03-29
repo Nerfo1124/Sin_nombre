@@ -1,9 +1,7 @@
 package co.com.udistrital.sin_nombre.view;
 
 import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;

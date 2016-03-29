@@ -43,5 +43,11 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/txtMensajeR"
             android:layout_marginTop="15sp" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imagePruebas"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </RelativeLayout>

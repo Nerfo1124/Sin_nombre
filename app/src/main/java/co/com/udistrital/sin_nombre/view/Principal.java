@@ -251,7 +251,8 @@ public class Principal extends AppCompatActivity {
             return true;
         }
         if (id == R.id.ejercicio) {
-            Toast.makeText(this, "Se presionó la opción ejercicio", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, Ejercicios.class);
+            startActivity(intent);
             return true;
         }
 
@@ -277,8 +278,8 @@ public class Principal extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Salir?")
-                    .setMessage("No hay marcha atras")
+                    .setTitle("Desea Salir?")
+                    .setMessage("Cierre sesion por favor")
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -355,6 +356,7 @@ public class Principal extends AppCompatActivity {
     public void BuscarUltimoUsuario1() {
         try{
             SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
+            Log.d(TAG_LOG, "SharedPreferences: " + prefe.toString());
             String v[]=prefe.getString("1234", "0:0").split(":");
             aux=Integer.parseInt(v[0]);
         }catch (Exception e){
