@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -41,10 +42,9 @@ public class Circulos extends AppCompatActivity {
     }
 
     public void girar(View v){
-        myTask = new MyTask();
-        myTask.execute();
-        new CountDownTimer(60000, 1000) {
-
+        //myTask = new MyTask();
+        //myTask.execute();
+        new CountDownTimer(60000, 6000) {
             public void onTick(long millisUntilFinished) {
                 c.setText("Tiempo Restante: " + millisUntilFinished / 1000);
             }
@@ -83,9 +83,19 @@ public class Circulos extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            myTask.onCancelled();
+            if(myTask!=null)
+                myTask.onCancelled();
             Intent intento = new Intent(this, Principal.class);
             intento.putExtra("idUsuario", "" +BuscarUltimoUsuario1());
             startActivity(intento);

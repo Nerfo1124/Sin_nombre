@@ -345,12 +345,14 @@ public class Principal extends AppCompatActivity {
     }
 
     public void ejercicio(View v){
-        Intent intent  = new Intent(this,Circulos.class);
+        //Intent intent  = new Intent(this,Circulos.class);
+        //startActivity(intent);
+        //myTask.onCancelled();
+        //guardarUltimoUsuario1(idUsuarioSesion, ":1");
+        //guardarTiempo();
+        //this.finish();
+        Intent intent  = new Intent(this,Acercamiento.class);
         startActivity(intent);
-        myTask.onCancelled();
-        guardarUltimoUsuario1(idUsuarioSesion, ":1");
-        guardarTiempo();
-        this.finish();
     }
 
     public void BuscarUltimoUsuario1() {

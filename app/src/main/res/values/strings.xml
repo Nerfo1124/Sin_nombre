@@ -28,4 +28,5 @@
         <item>Tamaño de letra manual</item>
     </string-array>
     <string name="title_activity_seguimiento">Seguimiento</string>
+    <string name="title_activity_acercamiento">Acercamiento</string>
 </resources>

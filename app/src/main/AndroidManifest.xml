@@ -49,9 +49,11 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".view.Seguimiento" />
         <activity android:name=".view.Ejercicios" />
-        <activity android:name=".view.Circulos"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".view.Circulos"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.Parpadeo" />
+        <activity android:name=".view.Acercamiento"></activity>
     </application>
 
 </manifest>
