@@ -16,6 +16,7 @@
         android:id="@+id/scrollView" >
 
         <LinearLayout
+
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,11 +25,21 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
+            <Chronometer
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/chronometer"
+                android:textColor="#42cb35"
+                android:textSize="60px"
+                android:gravity="center" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Debe seguir el  circulo por   30 seguntos"
-                android:id="@+id/texto" />
+                android:text="Debe seguir el circulo por un minuto"
+                android:id="@+id/texto"
+                android:textSize="35px"
+                android:gravity="center" />
 
             <ImageView
                 android:layout_marginTop="300px"
@@ -45,7 +56,6 @@
                 android:text="Comenzar"
                 android:id="@+id/btngirar"
                 android:onClick="girar" />
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
