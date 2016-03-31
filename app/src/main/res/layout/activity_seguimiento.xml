@@ -11,46 +11,44 @@
     android:gravity="center">
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView6" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/svHistorico" >
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:id="@+id/layoutSeg01"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:text="Historico Uso de Dispositivo"
+                android:id="@+id/lblTituloHistorico"
+                android:allowUndo="false"
+                android:gravity="center"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="25dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Historial"
-                    android:id="@+id/textView2"
-                    android:allowUndo="false"
-                    android:gravity="center"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="25dp" />
-            </LinearLayout>
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="fill_parent"
+                android:layout_height="300dip"
+                android:id="@+id/graph" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_below="@+id/layoutSeg01"
-                android:id="@+id/layoutSeg02"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Historico Ejercicios"
+                android:allowUndo="false"
+                android:gravity="center"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="25dp" />
 
-
-                <com.jjoe64.graphview.GraphView
-                    android:layout_width="match_parent"
-                    android:layout_height="300dip"
-                    android:id="@+id/graph" />
-
-            </LinearLayout>
-        </RelativeLayout>
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listaHistorico" />
+        </LinearLayout>
     </ScrollView>
 
 
