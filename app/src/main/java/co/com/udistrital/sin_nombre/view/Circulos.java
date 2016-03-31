@@ -6,13 +6,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,17 +30,29 @@ public class Circulos extends AppCompatActivity {
     ImageView imagen;
     int cont=0;
     MyTask myTask=null;
+    Chronometer c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circulos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        c = (Chronometer)findViewById(R.id.chronometer);
         imagen = (ImageView)findViewById(R.id.imagen);
+
     }
 
     public void girar(View v){
-        myTask = new MyTask();
-        myTask.execute();
+        //myTask = new MyTask();
+        //myTask.execute();
+        new CountDownTimer(60000, 6000) {
+            public void onTick(long millisUntilFinished) {
+                c.setText("Tiempo Restante: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                c.setText("FINALIZADO");
+            }
+        }.start();
     }
 
     public void girar(int dir){
@@ -53,6 +69,8 @@ public class Circulos extends AppCompatActivity {
         }
     }
 
+
+
     public void parar(){
         if(cont==10) {
             Log.e("[Prueba]", "parar");
@@ -65,12 +83,23 @@ public class Circulos extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if(myTask!=null)
+                myTask.onCancelled();
             Intent intento = new Intent(this, Principal.class);
             intento.putExtra("idUsuario", "" +BuscarUltimoUsuario1());
             startActivity(intento);
-            finish();
+            Circulos.this.finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);

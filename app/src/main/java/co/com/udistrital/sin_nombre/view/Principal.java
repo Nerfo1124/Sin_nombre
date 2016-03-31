@@ -60,7 +60,7 @@ public class Principal extends AppCompatActivity {
         cargarDatosIniciales();
         cargarSwitchLetra();
         cargarSwitchLetra2();
-        Toast.makeText(this,"anterior "+aux+" actual "+idUsuarioSesion,Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"anterior "+aux+" actual "+idUsuarioSesion,Toast.LENGTH_LONG).show();
         if(aux==idUsuarioSesion){
 
         }else{
@@ -121,7 +121,6 @@ public class Principal extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        Toast.makeText(getApplicationContext(),"contador: "+cont,Toast.LENGTH_LONG).show();
                         if(cont!=0) {
                             bloquearSwitch();
                             s2.setChecked(false);
@@ -199,7 +198,6 @@ public class Principal extends AppCompatActivity {
     public void revisarletra(FormulaVO o){
         try{
             Float s=Settings.System.getFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE);
-            Toast.makeText(getApplicationContext(), "Letra sistema "+s+" tamaño usuario "+o.getTamanioFuente(), Toast.LENGTH_LONG).show();
             if(s==1){
                 s1.setChecked(false);
                 s2.setChecked(false);
@@ -347,10 +345,14 @@ public class Principal extends AppCompatActivity {
     }
 
     public void ejercicio(View v){
-        Intent intent  = new Intent(this,Circulos.class);
+        //Intent intent  = new Intent(this,Circulos.class);
+        //startActivity(intent);
+        //myTask.onCancelled();
+        //guardarUltimoUsuario1(idUsuarioSesion, ":1");
+        //guardarTiempo();
+        //this.finish();
+        Intent intent  = new Intent(this,Acercamiento.class);
         startActivity(intent);
-        myTask.onCancelled();
-        this.finish();
     }
 
     public void BuscarUltimoUsuario1() {

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".view.Circulos"
+    tools:context="co.com.udistrital.sin_nombre.view.Parpadeo"
     android:gravity="center">
 
     <ScrollView
@@ -36,21 +36,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Debe seguir el circulo por un minuto"
+                android:text="Debe realizar la siguiente trasncicion por un minuto"
                 android:id="@+id/texto"
                 android:textSize="35px"
                 android:gravity="center" />
 
             <ImageView
-                android:layout_marginTop="300px"
+                android:layout_marginTop="50px"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/imagen"
-                android:background="@drawable/ojo"
+                android:background="@drawable/i1ojo"
                 android:layout_gravity="left" />
 
             <Button
-                android:layout_marginTop="300px"
+                android:layout_marginTop="50px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Comenzar"
@@ -58,4 +58,5 @@
                 android:onClick="girar" />
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>
