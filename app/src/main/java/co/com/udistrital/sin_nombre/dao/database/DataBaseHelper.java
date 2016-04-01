@@ -143,22 +143,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public static final String INSERT_EXCERSICE_1 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('Parpadeo','John.png','Ejercicio que consiste en parpadear la mayor cantidad de veces en un tiempo definido en la aplicacion.')";
+                    + "VALUES ('Parpadeo','parpadeo.png','Ejercicio que consiste en parpadear la mayor cantidad de veces en un tiempo definido en la aplicacion.')";
     public static final String INSERT_EXCERSICE_2 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('Acercamiento','John.png','Ejercicio que consiste en acercar y alejar un lapiz de acuerdo a la descripcion del ejercicio en la aplicacion.')";
+                    + "VALUES ('Acercamiento','acercamiento.png','Ejercicio que consiste en acercar y alejar un lapiz de acuerdo a la descripcion del ejercicio en la aplicacion.')";
     public static final String INSERT_EXCERSICE_3 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('Circulos','John.png','Ejercicio que consiste en dar circulos con los ojos con el apoyo de un objeto visual en la pantalla del celular.')";
+                    + "VALUES ('Circulos','circulos.png','Ejercicio que consiste en dar circulos con los ojos con el apoyo de un objeto visual en la pantalla del celular.')";
     public static final String INSERT_EXCERSICE_4 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('Masaje','John.png','Ejercicio que consiste en dar lijeros masajes circulares a los ojos con apoyo de las palmas de las manos.')";
+                    + "VALUES ('Masaje','masajes.png','Ejercicio que consiste en dar lijeros masajes circulares a los ojos con apoyo de las palmas de las manos.')";
     public static final String INSERT_EXCERSICE_5 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('LejosCerca','John.png','Ejercicio que consiste en visualizar una serie de objetos cercanos y lejanos que se encuentren alrededor.')";
+                    + "VALUES ('LejosCerca','cerca-lejos.png','Ejercicio que consiste en visualizar una serie de objetos cercanos y lejanos que se encuentren alrededor.')";
     public static final String INSERT_EXCERSICE_6 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('Palmeo','John.png','Ejercicio que consiste en poner las palmas de las manos sobre los ojos sin hacer presion sobre ellos.')";
+                    + "VALUES ('Palmeo','palmeo.png','Ejercicio que consiste en poner las palmas de las manos sobre los ojos sin hacer presion sobre ellos.')";
     public static final String INSERT_EXCERSICE_7 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
                     + "VALUES ('Ejercicio1','John.png','Breve descripcion del ejercicio.')";
