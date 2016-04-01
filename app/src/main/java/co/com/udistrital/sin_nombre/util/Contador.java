@@ -46,19 +46,20 @@ public class  Contador extends Thread {
     public void run() {
         try {
             while(siempre) {
-                if(ReiniciarContador()){
-                    this.sleep(60000);
-                }
                 Log.e("[Prueba]", "Por fuera "+tiempo);
+                if(ReiniciarContador())
+                    this.sleep(60000);
+
                 while (continua) {
                     Log.e("[Prueba]", "Por dentro "+tiempo);
                     if(idUsuarioSesion==0){
                         idUsuarioSesion=BuscarUltimoUsuario1();
                         ponerfre(c);
-                        if(ReiniciarContador()){
                     }
+
+                    if(ReiniciarContador())
                         this.sleep(60000);
-                    }
+
                     if(frecuencia<(horas*60+minutos)){
                         frecuencia=frecuencia+band;
                     }
@@ -103,8 +104,10 @@ public class  Contador extends Thread {
 
     public boolean ReiniciarContador(){
         Calendar c = Calendar.getInstance();
+        Log.e("[Prueba]", "Fecha "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE));
         if(c.get(Calendar.HOUR_OF_DAY)==23&&c.get(Calendar.MINUTE)==59) {
             try{
+                Log.e("[Prueba]", "=000000000000 entro a guardar");
                 HistoricoVO objH= new HistoricoVO();
                 HistoricoVO objC= new HistoricoVO();
                 HistoricoDAO objBD= new HistoricoDAO(this.c);
@@ -120,6 +123,7 @@ public class  Contador extends Thread {
                 segundos = 0;
                 minutos = 0;
                 horas = 0;
+                guardarTiempo();
                 return true;
             }catch(Exception ex) {
                 Log.e(TAG_LOG, "Error en Reinciar Contador", ex);
@@ -187,6 +191,13 @@ public class  Contador extends Thread {
         SharedPreferences preferencias=c.getSharedPreferences("frecuencia",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=preferencias.edit();
         editor.putString("aic", ""+frecuencia);
+        editor.commit();
+    }
+
+    public void guardarTiempo() {
+        SharedPreferences preferencias=c.getSharedPreferences("datos", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=preferencias.edit();
+        editor.putString("mail", tiempo);
         editor.commit();
     }
 
