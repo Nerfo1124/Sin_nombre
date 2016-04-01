@@ -1,4 +1,4 @@
-package co.com.udistrital.sin_nombre.view;
+package co.com.udistrital.sin_nombre.Excersise;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.CountDownTimer;
@@ -13,19 +13,20 @@ import android.widget.ImageView;
 
 import co.com.udistrital.sin_nombre.R;
 
-public class Acercamiento extends AppCompatActivity {
+public class LejosCerca extends AppCompatActivity {
 
     ImageView imagen;
     Chronometer c;
     AnimationDrawable frameAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_acercamiento);
+        setContentView(R.layout.activity_lejos_cerca);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        c=(Chronometer)findViewById(R.id.chronometer);
-        imagen = (ImageView)findViewById(R.id.imagen);
-        imagen.setBackgroundResource(R.drawable.seguirlapiz);
+        c = (Chronometer) findViewById(R.id.chronometer);
+        imagen = (ImageView) findViewById(R.id.imagen);
+        imagen.setBackgroundResource(R.drawable.lejoscerca);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class Acercamiento extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void girar(View v){
+    public void girar(View v) {
         try {
             frameAnimation = (AnimationDrawable) imagen.getBackground();
             frameAnimation.start();
@@ -45,11 +46,12 @@ public class Acercamiento extends AppCompatActivity {
                 public void onTick(long millisUntilFinished) {
                     c.setText("Tiempo Restante: " + millisUntilFinished / 1000);
                 }
+
                 public void onFinish() {
                     c.setText("FINALIZADO");
                     frameAnimation.stop();
                 }
-            }  .start();
+            }.start();
         } catch (Exception ex) {
             Log.e("[Sin_nombre]", "Error: ", ex);
         }

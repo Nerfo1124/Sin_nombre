@@ -1,13 +1,10 @@
-package co.com.udistrital.sin_nombre.view;
+package co.com.udistrital.sin_nombre.Excersise;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,27 +18,27 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import co.com.udistrital.sin_nombre.R;
-import co.com.udistrital.sin_nombre.dao.HistoricoDAO;
-import co.com.udistrital.sin_nombre.vo.HistoricoExcVO;
+import co.com.udistrital.sin_nombre.view.Principal;
 
 
 public class Circulos extends AppCompatActivity {
 
     ImageView imagen;
-    int cont=0;
-    MyTask myTask=null;
+    int cont = 0;
+    MyTask myTask = null;
     Chronometer c;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circulos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        c = (Chronometer)findViewById(R.id.chronometer);
-        imagen = (ImageView)findViewById(R.id.imagen);
+        c = (Chronometer) findViewById(R.id.chronometer);
+        imagen = (ImageView) findViewById(R.id.imagen);
 
     }
 
-    public void girar(View v){
+    public void girar(View v) {
         //myTask = new MyTask();
         //myTask.execute();
         new CountDownTimer(60000, 6000) {
@@ -55,27 +52,26 @@ public class Circulos extends AppCompatActivity {
         }.start();
     }
 
-    public void girar(int dir){
-        if(dir==1){
+    public void girar(int dir) {
+        if (dir == 1) {
             Animation giro;
-            giro= AnimationUtils.loadAnimation(this, R.anim.girarder);
+            giro = AnimationUtils.loadAnimation(this, R.anim.girarder);
             giro.reset();
             imagen.startAnimation(giro);
-        }else{
+        } else {
             Animation giro;
-            giro= AnimationUtils.loadAnimation(this,R.anim.girarizq);
+            giro = AnimationUtils.loadAnimation(this, R.anim.girarizq);
             giro.reset();
             imagen.startAnimation(giro);
         }
     }
 
 
-
-    public void parar(){
-        if(cont==10) {
+    public void parar() {
+        if (cont == 10) {
             Log.e("[Prueba]", "parar");
             myTask.onCancelled();
-            cont=0;
+            cont = 0;
             //HistoricoExcVO objHE0 = new HistoricoExcVO();
             //HistoricoDAO objBD = new HistoricoDAO(this);
             //objHE0.setIdUsuario(BuscarUltimoUsuario1());
@@ -94,22 +90,23 @@ public class Circulos extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if(myTask!=null)
+            if (myTask != null)
                 myTask.onCancelled();
             Intent intento = new Intent(this, Principal.class);
-            intento.putExtra("idUsuario", "" +BuscarUltimoUsuario1());
+            intento.putExtra("idUsuario", "" + BuscarUltimoUsuario1());
             startActivity(intento);
             Circulos.this.finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
+
     public int BuscarUltimoUsuario1() {
-        try{
-            SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
-            String v[]=prefe.getString("1234", "0:0").split(":");
+        try {
+            SharedPreferences prefe = getSharedPreferences("usuario", Context.MODE_PRIVATE);
+            String v[] = prefe.getString("1234", "0:0").split(":");
             return Integer.parseInt(v[0]);
-        }catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "Error!: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             Log.e("eroro", "Error " + e.toString(), e);
         }
@@ -130,10 +127,10 @@ public class Circulos extends AppCompatActivity {
         protected String doInBackground(String... params) {
             while (cent) {
                 try {
-                    if(cont<10) {
+                    if (cont < 10) {
                         publishProgress("" + cont);
                         Thread.sleep(6000);
-                        Log.e("[Prueba]", "cont: "+cont);
+                        Log.e("[Prueba]", "cont: " + cont);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -144,17 +141,17 @@ public class Circulos extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(String... values) {
-            try{
-                if(Integer.parseInt(values[0])<5){
+            try {
+                if (Integer.parseInt(values[0]) < 5) {
                     girar(1);
                     cont++;
-                } else{
+                } else {
                     cont++;
                     girar(2);
                 }
                 parar();
-            }catch (Exception ex ){
-                Log.e("[Error]", "error"+ex.getMessage().toString());
+            } catch (Exception ex) {
+                Log.e("[Error]", "error" + ex.getMessage().toString());
                 parar();
             }
 

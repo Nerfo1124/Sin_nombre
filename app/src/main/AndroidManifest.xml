@@ -50,13 +50,13 @@
         <activity android:name=".view.Seguimiento" />
         <activity android:name=".view.Ejercicios" />
         <activity
-            android:name=".view.Circulos"
+            android:name=".Excersise.Circulos"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.Parpadeo" />
-        <activity android:name=".view.Acercamiento" />
-        <activity android:name=".view.Palmeo" />
-        <activity android:name=".view.Masaje" />
-        <activity android:name=".view.LejosCerca"></activity>
+        <activity android:name=".Excersise.Parpadeo" />
+        <activity android:name=".Excersise.Acercamiento" />
+        <activity android:name=".Excersise.Palmeo" />
+        <activity android:name=".Excersise.Masaje" />
+        <activity android:name=".Excersise.LejosCerca"></activity>
     </application>
 
 </manifest>

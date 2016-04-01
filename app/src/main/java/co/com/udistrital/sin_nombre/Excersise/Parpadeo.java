@@ -1,5 +1,6 @@
-package co.com.udistrital.sin_nombre.view;
+package co.com.udistrital.sin_nombre.Excersise;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -13,19 +14,20 @@ import android.widget.ImageView;
 
 import co.com.udistrital.sin_nombre.R;
 
-public class LejosCerca extends AppCompatActivity {
+public class Parpadeo extends AppCompatActivity {
 
     ImageView imagen;
     Chronometer c;
     AnimationDrawable frameAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lejos_cerca);
+        setContentView(R.layout.activity_parpadeo);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        c=(Chronometer)findViewById(R.id.chronometer);
-        imagen = (ImageView)findViewById(R.id.imagen);
-        imagen.setBackgroundResource(R.drawable.lejoscerca);
+        c = (Chronometer) findViewById(R.id.chronometer);
+        imagen = (ImageView) findViewById(R.id.imagen);
+        imagen.setBackgroundResource(R.drawable.ojos);
     }
 
     @Override
@@ -37,7 +39,7 @@ public class LejosCerca extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void girar(View v){
+    public void girar(View v) {
         try {
             frameAnimation = (AnimationDrawable) imagen.getBackground();
             frameAnimation.start();
@@ -45,11 +47,12 @@ public class LejosCerca extends AppCompatActivity {
                 public void onTick(long millisUntilFinished) {
                     c.setText("Tiempo Restante: " + millisUntilFinished / 1000);
                 }
+
                 public void onFinish() {
                     c.setText("FINALIZADO");
                     frameAnimation.stop();
                 }
-            }  .start();
+            }.start();
         } catch (Exception ex) {
             Log.e("[Sin_nombre]", "Error: ", ex);
         }

@@ -1,6 +1,5 @@
-package co.com.udistrital.sin_nombre.view;
+package co.com.udistrital.sin_nombre.Excersise;
 
-import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -14,19 +13,19 @@ import android.widget.ImageView;
 
 import co.com.udistrital.sin_nombre.R;
 
-public class Parpadeo extends AppCompatActivity {
+public class Masaje extends AppCompatActivity {
 
     ImageView imagen;
     Chronometer c;
     AnimationDrawable frameAnimation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parpadeo);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        c=(Chronometer)findViewById(R.id.chronometer);
-        imagen = (ImageView)findViewById(R.id.imagen);
-        imagen.setBackgroundResource(R.drawable.ojos);
+        setContentView(R.layout.activity_masaje);
+        c = (Chronometer) findViewById(R.id.chronometer);
+        imagen = (ImageView) findViewById(R.id.imagen);
+        imagen.setBackgroundResource(R.drawable.masaje);
     }
 
     @Override
@@ -38,7 +37,7 @@ public class Parpadeo extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void girar(View v){
+    public void girar(View v) {
         try {
             frameAnimation = (AnimationDrawable) imagen.getBackground();
             frameAnimation.start();
@@ -48,10 +47,10 @@ public class Parpadeo extends AppCompatActivity {
                 }
 
                 public void onFinish() {
-                c.setText("FINALIZADO");
+                    c.setText("FINALIZADO");
                     frameAnimation.stop();
                 }
-            }  .start();
+            }.start();
         } catch (Exception ex) {
             Log.e("[Sin_nombre]", "Error: ", ex);
         }

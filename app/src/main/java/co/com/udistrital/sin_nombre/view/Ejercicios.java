@@ -2,6 +2,7 @@ package co.com.udistrital.sin_nombre.view;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +12,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
+import co.com.udistrital.sin_nombre.Excersise.Acercamiento;
+import co.com.udistrital.sin_nombre.Excersise.Circulos;
+import co.com.udistrital.sin_nombre.Excersise.LejosCerca;
+import co.com.udistrital.sin_nombre.Excersise.Masaje;
+import co.com.udistrital.sin_nombre.Excersise.Palmeo;
+import co.com.udistrital.sin_nombre.Excersise.Parpadeo;
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.EjercicioDAO;
 import co.com.udistrital.sin_nombre.util.ArrayAdapter;
@@ -56,12 +62,45 @@ public class Ejercicios extends AppCompatActivity implements AdapterView.OnItemC
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(position==1){
-            Toast.makeText(this,"NNNNNNNNNNNNNNNNNNNNNNNNN",Toast.LENGTH_LONG).show();
-        }else
-            Toast.makeText(this,"11111111111111111111111111111",Toast.LENGTH_LONG).show();
-
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        switch (position + 1) {
+            case 1:
+                Intent mIntent1 = new Intent(this, Parpadeo.class);
+                startActivity(mIntent1);
+                break;
+            case 2:
+                Intent mIntent2 = new Intent(this, Acercamiento.class);
+                startActivity(mIntent2);
+                break;
+            case 3:
+                Intent mIntent3 = new Intent(this, Circulos.class);
+                startActivity(mIntent3);
+                break;
+            case 4:
+                Intent mIntent4 = new Intent(this, Masaje.class);
+                startActivity(mIntent4);
+                break;
+            case 5:
+                Intent mIntent5 = new Intent(this, LejosCerca.class);
+                startActivity(mIntent5);
+                break;
+            case 6:
+                Intent mIntent6 = new Intent(this, Palmeo.class);
+                startActivity(mIntent6);
+                break;
+            case 7:
+                Log.d(LOG_TAG, "Ejercicio sin asignar...");
+                break;
+            case 8:
+                Log.d(LOG_TAG, "Ejercicio sin asignar...");
+                break;
+            case 9:
+                Log.d(LOG_TAG, "Ejercicio sin asignar...");
+                break;
+            case 10:
+                Log.d(LOG_TAG, "Ejercicio sin asignar...");
+                break;
+        }
     }
 
 
