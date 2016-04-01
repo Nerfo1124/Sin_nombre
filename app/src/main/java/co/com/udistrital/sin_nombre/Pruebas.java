@@ -61,7 +61,7 @@ public class Pruebas extends AppCompatActivity {
         setContentView(R.layout.activity_pruebas);
 
         ImageView rocketImage = (ImageView) findViewById(R.id.imagePruebas);
-        rocketImage.setBackgroundResource(R.drawable.rocket);
+        rocketImage.setBackgroundResource(R.drawable.palmeo);
 
         try {
             frameAnimation = (AnimationDrawable) rocketImage.getBackground();

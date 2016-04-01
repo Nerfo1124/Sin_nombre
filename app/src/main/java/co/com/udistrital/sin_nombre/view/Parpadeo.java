@@ -26,7 +26,7 @@ public class Parpadeo extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c=(Chronometer)findViewById(R.id.chronometer);
         imagen = (ImageView)findViewById(R.id.imagen);
-        imagen.setBackgroundResource(R.drawable.rocket);
+        imagen.setBackgroundResource(R.drawable.ojos);
     }
 
     @Override

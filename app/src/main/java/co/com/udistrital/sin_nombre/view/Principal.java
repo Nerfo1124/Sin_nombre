@@ -351,8 +351,9 @@ public class Principal extends AppCompatActivity {
         //guardarUltimoUsuario1(idUsuarioSesion, ":1");
         //guardarTiempo();
         //this.finish();
-        Intent intent  = new Intent(this,Acercamiento.class);
+        Intent intent  = new Intent(this,Ejercicios.class);
         startActivity(intent);
+
     }
 
     public void BuscarUltimoUsuario1() {

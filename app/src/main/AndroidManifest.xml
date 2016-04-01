@@ -53,7 +53,10 @@
             android:name=".view.Circulos"
             android:screenOrientation="portrait" />
         <activity android:name=".view.Parpadeo" />
-        <activity android:name=".view.Acercamiento"></activity>
+        <activity android:name=".view.Acercamiento" />
+        <activity android:name=".view.Palmeo" />
+        <activity android:name=".view.Masaje" />
+        <activity android:name=".view.LejosCerca"></activity>
     </application>
 
 </manifest>

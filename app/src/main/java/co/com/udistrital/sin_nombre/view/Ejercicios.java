@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -56,6 +57,11 @@ public class Ejercicios extends AppCompatActivity implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if(position==1){
+            Toast.makeText(this,"NNNNNNNNNNNNNNNNNNNNNNNNN",Toast.LENGTH_LONG).show();
+        }else
+            Toast.makeText(this,"11111111111111111111111111111",Toast.LENGTH_LONG).show();
+
     }
 
 

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import co.com.udistrital.sin_nombre.R;
 
-public class Acercamiento extends AppCompatActivity {
+public class LejosCerca extends AppCompatActivity {
 
     ImageView imagen;
     Chronometer c;
@@ -21,11 +21,11 @@ public class Acercamiento extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_acercamiento);
+        setContentView(R.layout.activity_lejos_cerca);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c=(Chronometer)findViewById(R.id.chronometer);
         imagen = (ImageView)findViewById(R.id.imagen);
-        imagen.setBackgroundResource(R.drawable.seguirlapiz);
+        imagen.setBackgroundResource(R.drawable.lejoscerca);
     }
 
     @Override
