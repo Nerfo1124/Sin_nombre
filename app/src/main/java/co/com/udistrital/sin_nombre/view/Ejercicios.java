@@ -1,13 +1,11 @@
 package co.com.udistrital.sin_nombre.view;
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -15,7 +13,6 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.EjercicioDAO;
 import co.com.udistrital.sin_nombre.util.ArrayAdapter;
 import co.com.udistrital.sin_nombre.vo.EjercicioVO;
