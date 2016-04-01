@@ -45,6 +45,7 @@
             <ImageView
                 android:layout_marginTop="50px"
                 android:layout_width="fill_parent"
+                android:background="@drawable/masaje1_edi"
                 android:layout_height="wrap_content"
                 android:id="@+id/imagen"
                 android:layout_gravity="left" />

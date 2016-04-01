@@ -49,12 +49,14 @@ public class  Contador extends Thread {
                 if(ReiniciarContador()){
                     this.sleep(60000);
                 }
+                Log.e("[Prueba]", "Por fuera "+tiempo);
                 while (continua) {
+                    Log.e("[Prueba]", "Por dentro "+tiempo);
                     if(idUsuarioSesion==0){
                         idUsuarioSesion=BuscarUltimoUsuario1();
                         ponerfre(c);
+                        if(ReiniciarContador()){
                     }
-                    if(ReiniciarContador()){
                         this.sleep(60000);
                     }
                     if(frecuencia<(horas*60+minutos)){
@@ -91,6 +93,7 @@ public class  Contador extends Thread {
                         tiempo = horas + ":" + minutos + ":" + segundos;
                     this.sleep(9);
                 }
+                this.sleep(1000);
             }
         }catch (Exception ex) {
             Log.d("Sin_nombre", "Error en la ejecucion del servicio", ex);

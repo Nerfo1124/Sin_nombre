@@ -25,7 +25,6 @@ public class Circulos extends AppCompatActivity {
 
     ImageView imagen;
     int cont = 0;
-    MyTask myTask = null;
     Chronometer c;
 
     @Override
@@ -35,19 +34,37 @@ public class Circulos extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c = (Chronometer) findViewById(R.id.chronometer);
         imagen = (ImageView) findViewById(R.id.imagen);
-
+        Log.e("[Prueba]", "Inicia " + cont);
     }
 
     public void girar(View v) {
-        //myTask = new MyTask();
-        //myTask.execute();
-        new CountDownTimer(60000, 6000) {
+        Log.e("[Prueba]", "BOton: " + cont);
+        new CountDownTimer(57000, 5600) {
             public void onTick(long millisUntilFinished) {
-                c.setText("Tiempo Restante: " + millisUntilFinished / 1000);
+                Log.e("[Prueba]", "seg: "+millisUntilFinished);
+                c.setText("Vueltas Restantes: " + (10 - cont));
+                if(cont<5){
+                    Animation giro;
+                    giro = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.girarder);
+                    giro.reset();
+                    imagen.startAnimation(giro);
+                    cont++;
+                }else{
+                    if(cont<10){
+                        Animation giro;
+                        giro = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.girarizq);
+                        giro.reset();
+                        imagen.startAnimation(giro);
+                        cont++;
+                    }else
+                        cont=0;
+
+                }
             }
 
             public void onFinish() {
                 c.setText("FINALIZADO");
+                cont=0;
             }
         }.start();
     }
@@ -70,7 +87,7 @@ public class Circulos extends AppCompatActivity {
     public void parar() {
         if (cont == 10) {
             Log.e("[Prueba]", "parar");
-            myTask.onCancelled();
+            //myTask.onCancelled();
             cont = 0;
             //HistoricoExcVO objHE0 = new HistoricoExcVO();
             //HistoricoDAO objBD = new HistoricoDAO(this);
@@ -90,30 +107,15 @@ public class Circulos extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (myTask != null)
-                myTask.onCancelled();
-            Intent intento = new Intent(this, Principal.class);
-            intento.putExtra("idUsuario", "" + BuscarUltimoUsuario1());
-            startActivity(intento);
+           // if (myTask != null)
+             //   myTask.onCancelled();
             Circulos.this.finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    public int BuscarUltimoUsuario1() {
-        try {
-            SharedPreferences prefe = getSharedPreferences("usuario", Context.MODE_PRIVATE);
-            String v[] = prefe.getString("1234", "0:0").split(":");
-            return Integer.parseInt(v[0]);
-        } catch (Exception e) {
-            Toast.makeText(this, "Error!: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-            Log.e("eroro", "Error " + e.toString(), e);
-        }
-        return 0;
-    }
-
-    private class MyTask extends AsyncTask<String, String, String> {
+    public class MyTask extends AsyncTask<String, String, String> {
 
         public boolean cent;
 
@@ -125,8 +127,10 @@ public class Circulos extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
+            Log.e("[Prueba]", "antes: " + cont);
             while (cent) {
                 try {
+                    Log.e("[Prueba]", "des: " + cont);
                     if (cont < 10) {
                         publishProgress("" + cont);
                         Thread.sleep(6000);
