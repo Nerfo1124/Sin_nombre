@@ -13,12 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import co.com.udistrital.sin_nombre.R;
+import co.com.udistrital.sin_nombre.dao.HistoricoExcDAO;
 import co.com.udistrital.sin_nombre.view.Principal;
+import co.com.udistrital.sin_nombre.vo.HistoricoExcVO;
 
 
 public class Circulos extends AppCompatActivity {
@@ -26,6 +31,7 @@ public class Circulos extends AppCompatActivity {
     ImageView imagen;
     int cont = 0;
     Chronometer c;
+    Button boton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +40,12 @@ public class Circulos extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c = (Chronometer) findViewById(R.id.chronometer);
         imagen = (ImageView) findViewById(R.id.imagen);
+        boton = (Button)findViewById(R.id.btngirar);
         Log.e("[Prueba]", "Inicia " + cont);
     }
 
     public void girar(View v) {
-        Log.e("[Prueba]", "BOton: " + cont);
+        boton.setEnabled(false);
         new CountDownTimer(57000, 5600) {
             public void onTick(long millisUntilFinished) {
                 Log.e("[Prueba]", "seg: "+millisUntilFinished);
@@ -65,8 +72,30 @@ public class Circulos extends AppCompatActivity {
             public void onFinish() {
                 c.setText("FINALIZADO");
                 cont=0;
+                HistoricoExcVO objE=new HistoricoExcVO();
+                HistoricoExcDAO objDB=new HistoricoExcDAO(getApplicationContext());
+                objE.setIdUsuario(BuscarUltimoUsuario1());
+                objE.setIdEjercicio(3);
+                objE.setFechaRegistro(new Date());
+                objDB.insert(objE);
+                Log.e("[Sin_nombre]", "HOLA: "+objE.getIdUsuario());
+                c.setText("FINALIZADO");
+                boton.setEnabled(true);
             }
         }.start();
+    }
+    public int BuscarUltimoUsuario1() {
+        try{
+            SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
+            Log.d("[Sin_nombre]", "SharedPreferences: " + prefe.toString());
+            String v[]=prefe.getString("1234", "0:0").split(":");
+            return Integer.parseInt(v[0]);
+        }catch (Exception e){
+            Toast.makeText(this, "Error!: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            Log.e("[Sin_nombre]", "Error " + e.toString(), e);
+        }
+        return -1;
+
     }
 
     public void girar(int dir) {

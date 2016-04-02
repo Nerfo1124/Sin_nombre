@@ -46,12 +46,10 @@ public class  Contador extends Thread {
     public void run() {
         try {
             while(siempre) {
-                Log.e("[Prueba]", "Por fuera "+tiempo);
                 if(ReiniciarContador())
                     this.sleep(60000);
 
                 while (continua) {
-                    Log.e("[Prueba]", "Por dentro "+tiempo);
                     if(idUsuarioSesion==0){
                         idUsuarioSesion=BuscarUltimoUsuario1();
                         ponerfre(c);
@@ -104,10 +102,9 @@ public class  Contador extends Thread {
 
     public boolean ReiniciarContador(){
         Calendar c = Calendar.getInstance();
-        Log.e("[Prueba]", "Fecha "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE));
+        //Log.e("[Prueba]", "Fecha "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE));
         if(c.get(Calendar.HOUR_OF_DAY)==23&&c.get(Calendar.MINUTE)==59) {
             try{
-                Log.e("[Prueba]", "=000000000000 entro a guardar");
                 HistoricoVO objH= new HistoricoVO();
                 HistoricoVO objC= new HistoricoVO();
                 HistoricoDAO objBD= new HistoricoDAO(this.c);

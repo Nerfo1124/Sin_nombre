@@ -78,7 +78,7 @@ public class HistoricoExcDAO {
             sb.append("INSERT INTO ").append(dbh.TABLE_NAME_HISTORICO_EJER).append("(");
             sb.append(dbh.HISTORICO_EJER_USU + " , ").append(dbh.HISTORICO_EJER_EJERCICIO + " , ").append(dbh.HISTORICO_EJER_FECHA).append(")");
             sb.append(" VALUES (");
-            sb.append("" + vo.getIdUsuario() + ",").append(vo.getIdEjercicio() + ",'").append(vo.getFechaRegistro() + "'");
+            sb.append("" + vo.getIdUsuario() + ",").append(vo.getIdEjercicio() + ",'").append(sdf.format(vo.getFechaRegistro()) + "'");
             sb.append(")");
 
             Log.d(TAG_LOG, "[insert] SQL: " + sb.toString());
