@@ -244,14 +244,12 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     public void pestanias() {
         TbH = (TabHost) findViewById(R.id.tabHost);
         TbH.setup();
-        TbH.addTab(TbH.newTabSpec("uno").setIndicator("Registro 1").setContent(R.id.registro1));
-        TbH.addTab(TbH.newTabSpec("dos").setIndicator("Registro 2").setContent(R.id.registro2));
-        TbH.addTab(TbH.newTabSpec("tres").setIndicator("Registro 3").setContent(R.id.registro3));
+        TbH.addTab(TbH.newTabSpec("uno").setIndicator("Datos Personales").setContent(R.id.DatosPersonales));
+        TbH.addTab(TbH.newTabSpec("dos").setIndicator("Tu Configuracion").setContent(R.id.Configuracion));
+        TbH.addTab(TbH.newTabSpec("tres").setIndicator("Tu Tiempo").setContent(R.id.Tiempo));
         TbH.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
-                if (tabId == "uno")
-                    mostrar(tabId);
             }
         });
     }
@@ -266,47 +264,101 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      */
 
     public void continuar(View v) {
-        int p = espaciosblancos();
-        int r = 0, r2 = 0, r3 = 0;
-        if (p == 1) {
-            r = compararFecha();
-            if (r == 1) {
-                r2 = compararPasswords();
-            }
-            if (r2 == 1) {
-                // Codigo o funcion que determina si el usuario ingresado  ya esta creado
-                String nombreUsuario = txtNombreu.getText().toString();
-                Log.d(TAG_LOG, "[continuar] Nombre de usuario a consultar: " + nombreUsuario);
-                r3 = objSesionDao.consultaNombreU(nombreUsuario);
-                if (r3 == 1) {
-                    txtNombreu.setText("");
-                    Log.d(TAG_LOG, "[continuar] Ya hay un usuario con el nombre ingresado.");
-                    txtNombreu.setHint("Ya hay un usuario con este nombre");
-                    txtNombreu.setHintTextColor(Color.parseColor("#51FF1218"));
-                }
-                r3 = 1;
-            }
-            if (layoutAnimadoUno.getVisibility() == View.GONE)
-                layoutAnimadoUno.setVisibility(View.VISIBLE);//linea que muestra el layuot junto a todos sus elementos
-            if (layoutAnimadoDos.getVisibility() == View.VISIBLE)
-                layoutAnimadoDos.setVisibility(View.GONE);//metodo que oculpa el layout junto con todos sus elementos
-        }
-        Toast.makeText(this, "" + r + " " + r2 + " " + r3 + " " + p, Toast.LENGTH_LONG).show();
-        if (r == 1 && r2 == 1 && r3 == 1 && p == 1) {
-            if (grupoFamilia.getCheckedRadioButtonId() != R.id.radiosiR1) {
-                if (layoutAnimadoDos.getVisibility() == View.GONE)
-                    layoutAnimadoDos.setVisibility(View.VISIBLE);
-                if (layoutAnimadoUno.getVisibility() == View.VISIBLE)
-                    layoutAnimadoUno.setVisibility(View.GONE);
-            }
-            TbH.setCurrentTab(1);
-        }
+        revisa();
     }
 
-    public void siguiente(View v) {
+    public int revisa(){
+        try{
+            int p = espaciosblancos();
+            int r = 0, r2 = 0, r3 = 0,r4=0,r5=0;
+            if (p == 1 ) {
+                r = compararFecha();
+                if (r == 1) {
+                    r2 = compararPasswords();
+                }
+                if (r2 == 1) {
+                    // Codigo o funcion que determina si el usuario ingresado  ya esta creado
+                    String nombreUsuario = txtNombreu.getText().toString();
+                    Log.d(TAG_LOG, "[continuar] Nombre de usuario a consultar: " + nombreUsuario);
+                    r3 = objSesionDao.consultaNombreU(nombreUsuario);
+                    if (r3 == 1) {
+                        txtNombreu.setText("");
+                        Log.d(TAG_LOG, "[continuar] Ya hay un usuario con el nombre ingresado.");
+                        txtNombreu.setHint("Ya hay un usuario con este nombre");
+                        txtNombreu.setHintTextColor(Color.parseColor("#51FF1218"));
+                        r3=0;
+                    }else
+                        r3=1;
+                }
+                if (r3 == 1) {
+                    if(Noprimero()==1)
+                        r4=1;
+                    else {
+                        r4 = 0;
+                        Toast.makeText(this,"Debe seleccionar una pregunta",Toast.LENGTH_LONG).show();
+                    }
+                }
+                if(r4==1){
+                    if(PreguntasDiferentes()==1)
+                        r5=1;
+                    else {
+                        r5 = 0;
+                        Toast.makeText(this,"Debe seleccionar preguntas diferentes",Toast.LENGTH_LONG).show();
+                    }
+                }
+                if(r5==1) {
+                    if (layoutAnimadoUno.getVisibility() == View.GONE)
+                        layoutAnimadoUno.setVisibility(View.VISIBLE);//linea que muestra el layuot junto a todos sus elementos
+                    if (layoutAnimadoDos.getVisibility() == View.VISIBLE)
+                        layoutAnimadoDos.setVisibility(View.GONE);//metodo que oculpa el layout junto con todos sus elementos
+                }
+            }
+            Toast.makeText(this, "" + r + " " + r2 + " " + r3 + " " + p+" "+r4+" "+r5, Toast.LENGTH_LONG).show();
+            if (r == 1 && r2 == 1 && r3 == 1 && p == 1 && r4==1 && r5==1) {
+                if (grupoFamilia.getCheckedRadioButtonId() != R.id.radiosiR1) {
+                    if (layoutAnimadoDos.getVisibility() == View.GONE)
+                        layoutAnimadoDos.setVisibility(View.VISIBLE);
+                    if (layoutAnimadoUno.getVisibility() == View.VISIBLE)
+                        layoutAnimadoUno.setVisibility(View.GONE);
+                }
+                TbH.setCurrentTab(1);
+                return 1;
+            }else
+                return 0;
+        }catch (Exception e){
+
+        }
+        return 0;
+    }
+
+    public void continuar2(View v) {
         if ("" + texto.getTextSize() != null && "" + texto.getTextSize() != "") {
             TbH.setCurrentTab(2);
         }
+    }
+
+    public int Noprimero(){
+        try{
+            if(spPreguntasUno.getSelectedItemPosition()==0||spPreguntasDos.getSelectedItemPosition()==0){
+                return 0;
+            }else
+                return 1;
+        }catch (Exception e){
+
+        }
+        return 0;
+    }
+    public int PreguntasDiferentes(){
+        try{
+            if(spPreguntasUno.getSelectedItemPosition()==spPreguntasDos.getSelectedItemPosition()){
+                return 0;
+            }else
+                return 1;
+
+        }catch (Exception e){
+
+        }
+        return 0;
     }
 
     /**
@@ -408,16 +460,6 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             txtPassDos.setHintTextColor(Color.parseColor("#51FF1218"));
             return 0;
         }
-    }
-
-    /**
-     * metodo que muestra mensaje
-     *
-     * @param m variable string que lleva el  mensaje que se va a mostrar
-     */
-
-    public void mostrar(String m) {
-        Toast.makeText(this, " mensaje " + m, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -552,10 +594,13 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      */
     public void terminar(View v) {
         try {
-            llenarUsuario();
-            //Log.d(TAG_LOG, "Se inserto satisfactoriamente el nuevo usuario.");
-            this.finish();
-            //Log.d(TAG_LOG,"Debio terminarse la Actividad");
+            if(revisa()==1){
+                llenarUsuario();
+                //Log.d(TAG_LOG, "Se inserto satisfactoriamente el nuevo usuario.");
+                this.finish();
+                //Log.d(TAG_LOG,"Debio terminarse la Actividad");
+            }else
+                Toast.makeText(this,"Debe llenar todos los campos correctamente",Toast.LENGTH_LONG).show();
         } catch (Exception ex) {
             Log.d(TAG_LOG, "Error al mostrar Perfil de Usuario", ex);
         }
