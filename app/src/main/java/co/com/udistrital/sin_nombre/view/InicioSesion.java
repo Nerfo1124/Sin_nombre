@@ -109,6 +109,7 @@ public class InicioSesion extends AppCompatActivity {
             public void onClick(View v) {
                 int codSesion;
                 if (txtUsuario.getText().toString().trim().equals("")) {
+                    txtUsuario.setHintTextColor(Color.parseColor("#51FF1218"));
                     txtUsuario.setHint("Debe digitar un usuario");
                 } else {
                     codSesion = sesion.consultaNombreU(txtUsuario.getText().toString());
@@ -188,7 +189,7 @@ public class InicioSesion extends AppCompatActivity {
                             txtPassDos.setHintTextColor(Color.parseColor("#51FF1218"));
                         } else {
                             if (txtPassUno.getText().toString().equals(txtPassDos.getText().toString())) {
-                                sesionNew.setContrasena("" + txtPassDos.getText().toString());
+                                sesionNew.setContrasena("" + Encrypter.getStringMessageDigest(txtPassDos.getText().toString(), Encrypter.SHA256));
                                 sesion.update(sesionNew);
                                 personal.cancel();
                             } else {

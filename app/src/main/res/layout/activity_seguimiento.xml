@@ -42,11 +42,12 @@
                 android:allowUndo="false"
                 android:gravity="center"
                 android:textColor="@android:color/holo_green_dark"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:id="@+id/txtHistoricoTitulo" />
 
             <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="360sp"
                 android:id="@+id/listaHistorico" />
         </LinearLayout>
     </ScrollView>

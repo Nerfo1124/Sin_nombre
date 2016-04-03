@@ -3,4 +3,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtHistEjercicio"
+        android:hint="Titulo del Ejercicio"
+        android:textAlignment="textStart"
+        android:textSize="21sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtFechaEjercicio"
+        android:textSize="15sp"
+        android:hint="Fecha registro"
+        android:textColor="@android:color/holo_green_dark"
+        android:textAlignment="viewEnd" />
+
 </LinearLayout>

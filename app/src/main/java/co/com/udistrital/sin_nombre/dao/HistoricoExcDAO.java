@@ -44,7 +44,7 @@ public class HistoricoExcDAO {
             List<HistoricoExcVO> listaHistorico = new ArrayList<HistoricoExcVO>();
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_HISTORICO_EJER);
-            sb.append("WHERE " + dbh.HISTORICO_EJER_USU + " = ").append(idUsuario);
+            sb.append(" WHERE " + dbh.HISTORICO_EJER_USU + " = ").append(idUsuario);
 
             Log.d(TAG_LOG, "[list] SQL: " + sb.toString());
 
