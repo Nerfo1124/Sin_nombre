@@ -140,9 +140,12 @@ public class ModificacionDatos extends AppCompatActivity {
             usuario.setIdUsuario(Integer.parseInt(txtIdUsuario.getText().toString()));
             usuario.setNombreUsuario(txtNombreCompleto.getText().toString());
             String[] apellidos = txtApellidoCompleto.getText().toString().split(" ");
-            if (apellidos[1] != null || !apellidos[1].trim().equals("")) {
-                usuario.setApellido1Usuario(apellidos[0]);
-                usuario.setApellido2Usuario(apellidos[1]);
+            Log.d(TAG_LOG, "Tamaño de array: " + apellidos.length);
+            if (apellidos.length > 1) {
+                if (apellidos[1] != null || !apellidos[1].trim().equals("")) {
+                    usuario.setApellido1Usuario(apellidos[0]);
+                    usuario.setApellido2Usuario(apellidos[1]);
+                }
             } else {
                 usuario.setApellido1Usuario(apellidos[0]);
                 usuario.setApellido2Usuario("");

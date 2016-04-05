@@ -198,12 +198,12 @@ public class UsuarioDAO {
                 resDao.update(vo.getRestablecerUsuario());
             }
 
-            System.out.println("[update] SQL: " + sb.toString());
+            Log.d(TAG_LOG, "[update] SQL: " + sb.toString());
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[update] Error en SesionDAO " + e.toString(), Toast.LENGTH_SHORT).show();
-            System.out.println("[update] Error en SesionDAO " + e.toString());
+            Toast.makeText(contexto, "[update] Error en UsuarioDAO " + e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("[update] Error en UsuarioDAO " + e.toString());
             return false;
         }
     }
