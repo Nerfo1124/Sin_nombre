@@ -166,7 +166,7 @@ public class Principal extends AppCompatActivity {
                             FormulaVO objF = new FormulaVO();
                             FormulaDAO objBD = new FormulaDAO(getApplicationContext());
                             objF = objBD.consult(idUsuarioSesion);
-                            Toast.makeText(getApplicationContext(), "OD: " + objF.getaVisualOD() + "OI: " + objF.getaVisualOI(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "OD: " + objF.getaVisualOD() + "OI: " + objF.getaVisualOI(), Toast.LENGTH_LONG).show();
                             Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, 2);
                             toast();
                         }

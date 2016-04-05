@@ -138,7 +138,7 @@ public class Seguimiento extends AppCompatActivity implements AdapterView.OnItem
         graph.getGridLabelRenderer().setNumHorizontalLabels(7); // only 4 because of the space
 
 // set manual x bounds to have nice steps
-        graph.getViewport().setMaxY(5);
+        graph.getViewport().setMaxY(1);
         graph.getViewport().setMinY(0);
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinX(d1.getTime());
