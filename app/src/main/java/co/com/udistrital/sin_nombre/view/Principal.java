@@ -44,7 +44,8 @@ public class Principal extends AppCompatActivity {
      * Variable del Usuario que mantenien la sesion
      */
     private UsuarioVO usuarioSesion;
-    int idUsuarioSesion,cont=1,aux,guardado;
+    int idUsuarioSesion,aux;
+    boolean primero;
 
     ProgressCircle progressCircle;
     Switch s1,s2;
@@ -121,7 +122,10 @@ public class Principal extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        if(cont!=0) {
+                        if(primero){
+                            primero=false;
+                            Log.e("[Sin_nombre]", " entro a primero uno ");
+                        }else {
                             bloquearSwitch();
                             s2.setChecked(false);
                             FormulaVO objF = new FormulaVO();
@@ -129,8 +133,7 @@ public class Principal extends AppCompatActivity {
                             objF = objBD.consult(idUsuarioSesion);
                             Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) Float.parseFloat(objF.getTamanioFuente()) / 40);
                             toast();
-                        }else
-                            cont=1;
+                        }
                     } else {
                         bloquearSwitch();
                         Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 1);
@@ -149,23 +152,24 @@ public class Principal extends AppCompatActivity {
         FormulaDAO objBD = new FormulaDAO(getApplicationContext());
         objF = objBD.consult(idUsuarioSesion);
         s2=(Switch)findViewById(R.id.letraautomatica);
-        revisarletra(objF);
         s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 try {
                     if (isChecked) {
-                        if (cont != 0) {
+                        if (primero) {
+                            primero = false;
+                            Log.e("[Sin_nombre]", " entro a primero dos ");
+                        } else {
                             bloquearSwitch();
                             s1.setChecked(false);
                             FormulaVO objF = new FormulaVO();
                             FormulaDAO objBD = new FormulaDAO(getApplicationContext());
                             objF = objBD.consult(idUsuarioSesion);
                             Toast.makeText(getApplicationContext(), "OD: " + objF.getaVisualOD() + "OI: " + objF.getaVisualOI(), Toast.LENGTH_LONG).show();
-                            //Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) Float.parseFloat(objF.getTamanioFuente()) / 40);
+                            Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, 2);
                             toast();
-                        } else
-                            cont = 1;
+                        }
                     } else {
                         bloquearSwitch();
                         Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) 1);
@@ -176,7 +180,7 @@ public class Principal extends AppCompatActivity {
                 }
             }
         });
-
+        revisarletra(objF);
     }
 
 
@@ -201,16 +205,16 @@ public class Principal extends AppCompatActivity {
             if(s==1){
                 s1.setChecked(false);
                 s2.setChecked(false);
+                primero=false;
             }else{
-                if(s==Float.parseFloat(o.getTamanioFuente()) / 40){
-                    cont=0;
+                primero=true;
+                if(s==Float.parseFloat(o.getTamanioFuente()) / 40) {
                     s1.setChecked(true);
-                }else{
-                    cont=0;
-                    if(false){
-                        s2.setChecked(true);
-                    }else
-                        s2.setChecked(false);
+                    Log.e("[Sin_nombre]", " S1 ");
+                }
+                else {
+                    Log.e("[Sin_nombre]", " S2 ");
+                    s2.setChecked(true);
                 }
             }
         }catch (Exception e) {
