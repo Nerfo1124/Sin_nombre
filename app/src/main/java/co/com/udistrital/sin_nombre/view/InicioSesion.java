@@ -47,17 +47,20 @@ public class InicioSesion extends AppCompatActivity {
         Log.d(TAG_LOG, "Iniciando vista principal de la aplicacion.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
-        getSupportActionBar().setTitle("Inicio Sesion");
+        getSupportActionBar().setTitle("Inicio Sesion1");
         //getSupportActionBar().setIcon(R.drawable.icono_home);
         txtUsuario = (EditText) findViewById(R.id.txtUserSesion);
         txtPassword = (EditText) findViewById(R.id.txtPassSesion);
-        String v[] = BuscarUltimoUsuario();
-        Toast.makeText(this,"1: "+v[0]+" 2: °"+v[1]+"a",Toast.LENGTH_LONG).show();
-        if(Integer.parseInt(v[1])==1){
-            Intent intento = new Intent(this, Principal.class);
-            intento.putExtra("idUsuario", "" +v[0]);
-            startActivity(intento);
-            finish();
+        try{
+            String v[] = BuscarUltimoUsuario();
+            if(Integer.parseInt(v[1])==1){
+                Intent intento = new Intent(this, Principal.class);
+                intento.putExtra("idUsuario", "" +v[0]);
+                startActivity(intento);
+                finish();
+            }
+        }catch (Exception e){
+
         }
     }
 
@@ -74,8 +77,14 @@ public class InicioSesion extends AppCompatActivity {
      * @param v
      */
     public void registrarCuenta(View v) {
-        Intent intento = new Intent(getApplicationContext(), Registro.class);
-        startActivity(intento);
+        try{
+            Log.e(TAG_LOG, "Entro");
+            Intent intento = new Intent(getApplicationContext(), Registro.class);
+            startActivity(intento);
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
+
     }
 
     /**
@@ -219,16 +228,20 @@ public class InicioSesion extends AppCompatActivity {
      */
     public int verificarUsuario(String user, int opc, SesionDAO sesion) {
         int r = sesion.consultaNombreU(user);
-        Log.d(TAG_LOG, "Valor retornado: " + r);
-        if (r == 0 && opc == 1) {
-            txtUsuario.setText("");
-            txtUsuario.setHint("No hay un usuario registrado con este nombre");
-            txtUsuario.setHintTextColor(Color.parseColor("#51FF1218"));
-            txtPassword.setText("");
-            return 0;
-        }
-        if (r == 0 && opc == 2) {
-            return 0;
+        try{
+            Log.d(TAG_LOG, "Valor retornado: " + r);
+            if (r == 0 && opc == 1) {
+                txtUsuario.setText("");
+                txtUsuario.setHint("No hay un usuario registrado con este nombre");
+                txtUsuario.setHintTextColor(Color.parseColor("#51FF1218"));
+                txtPassword.setText("");
+                return 0;
+            }
+            if (r == 0 && opc == 2) {
+                return 0;
+            }
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
         return r;
     }
@@ -239,30 +252,34 @@ public class InicioSesion extends AppCompatActivity {
      * @param v
      */
     public void iniciarSesion(View v) {
-        SesionDAO sesion = new SesionDAO(this);
-        SesionVO sesionU = new SesionVO();
-        int e = espaciosBlancos();
-        int codSesion = 0;
-        if (e == 1) {
-            codSesion = verificarUsuario(txtUsuario.getText().toString(), 1, sesion);
-            Log.d(TAG_LOG, "[iniciarSesion] Verificacion de Usuario, codigo = " + codSesion);
-            if (codSesion != 0) {
-                sesionU = sesion.consult(codSesion);
+        try{
+            SesionDAO sesion = new SesionDAO(this);
+            SesionVO sesionU = new SesionVO();
+            int e = espaciosBlancos();
+            int codSesion = 0;
+            if (e == 1) {
+                codSesion = verificarUsuario(txtUsuario.getText().toString(), 1, sesion);
+                Log.d(TAG_LOG, "[iniciarSesion] Verificacion de Usuario, codigo = " + codSesion);
+                if (codSesion != 0) {
+                    sesionU = sesion.consult(codSesion);
+                }
             }
-        }
-        if (e == 1 && codSesion != 0) {
-            String clave = Encrypter.getStringMessageDigest(txtPassword.getText().toString(), Encrypter.SHA256);
-            if (sesionU.getContrasena().equals(clave)) {
-                Intent intento = new Intent(this, Principal.class);
-                intento.putExtra("idUsuario", "" + sesionU.getIdSesion());
-                startActivity(intento);
-                finish();
-            }else{
-                Dialogo("Mensaje","La Contraseña ingresada es incorrecta",3);
-                txtPassword.setText("");
-                txtPassword.setHint("La Contraseña ingresada es incorrecta");
-                txtPassword.setHintTextColor(Color.parseColor("#51FF1218"));
+            if (e == 1 && codSesion != 0) {
+                String clave = Encrypter.getStringMessageDigest(txtPassword.getText().toString(), Encrypter.SHA256);
+                if (sesionU.getContrasena().equals(clave)) {
+                    Intent intento = new Intent(this, Principal.class);
+                    intento.putExtra("idUsuario", "" + sesionU.getIdSesion());
+                    startActivity(intento);
+                    finish();
+                }else{
+                    Dialogo("Mensaje","La Contraseña ingresada es incorrecta",3);
+                    txtPassword.setText("");
+                    txtPassword.setHint("La Contraseña ingresada es incorrecta");
+                    txtPassword.setHintTextColor(Color.parseColor("#51FF1218"));
+                }
             }
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
     }
 
@@ -309,7 +326,7 @@ public class InicioSesion extends AppCompatActivity {
                         }
                     }).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Error iniciosesion - Dialogo:" + e.toString(), Toast.LENGTH_SHORT).show();
+            Log.e(TAG_LOG, "Error Dialogo " + e.toString(), e);
         }
     }
 
@@ -319,7 +336,6 @@ public class InicioSesion extends AppCompatActivity {
             String v[]=prefe.getString("1234", "0:0").split(":");
             return v;
         }catch (Exception e){
-            Toast.makeText(this, "Error!: "+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
         return null;

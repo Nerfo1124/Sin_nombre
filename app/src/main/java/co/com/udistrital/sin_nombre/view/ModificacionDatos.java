@@ -112,6 +112,7 @@ public class ModificacionDatos extends AppCompatActivity {
             usuario = dao.consult(idUsuario);
             txtIdUsuario.setText("" + usuario.getIdUsuario());
             txtNombreCompleto.setText("" + usuario.getNombreUsuario());
+            Log.e(TAG_LOG, "lo que lleva el objeto:" +usuario.getApellido2Usuario() + ":");
             txtApellidoCompleto.setText("" + usuario.getApellido1Usuario() + " " + usuario.getApellido2Usuario());
             txtFechaNacimiento.setText("" + usuario.getFechaNacimiento());
             txtSexoM.setText("" + usuario.getSexo());
@@ -134,22 +135,26 @@ public class ModificacionDatos extends AppCompatActivity {
     }
 
     public void modificarDatosPersonales(View v) {
-        dao = new UsuarioDAO(this);
-        usuario.setIdUsuario(Integer.parseInt(txtIdUsuario.getText().toString()));
-        usuario.setNombreUsuario(txtNombreCompleto.getText().toString());
-        String[] apellidos = txtApellidoCompleto.getText().toString().split(" ");
-        if (apellidos[1] != null || !apellidos[1].trim().equals("")) {
-            usuario.setApellido1Usuario(apellidos[0]);
-            usuario.setApellido2Usuario(apellidos[1]);
-        } else {
-            usuario.setApellido1Usuario(apellidos[0]);
-            usuario.setApellido2Usuario("");
+        try {
+            dao = new UsuarioDAO(this);
+            usuario.setIdUsuario(Integer.parseInt(txtIdUsuario.getText().toString()));
+            usuario.setNombreUsuario(txtNombreCompleto.getText().toString());
+            String[] apellidos = txtApellidoCompleto.getText().toString().split(" ");
+            if (apellidos[1] != null || !apellidos[1].trim().equals("")) {
+                usuario.setApellido1Usuario(apellidos[0]);
+                usuario.setApellido2Usuario(apellidos[1]);
+            } else {
+                usuario.setApellido1Usuario(apellidos[0]);
+                usuario.setApellido2Usuario("");
+            }
+            usuario.setFechaNacimiento(txtFechaNacimiento.getText().toString());
+            usuario.setSexo(txtSexoM.getText().toString());
+            dao.update(usuario);
+            Toast.makeText(this, " Datos modificados correctamente! ", Toast.LENGTH_LONG).show();
+            this.finish();
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
-        usuario.setFechaNacimiento(txtFechaNacimiento.getText().toString());
-        usuario.setSexo(txtSexoM.getText().toString());
-        dao.update(usuario);
-        Toast.makeText(this, " Datos modificados correctamente! ", Toast.LENGTH_LONG).show();
-        this.finish();
     }
 
     /**
@@ -159,35 +164,40 @@ public class ModificacionDatos extends AppCompatActivity {
      * @param v
      */
     public void modificarSeguridad(View v) {
-        daoR = new RestablecerDAO(this);
-        restablecer = dao.consult(idUsuario).getRestablecerUsuario();
-        String quest1 = preguntasUno.getSelectedItem().toString();
-        String quest2 = preguntasDos.getSelectedItem().toString();
-        if (!quest1.equals(quest2)) {
-            if (!txtRespuestaUno.getText().toString().trim().equals("") && !txtRespuestaDos.getText().toString().equals("")) {
-                restablecer.setPregunta1(quest1);
-                restablecer.setPregunta2(quest2);
-                restablecer.setRespuesta1(txtRespuestaUno.getText().toString());
-                restablecer.setRespuesta2(txtRespuestaDos.getText().toString());
-                daoR.update(restablecer);
-                Toast.makeText(this, " Datos modificados correctamente! ", Toast.LENGTH_LONG).show();
-                this.finish();
+        try{
+            daoR = new RestablecerDAO(this);
+            restablecer = dao.consult(idUsuario).getRestablecerUsuario();
+            String quest1 = preguntasUno.getSelectedItem().toString();
+            String quest2 = preguntasDos.getSelectedItem().toString();
+            if (!quest1.equals(quest2)) {
+                if (!txtRespuestaUno.getText().toString().trim().equals("") && !txtRespuestaDos.getText().toString().equals("")) {
+                    restablecer.setPregunta1(quest1);
+                    restablecer.setPregunta2(quest2);
+                    restablecer.setRespuesta1(txtRespuestaUno.getText().toString());
+                    restablecer.setRespuesta2(txtRespuestaDos.getText().toString());
+                    daoR.update(restablecer);
+                    Toast.makeText(this, " Datos modificados correctamente! ", Toast.LENGTH_LONG).show();
+                    this.finish();
+                } else {
+                    txtRespuestaUno.setText("");
+                    txtRespuestaUno.setHint("Debe ingresar respuesta a la pregunta.");
+                    txtRespuestaUno.setHintTextColor(Color.parseColor("#51FF1218"));
+                    txtRespuestaDos.setText("");
+                    txtRespuestaDos.setHint("Debe ingresar respuesta a la pregunta.");
+                    txtRespuestaDos.setHintTextColor(Color.parseColor("#51FF1218"));
+                }
             } else {
                 txtRespuestaUno.setText("");
-                txtRespuestaUno.setHint("Debe ingresar respuesta a la pregunta.");
+                txtRespuestaUno.setHint("Las preguntas deben ser diferentes.");
                 txtRespuestaUno.setHintTextColor(Color.parseColor("#51FF1218"));
                 txtRespuestaDos.setText("");
-                txtRespuestaDos.setHint("Debe ingresar respuesta a la pregunta.");
+                txtRespuestaDos.setHint("Las preguntas deben ser diferentes.");
                 txtRespuestaDos.setHintTextColor(Color.parseColor("#51FF1218"));
             }
-        } else {
-            txtRespuestaUno.setText("");
-            txtRespuestaUno.setHint("Las preguntas deben ser diferentes.");
-            txtRespuestaUno.setHintTextColor(Color.parseColor("#51FF1218"));
-            txtRespuestaDos.setText("");
-            txtRespuestaDos.setHint("Las preguntas deben ser diferentes.");
-            txtRespuestaDos.setHintTextColor(Color.parseColor("#51FF1218"));
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
+
     }
 
     /**
@@ -197,23 +207,27 @@ public class ModificacionDatos extends AppCompatActivity {
      * @param v
      */
     public void modificarDatosSesion(View v) {
-        daoS = new SesionDAO(this);
-        sesion = dao.consult(idUsuario).getSesionUsuario();
-        sesion.setUsuario(txtUser.getText().toString());
-        if (validarCamposPass()) {
-            String claveAux = txtPassDos.getText().toString();
-            String claveUpdate = Encrypter.getStringMessageDigest(claveAux, Encrypter.SHA256);
-            sesion.setContrasena(claveUpdate);
-            daoS.update(sesion);
-            Toast.makeText(this, " Datos modificados correctamente! ", Toast.LENGTH_LONG).show();
-            this.finish();
-        } else {
-            txtPassUno.setText("");
-            txtPassUno.setHint("Las contraseñas deben ser iguales");
-            txtPassUno.setHintTextColor(Color.parseColor("#51FF1218"));
-            txtPassDos.setText("");
-            txtPassDos.setHint("Las contraseñas deben ser iguales");
-            txtPassDos.setHintTextColor(Color.parseColor("#51FF1218"));
+        try{
+            daoS = new SesionDAO(this);
+            sesion = dao.consult(idUsuario).getSesionUsuario();
+            sesion.setUsuario(txtUser.getText().toString());
+            if (validarCamposPass()) {
+                String claveAux = txtPassDos.getText().toString();
+                String claveUpdate = Encrypter.getStringMessageDigest(claveAux, Encrypter.SHA256);
+                sesion.setContrasena(claveUpdate);
+                daoS.update(sesion);
+                Toast.makeText(this, " Datos modificados correctamente! ", Toast.LENGTH_LONG).show();
+                this.finish();
+            } else {
+                txtPassUno.setText("");
+                txtPassUno.setHint("Las contraseñas deben ser iguales");
+                txtPassUno.setHintTextColor(Color.parseColor("#51FF1218"));
+                txtPassDos.setText("");
+                txtPassDos.setHint("Las contraseñas deben ser iguales");
+                txtPassDos.setHintTextColor(Color.parseColor("#51FF1218"));
+            }
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
     }
 

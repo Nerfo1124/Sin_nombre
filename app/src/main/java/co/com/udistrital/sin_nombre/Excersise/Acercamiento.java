@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.Date;
 
@@ -34,10 +33,14 @@ public class Acercamiento extends AppCompatActivity {
         setContentView(R.layout.activity_acercamiento);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Ejercicio - Acercamiento");
-        c = (Chronometer) findViewById(R.id.chronometer);
-        imagen = (ImageView) findViewById(R.id.imagen);
-        imagen.setBackgroundResource(R.drawable.seguirlapiz);
-        boton = (Button)findViewById(R.id.btngirar);
+        try{
+            c = (Chronometer) findViewById(R.id.chronometer);
+            imagen = (ImageView) findViewById(R.id.imagen);
+            imagen.setBackgroundResource(R.drawable.seguirlapiz);
+            boton = (Button)findViewById(R.id.btngirar);
+        }catch (Exception e){
+            Log.e("[Sin_nombre]", "Error: ", e);
+        }
     }
 
     @Override
@@ -84,7 +87,6 @@ public class Acercamiento extends AppCompatActivity {
             String v[]=prefe.getString("1234", "0:0").split(":");
             return Integer.parseInt(v[0]);
         }catch (Exception e){
-            Toast.makeText(this, "Error!: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             Log.e("[Sin_nombre]", "Error " + e.toString(), e);
         }
         return -1;

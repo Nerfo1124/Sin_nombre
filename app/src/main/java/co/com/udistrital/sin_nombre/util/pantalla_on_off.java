@@ -22,24 +22,32 @@ public class  pantalla_on_off extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        contador.start();
-        ponerTiempo();
-        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        BroadcastReceiver mReceiver = new Recevier(contador,this);
-        registerReceiver(mReceiver, filter);
-        Toast.makeText(this, "Servicio creado!", Toast.LENGTH_SHORT).show();
-        Log.i(TAG_LOG, "Servicio creado!");
+        try{
+            contador.start();
+            ponerTiempo();
+            IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+            filter.addAction(Intent.ACTION_SCREEN_OFF);
+            BroadcastReceiver mReceiver = new Recevier(contador,this);
+            registerReceiver(mReceiver, filter);
+            Toast.makeText(this, "Servicio creado!", Toast.LENGTH_SHORT).show();
+            Log.i(TAG_LOG, "Servicio creado!");
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        contador.continua=false;
-        guardarTiempo();
-        // TODO: Return the communication channel to the service.
-        Toast.makeText(this, "Servicio destruído!", Toast.LENGTH_SHORT).show();
-        Log.i(TAG_LOG, "Servicio destruido!");
+        try{
+            contador.continua=false;
+            guardarTiempo();
+            // TODO: Return the communication channel to the service.
+            Toast.makeText(this, "Servicio destruído!", Toast.LENGTH_SHORT).show();
+            Log.i(TAG_LOG, "Servicio destruido!");
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
     }
 
     @Override
@@ -55,16 +63,18 @@ public class  pantalla_on_off extends Service {
             contador.minutos=Integer.parseInt(v[1]);
             contador.segundos=Integer.parseInt(v[2]);
         }catch (Exception e){
-            Toast.makeText(this, "Error!: "+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
     }
 
     public void guardarTiempo() {
-        SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=preferencias.edit();
-        editor.putString("mail", contador.tiempo);
-        editor.commit();
+        try{
+            SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=preferencias.edit();
+            editor.putString("mail", contador.tiempo);
+            editor.commit();
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
     }
-
 }

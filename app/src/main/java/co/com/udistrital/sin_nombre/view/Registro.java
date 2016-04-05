@@ -522,10 +522,13 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         String[] apellidos = txtApellido.getText().toString().split(" ");
         usuarioReg.setApellido1Usuario(apellidos[0]);
         Log.d(TAG_LOG, "[llenarUsuario] Tamaño del array: " + apellidos.length);
+        Log.e("[Sin_nombre]", "Lengt :D :"+apellidos.length);
         if (apellidos.length > 1) {
-            if (apellidos[1] != null && apellidos[1] != "") {
+            if (apellidos[1] != null && apellidos[1] != "")
                 usuarioReg.setApellido2Usuario(apellidos[1]);
-            }
+        }else {
+            Log.d("Sin_nombre", "Se agrega Espacio " + apellidos.length);
+            usuarioReg.setApellido2Usuario(" ");
         }
         usuarioReg.setFechaNacimiento(txtFecha.getText().toString());
         if (grupoSexo.getCheckedRadioButtonId() == R.id.rbhombreR1) {

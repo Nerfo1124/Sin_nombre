@@ -35,10 +35,14 @@ public class Parpadeo extends AppCompatActivity {
         setContentView(R.layout.activity_parpadeo);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Ejercicio - Parpadeo");
-        c = (Chronometer) findViewById(R.id.chronometer);
-        imagen = (ImageView) findViewById(R.id.imagen);
-        imagen.setBackgroundResource(R.drawable.ojos);
-        boton = (Button)findViewById(R.id.btngirar);
+        try{
+            c = (Chronometer) findViewById(R.id.chronometer);
+            imagen = (ImageView) findViewById(R.id.imagen);
+            imagen.setBackgroundResource(R.drawable.ojos);
+            boton = (Button)findViewById(R.id.btngirar);
+        }catch (Exception e){
+            Log.e("[Sin_nombre]", "Error " + e.toString(), e);
+        }
     }
 
     @Override
@@ -93,7 +97,6 @@ public class Parpadeo extends AppCompatActivity {
             String v[]=prefe.getString("1234", "0:0").split(":");
             return Integer.parseInt(v[0]);
         }catch (Exception e){
-            Toast.makeText(this, "Error!: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             Log.e("[Sin_nombre]", "Error " + e.toString(), e);
         }
         return -1;

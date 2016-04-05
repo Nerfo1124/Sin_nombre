@@ -34,9 +34,13 @@ public class Masaje extends AppCompatActivity {
         setContentView(R.layout.activity_masaje);
         c = (Chronometer) findViewById(R.id.chronometer);
         getSupportActionBar().setTitle("Ejercicio - Masaje");
-        imagen = (ImageView) findViewById(R.id.imagen);
-        imagen.setBackgroundResource(R.drawable.masaje);
-        boton = (Button)findViewById(R.id.btngirar);
+        try{
+            imagen = (ImageView) findViewById(R.id.imagen);
+            imagen.setBackgroundResource(R.drawable.masaje);
+            boton = (Button)findViewById(R.id.btngirar);
+        }catch (Exception e){
+            Log.e("[Sin_nombre]", "Error " + e.toString(), e);
+        }
     }
 
     @Override
@@ -91,7 +95,6 @@ public class Masaje extends AppCompatActivity {
             String v[]=prefe.getString("1234", "0:0").split(":");
             return Integer.parseInt(v[0]);
         }catch (Exception e){
-            Toast.makeText(this, "Error!: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             Log.e("[Sin_nombre]", "Error " + e.toString(), e);
         }
         return -1;

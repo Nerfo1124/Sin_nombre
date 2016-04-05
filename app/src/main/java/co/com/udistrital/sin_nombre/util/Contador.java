@@ -151,27 +151,32 @@ public class  Contador extends Thread {
     }
 
     protected void displayNotification(){
-        Log.e(TAG_LOG, "[Sin_nombre] creando notificacion");
-        Intent i = new Intent(c, Ejercicios.class);
-        i.putExtra("notificationID", notificationID);
+        try{
+            Log.e(TAG_LOG, "[Sin_nombre] creando notificacion");
+            Intent i = new Intent(c, Ejercicios.class);
+            i.putExtra("notificationID", notificationID);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(c, 0, i, 0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(c, 0, i, 0);
 
-        NotificationManager nm = (NotificationManager) c.getSystemService(c.NOTIFICATION_SERVICE);
+            NotificationManager nm = (NotificationManager) c.getSystemService(c.NOTIFICATION_SERVICE);
 
-        CharSequence ticker ="Sin-nombre: Debe realizar sus ejercicios";
-        CharSequence contentTitle = "Sin-nombre - Ejercicios";
-        CharSequence contentText = "Realiza ahora los ejercicios";
-        Notification noti = new NotificationCompat.Builder(c)
-                .setContentIntent(pendingIntent)
-                .setTicker(ticker)
-                .setContentTitle(contentTitle)
-                .setContentText(contentText)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .addAction(R.mipmap.ic_launcher, ticker, pendingIntent)
-                .setVibrate(new long[] {100, 250, 100, 500})
-                .build();
-        nm.notify(notificationID, noti);
+            CharSequence ticker ="Sin-nombre: Debe realizar sus ejercicios";
+            CharSequence contentTitle = "Sin-nombre - Ejercicios";
+            CharSequence contentText = "Realiza ahora los ejercicios";
+            Notification noti = new NotificationCompat.Builder(c)
+                    .setContentIntent(pendingIntent)
+                    .setTicker(ticker)
+                    .setContentTitle(contentTitle)
+                    .setContentText(contentText)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .addAction(R.mipmap.ic_launcher, ticker, pendingIntent)
+                    .setVibrate(new long[] {100, 250, 100, 500})
+                    .build();
+            nm.notify(notificationID, noti);
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
+
     }
 
     public static void ponerfre(Context c) {
@@ -185,17 +190,26 @@ public class  Contador extends Thread {
     }
 
     public static void guardarfre(Context c) {
-        SharedPreferences preferencias=c.getSharedPreferences("frecuencia",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=preferencias.edit();
-        editor.putString("aic", ""+frecuencia);
-        editor.commit();
+        try{
+            SharedPreferences preferencias=c.getSharedPreferences("frecuencia",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=preferencias.edit();
+            editor.putString("aic", ""+frecuencia);
+            editor.commit();
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
+
     }
 
     public void guardarTiempo() {
-        SharedPreferences preferencias=c.getSharedPreferences("datos", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=preferencias.edit();
-        editor.putString("mail", tiempo);
-        editor.commit();
+        try{
+            SharedPreferences preferencias=c.getSharedPreferences("datos", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=preferencias.edit();
+            editor.putString("mail", tiempo);
+            editor.commit();
+        }catch (Exception e){
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
     }
 
     public int BuscarUltimoUsuario1() {

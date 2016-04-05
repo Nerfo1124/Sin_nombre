@@ -121,8 +121,6 @@ public class HistoricoDAO {
             }else{
                 return null;
             }
-
-
         } catch (Exception e) {
             //Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[consult] Error en HistoricoDAO - consult: " + e.toString(), e);
