@@ -161,16 +161,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     + "VALUES ('Palmeo','palmeo.png','Ejercicio que consiste en poner las palmas de las manos sobre los ojos sin hacer presion sobre ellos.')";
     public static final String INSERT_EXCERSICE_7 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('Ejercicio1','John.png','Breve descripcion del ejercicio.')";
+                    + "VALUES ('En Construccion!!!','cons.png','Breve descripcion del ejercicio.')";
     public static final String INSERT_EXCERSICE_8 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('Ejercicio1','John.png','Breve descripcion del ejercicio.')";
+                    + "VALUES ('En Construccion!!!','cons.png','Breve descripcion del ejercicio.')";
     public static final String INSERT_EXCERSICE_9 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('Ejercicio1','John.png','Breve descripcion del ejercicio.')";
+                    + "VALUES ('En Construccion!!!','cons.png','Breve descripcion del ejercicio.')";
     public static final String INSERT_EXCERSICE_10 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('Ejercicio1','John.png','Breve descripcion del ejercicio.')";
+                    + "VALUES ('En Construccion!!!','cons.png','Breve descripcion del ejercicio.')";
 
     // ========================================================
     // Tabla de Historico ejercicios realizados.

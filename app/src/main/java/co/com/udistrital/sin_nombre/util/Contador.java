@@ -61,11 +61,11 @@ public class  Contador extends Thread {
                     if(frecuencia<(horas*60+minutos)){
                         frecuencia=frecuencia+band;
                     }
-
-                    if(frecuencia==(horas*60+minutos)){
+                    if((frecuencia==(horas*60+minutos))&&segundos==0){
+                        Log.e("Sin_nombre", "entro!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         this.displayNotification();
                         frecuencia=frecuencia+band;
-                        minutos++;
+                        //minutos++;
                         guardarfre(c);
                         ponerfre(c);
                     }

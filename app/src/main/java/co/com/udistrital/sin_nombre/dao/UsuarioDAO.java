@@ -117,7 +117,6 @@ public class UsuarioDAO {
             }
             return objUsuario;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[consult] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[consult] Error en UsuarioDAO: " + e.toString(), e);
             return null;
         }

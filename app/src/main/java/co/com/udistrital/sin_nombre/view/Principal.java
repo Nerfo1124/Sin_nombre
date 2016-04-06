@@ -66,9 +66,7 @@ public class Principal extends AppCompatActivity {
         cargarSwitchLetra();
         cargarSwitchLetra2();
         //Toast.makeText(this,"anterior "+aux+" actual "+idUsuarioSesion,Toast.LENGTH_LONG).show();
-        if(aux==idUsuarioSesion){
-
-        }else{
+        if(aux!=idUsuarioSesion){
             guardarContador();
             HistoricoVO objH= new HistoricoVO();
             HistoricoDAO objBD = new HistoricoDAO(this);

@@ -34,6 +34,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Descripcion"
         android:textSize="15sp"
-        android:layout_below="@+id/txtNameEjercicio" />
+        android:layout_below="@+id/txtNameEjercicio"
+        android:gravity="center" />
 
 </LinearLayout>
