@@ -5,25 +5,33 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import co.com.udistrital.sin_nombre.R;
+import co.com.udistrital.sin_nombre.dao.FormulaDAO;
 import co.com.udistrital.sin_nombre.dao.RestablecerDAO;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
+import co.com.udistrital.sin_nombre.dao.SistemaDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.security.Encrypter;
 import co.com.udistrital.sin_nombre.util.DateDialog;
+import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
+import co.com.udistrital.sin_nombre.vo.SistemaVO;
 import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
-public class ModificacionDatos extends AppCompatActivity {
+public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
     private static String TAG_LOG = "[Sin_nombre]";
 
@@ -47,8 +55,12 @@ public class ModificacionDatos extends AppCompatActivity {
 
     private Spinner preguntasUno;
     private Spinner preguntasDos;
-
+    private SeekBar seekBar;
+    private EditText texto;
+    private SeekBar barra, barra2;//elementos que permite seleccionar la formula(numero) de cada ojo
+    private NumberPicker fre;//elemento que permite selecionar el numero de horas para la frecuencia de tiempo
     private EditText txtIdUsuario, txtNombreCompleto, txtApellidoCompleto, txtFechaNacimiento, txtSexoM;
+    private TextView iz, de;//elementos que llevaran el valor de formula del ojo izquierdo y  del ojo derecho
     private EditText txtUser, txtPassUno, txtPassDos;
     private EditText txtRespuestaUno, txtRespuestaDos;
     private UsuarioVO usuario;
@@ -65,8 +77,10 @@ public class ModificacionDatos extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Modificacion de datos ");
         cargarDatosIniciales();
+        ultimaReferencias();
         cargarTabHost();
         vistaInicial();
+        cargardatos();
     }
 
     @Override
@@ -83,6 +97,33 @@ public class ModificacionDatos extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         idUsuario = Integer.parseInt(bundle.getString("idUsuarioM"));
         Log.d(TAG_LOG, "Parametro recibido: " + idUsuario);
+    }
+
+    public void ultimaReferencias(){
+        seekBar = (SeekBar) findViewById(R.id.sbBarra);
+        texto = (EditText) findViewById(R.id.txtTexto);
+        seekBar.setProgress((int) texto.getTextSize());
+        barra = (SeekBar) findViewById(R.id.barraM);
+        barra.setOnSeekBarChangeListener(this);
+        barra2 = (SeekBar) findViewById(R.id.barra2M);
+        barra2.setOnSeekBarChangeListener(this);
+        iz = (TextView) findViewById(R.id.lblizq);
+        de = (TextView) findViewById(R.id.lblder);
+        referenciaTres();
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                texto.setTextSize(TypedValue.COMPLEX_UNIT_PX, progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
     }
 
     public void vistaInicial() {
@@ -132,6 +173,7 @@ public class ModificacionDatos extends AppCompatActivity {
         TabHDos.addTab(TabHDos.newTabSpec("ModUno").setIndicator("Datos Personales").setContent(R.id.modificarUno));
         TabHDos.addTab(TabHDos.newTabSpec("ModDos").setIndicator("Datos de Seguridad").setContent(R.id.modificarDos));
         TabHDos.addTab(TabHDos.newTabSpec("ModTres").setIndicator("Datos de Sesion").setContent(R.id.modificarTres));
+        TabHDos.addTab(TabHDos.newTabSpec("ModCuatro").setIndicator("Datos de Configuracion").setContent(R.id.modificarCuatro));
     }
 
     public void modificarDatosPersonales(View v) {
@@ -264,5 +306,92 @@ public class ModificacionDatos extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void mas(View v) {
+        barra.setProgress(barra.getProgress() + 1);
+    }
+
+    public void menos(View v) {
+        barra.setProgress(barra.getProgress() - 1);
+    }
+
+    public void mas2(View v) {
+        barra2.setProgress(barra2.getProgress() + 1);
+    }
+
+    public void menos2(View v) {
+        barra2.setProgress(barra2.getProgress() - 1);
+    }
+
+    public void referenciaTres() {
+        fre = (NumberPicker) findViewById(R.id.numero);
+        fre.setMaxValue(300);
+        fre.setMinValue(5);
+        fre.setWrapSelectorWheel(false);
+
+    }
+
+    public void menosET(View v) {
+        int progreso;
+        int newProgreso;
+        if (v.getId() == R.id.btnMenos) {
+            progreso = seekBar.getProgress();
+            if (progreso > 0) {
+                newProgreso = progreso - 1;
+                seekBar.setProgress(newProgreso);
+                texto.setTextSize(TypedValue.COMPLEX_UNIT_PX, newProgreso);
+            }
+        }
+    }
+
+    public void masET(View v) {
+        int progreso;
+        int newProgreso;
+        if (v.getId() == R.id.btnMas) {
+            progreso = seekBar.getProgress();
+            if (progreso < 100) {
+                newProgreso = progreso + 1;
+                seekBar.setProgress(newProgreso);
+                texto.setTextSize(TypedValue.COMPLEX_UNIT_PX, newProgreso);
+            }
+        }
+    }
+
+    public void cargardatos(){
+        SistemaVO objS=new SistemaVO();
+        SistemaDAO objBD=new SistemaDAO(this);
+        objS=objBD.consult(idUsuario);
+        fre.setValue(objS.getFrecuencia());
+        seekBar.setProgress((int)objS.getTamanoFuente());
+    }
+
+    public void guardar(View v){
+        SistemaVO objS = new SistemaVO();
+        SistemaDAO objBD = new SistemaDAO(this);
+        objS.setFrecuencia(fre.getValue());
+        objS.setTamanoFuente(texto.getTextSize());
+        objS.setIdSistema(idUsuario);
+        objBD.update(objS);
+        Toast.makeText(this, " Datos modificados correctamente! ", Toast.LENGTH_LONG).show();
+        this.finish();
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (seekBar.equals(barra))
+            iz.setText("" + progress);
+        if (seekBar.equals(barra2))
+            de.setText("" + progress);
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 }

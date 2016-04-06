@@ -32,6 +32,7 @@ public class Masaje extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masaje);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         c = (Chronometer) findViewById(R.id.chronometer);
         getSupportActionBar().setTitle("Ejercicio - Masaje");
         try{

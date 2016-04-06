@@ -30,7 +30,7 @@ public class  pantalla_on_off extends Service {
             BroadcastReceiver mReceiver = new Recevier(contador,this);
             registerReceiver(mReceiver, filter);
             Toast.makeText(this, "Servicio creado!", Toast.LENGTH_SHORT).show();
-            Log.i(TAG_LOG, "Servicio creado!");
+            Log.e(TAG_LOG, "Servicio creado!");
         }catch (Exception e){
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
@@ -44,7 +44,7 @@ public class  pantalla_on_off extends Service {
             guardarTiempo();
             // TODO: Return the communication channel to the service.
             Toast.makeText(this, "Servicio destruído!", Toast.LENGTH_SHORT).show();
-            Log.i(TAG_LOG, "Servicio destruido!");
+            Log.e(TAG_LOG, "Servicio destruido!");
         }catch (Exception e){
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }

@@ -33,6 +33,7 @@ public class Palmeo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_palmeo);
         getSupportActionBar().setTitle("Ejercicio - Palmeo");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         try{
             c = (Chronometer) findViewById(R.id.chronometer);
             imagen = (ImageView) findViewById(R.id.imagen);

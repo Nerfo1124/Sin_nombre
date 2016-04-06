@@ -28,12 +28,14 @@ import java.util.Date;
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.FormulaDAO;
 import co.com.udistrital.sin_nombre.dao.HistoricoDAO;
+import co.com.udistrital.sin_nombre.dao.SistemaDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.util.Contador;
 import co.com.udistrital.sin_nombre.util.ProgressCircle;
 import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.HistoricoVO;
+import co.com.udistrital.sin_nombre.vo.SistemaVO;
 import co.com.udistrital.sin_nombre.vo.UsuarioVO;
 
 public class Principal extends AppCompatActivity {
@@ -46,6 +48,8 @@ public class Principal extends AppCompatActivity {
     private UsuarioVO usuarioSesion;
     int idUsuarioSesion,aux;
     boolean primero;
+    private SistemaVO objS = new SistemaVO();
+    private FormulaVO objF = new FormulaVO();
 
     ProgressCircle progressCircle;
     Switch s1,s2;
@@ -114,10 +118,9 @@ public class Principal extends AppCompatActivity {
 
     public void cargarSwitchLetra(){
         try {
+            SistemaDAO objBD = new SistemaDAO(getApplicationContext());
+            objS = objBD.consult(idUsuarioSesion);
             s1=(Switch)findViewById(R.id.letramanual);
-            FormulaVO objF = new FormulaVO();
-            FormulaDAO objBD = new FormulaDAO(getApplicationContext());
-            objF = objBD.consult(idUsuarioSesion);
             s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -128,10 +131,7 @@ public class Principal extends AppCompatActivity {
                         }else {
                             bloquearSwitch();
                             s2.setChecked(false);
-                            FormulaVO objF = new FormulaVO();
-                            FormulaDAO objBD = new FormulaDAO(getApplicationContext());
-                            objF = objBD.consult(idUsuarioSesion);
-                            Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) Float.parseFloat(objF.getTamanioFuente()) / 40);
+                            Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, (float) objS.getTamanoFuente() / 40);
                             toast();
                         }
                     } else {
@@ -148,7 +148,6 @@ public class Principal extends AppCompatActivity {
     }
 
     public void cargarSwitchLetra2(){
-        FormulaVO objF = new FormulaVO();
         FormulaDAO objBD = new FormulaDAO(getApplicationContext());
         objF = objBD.consult(idUsuarioSesion);
         s2=(Switch)findViewById(R.id.letraautomatica);
@@ -163,9 +162,6 @@ public class Principal extends AppCompatActivity {
                         } else {
                             bloquearSwitch();
                             s1.setChecked(false);
-                            FormulaVO objF = new FormulaVO();
-                            FormulaDAO objBD = new FormulaDAO(getApplicationContext());
-                            objF = objBD.consult(idUsuarioSesion);
                             //Toast.makeText(getApplicationContext(), "OD: " + objF.getaVisualOD() + "OI: " + objF.getaVisualOI(), Toast.LENGTH_LONG).show();
                             Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, 2);
                             toast();
@@ -180,7 +176,7 @@ public class Principal extends AppCompatActivity {
                 }
             }
         });
-        revisarletra(objF);
+        revisarletra();
     }
 
 
@@ -199,7 +195,7 @@ public class Principal extends AppCompatActivity {
         }
     }
 
-    public void revisarletra(FormulaVO o){
+    public void revisarletra(){
         try{
             Float s=Settings.System.getFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE);
             if(s==1){
@@ -208,11 +204,11 @@ public class Principal extends AppCompatActivity {
                 primero=false;
             }else{
                 primero=true;
-                if(s==Float.parseFloat(o.getTamanioFuente()) / 40) {
+                if(s==objS.getTamanoFuente() / 40) {
                     s1.setChecked(true);
                     Log.e("[Sin_nombre]", " S1 ");
                 }
-                else {
+                if(s==2/*Float.parseFloat(objF.getTamanioFuente())/40*/) {
                     Log.e("[Sin_nombre]", " S2 ");
                     s2.setChecked(true);
                 }
