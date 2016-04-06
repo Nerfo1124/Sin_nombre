@@ -45,6 +45,7 @@ public class HistoricoExcDAO {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM ").append(dbh.TABLE_NAME_HISTORICO_EJER);
             sb.append(" WHERE " + dbh.HISTORICO_EJER_USU + " = ").append(idUsuario);
+            sb.append(" ORDER BY " + dbh.HISTORICO_EJER_FECHA + " DESC");
 
             Log.d(TAG_LOG, "[list] SQL: " + sb.toString());
 
