@@ -316,6 +316,7 @@ public class Principal extends AppCompatActivity {
     }
 
     public void guardarTiempo() {
+        Log.e("Sin_nombre", "Guardo  en principal: "+Contador.tiempo);
         SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=preferencias.edit();
         editor.putString("mail", Contador.tiempo);
@@ -343,15 +344,8 @@ public class Principal extends AppCompatActivity {
     }
 
     public void ejercicio(View v){
-        //Intent intent  = new Intent(this,Circulos.class);
-        //startActivity(intent);
-        //myTask.onCancelled();
-        //guardarUltimoUsuario1(idUsuarioSesion, ":1");
-        //guardarTiempo();
-        //this.finish();
         Intent intent  = new Intent(this,Ejercicios.class);
         startActivity(intent);
-
     }
 
     public void BuscarUltimoUsuario1() {

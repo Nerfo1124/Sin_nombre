@@ -1,4 +1,4 @@
-package co.com.udistrital.sin_nombre;
+package co.com.udistrital.sin_nombre.util;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
