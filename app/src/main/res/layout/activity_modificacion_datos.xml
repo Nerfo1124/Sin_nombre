@@ -466,11 +466,27 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/l1"
+                                android:id="@+id/ltamañoletra"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_marginTop="15px"
+                                android:layout_below="@+id/ltamaño"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <EditText
+                                    android:id="@+id/txtTamanioFuente"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:enabled="false" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/l1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/ltamaño"
+                                android:layout_below="@+id/ltamañoletra"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="horizontal">

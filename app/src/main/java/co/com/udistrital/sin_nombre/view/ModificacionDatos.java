@@ -64,6 +64,7 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
     private EditText txtUser, txtPassUno, txtPassDos;
     private EditText txtRespuestaUno, txtRespuestaDos;
     private UsuarioVO usuario;
+    private EditText tamanioF;
     private UsuarioDAO dao;
     private SesionVO sesion;
     private SesionDAO daoS;
@@ -100,9 +101,11 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
     }
 
     public void ultimaReferencias(){
+        tamanioF = (EditText) findViewById(R.id.txtTamanioFuente);
         seekBar = (SeekBar) findViewById(R.id.sbBarra);
         texto = (EditText) findViewById(R.id.txtTexto);
         seekBar.setProgress((int) texto.getTextSize());
+        tamanioF.setText("Tamaño de la Fuente: " + seekBar.getProgress() + "%");
         barra = (SeekBar) findViewById(R.id.barraM);
         barra.setOnSeekBarChangeListener(this);
         barra2 = (SeekBar) findViewById(R.id.barra2M);
@@ -113,6 +116,7 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tamanioF.setText("Tamaño de la Fuente: " + progress + "%");
                 texto.setTextSize(TypedValue.COMPLEX_UNIT_PX, progress);
             }
 
@@ -340,6 +344,7 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
             if (progreso > 0) {
                 newProgreso = progreso - 1;
                 seekBar.setProgress(newProgreso);
+                tamanioF.setText("Tamaño de la Fuente: " + newProgreso + "%");
                 texto.setTextSize(TypedValue.COMPLEX_UNIT_PX, newProgreso);
             }
         }
@@ -353,6 +358,7 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
             if (progreso < 100) {
                 newProgreso = progreso + 1;
                 seekBar.setProgress(newProgreso);
+                tamanioF.setText("Tamaño de la Fuente: " + newProgreso + "%");
                 texto.setTextSize(TypedValue.COMPLEX_UNIT_PX, newProgreso);
             }
         }
