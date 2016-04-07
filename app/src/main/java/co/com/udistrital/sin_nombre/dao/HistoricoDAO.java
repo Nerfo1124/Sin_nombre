@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +32,6 @@ public class HistoricoDAO {
             dbh = new DataBaseHelper(context);
             db = dbh.getWritableDatabase();
         } catch (Exception e) {
-            //Toast.makeText(context, "[HistoricoDAO] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[HistoricoDAO] Error en HistoricoDAO: " + e.toString(), e);
         }
     }
@@ -60,7 +59,6 @@ public class HistoricoDAO {
             }
             return listHistorico;
         } catch (Exception e) {
-            //Toast.makeText(contexto, "[list] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[list] Error en HistoricoDAO: " + e.toString(), e);
             return null;
         }
@@ -94,7 +92,6 @@ public class HistoricoDAO {
                 return null;
 
         } catch (Exception e) {
-            //Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[consult] Error en HistoricoDAO - consult: " + e.toString(), e);
             return null;
         }
@@ -122,7 +119,6 @@ public class HistoricoDAO {
                 return null;
             }
         } catch (Exception e) {
-            //Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[consult] Error en HistoricoDAO - consult: " + e.toString(), e);
             return null;
         }
@@ -152,7 +148,6 @@ public class HistoricoDAO {
 
 
         } catch (Exception e) {
-            //Toast.makeText(contexto, "[consult] Error en HistoricoDAO - consult: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[consult] Error en HistoricoDAO - consult: " + e.toString(), e);
             return null;
         }
@@ -178,7 +173,6 @@ public class HistoricoDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            //Toast.makeText(contexto, "[insert] Error en HistoricoDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[insert] Error en HistoricoDAO: " + e.toString());
             return false;
         }
@@ -206,7 +200,6 @@ public class HistoricoDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            //Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[update] Error en FormulaDAO: " + e.toString());
             return false;
         }
@@ -229,7 +222,6 @@ public class HistoricoDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            //Toast.makeText(contexto, "[delete] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[delete] Error en FormulaDAO: " + e.toString());
             return false;
         }

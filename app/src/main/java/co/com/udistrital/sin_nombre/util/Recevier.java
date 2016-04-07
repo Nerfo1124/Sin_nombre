@@ -33,7 +33,7 @@ public class  Recevier extends BroadcastReceiver {
             //p.guardarTiempo();
             if(intent.getAction().equals(Intent.ACTION_SCREEN_ON)){
                 contador.continua=true;
-                Toast.makeText(context, " ENCENDIDO "+contador.tiempo, Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, " ENCENDIDO "+contador.tiempo, Toast.LENGTH_LONG).show();
             } else
                 contador.continua=false;
             if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){

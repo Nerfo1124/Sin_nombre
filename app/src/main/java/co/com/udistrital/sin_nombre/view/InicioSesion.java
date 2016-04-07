@@ -10,13 +10,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
+
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import org.w3c.dom.Text;
 
@@ -47,7 +47,7 @@ public class InicioSesion extends AppCompatActivity {
         Log.d(TAG_LOG, "Iniciando vista principal de la aplicacion.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
-        getSupportActionBar().setTitle("Inicio Sesion1");
+        getSupportActionBar().setTitle("Inicio Sesion");
         //getSupportActionBar().setIcon(R.drawable.icono_home);
         txtUsuario = (EditText) findViewById(R.id.txtUserSesion);
         txtPassword = (EditText) findViewById(R.id.txtPassSesion);

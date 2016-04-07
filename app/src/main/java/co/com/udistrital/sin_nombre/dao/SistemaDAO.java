@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,6 @@ public class SistemaDAO {
             dbh = new DataBaseHelper(context);
             db = dbh.getWritableDatabase();
         } catch (Exception e){
-            Toast.makeText(context, "[SistemaDAO] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[SistemaDAO] Error en SistemaDAO: " + e.toString());
         }
     }
@@ -61,7 +59,6 @@ public class SistemaDAO {
             }
             return listaSistema;
         } catch (Exception e){
-            Toast.makeText(contexto, "[list] Error en SesionDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[list] Error en SesionDAO: " + e.toString());
             return null;
         }
@@ -91,7 +88,6 @@ public class SistemaDAO {
             }
             return objSistema;
         } catch (Exception e){
-            Toast.makeText(contexto, "[consult] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
             Log.e(TAG_LOG, "[consult] Error en SistemaDAO: " + e.toString());
             return null;
         }
@@ -116,7 +112,6 @@ public class SistemaDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
-            Toast.makeText(contexto, "[insert] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
             Log.e(TAG_LOG, "[insert] Error en SistemaDAO: " + e.toString());
             return false;
         }
@@ -141,7 +136,6 @@ public class SistemaDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[update] Error en SistemanDAO " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[update] Error en SistemanDAO " + e.toString());
             return false;
         }
@@ -163,7 +157,6 @@ public class SistemaDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[delete] Error en SistemaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[delete] Error en SistemaDAO: " + e.toString());
             return false;
         }

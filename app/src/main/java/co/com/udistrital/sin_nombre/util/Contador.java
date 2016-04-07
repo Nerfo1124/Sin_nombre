@@ -8,10 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -46,10 +43,12 @@ public class  Contador extends Thread {
     public void run() {
         try {
             while(siempre) {
+                Log.e("Sin_nombre", "por FUERAAAAA hora:"+horas+" minutos:"+minutos+" segundos:"+segundos);
                 if(ReiniciarContador())
                     this.sleep(60000);
 
                 while (continua) {
+                    Log.e("Sin_nombre", "por DENNTROOOO hora:"+horas+" minutos:"+minutos+" segundos:"+segundos);
                     if(idUsuarioSesion==0){
                         idUsuarioSesion=BuscarUltimoUsuario1();
                         ponerfre(c);
@@ -91,6 +90,7 @@ public class  Contador extends Thread {
                     else
                         tiempo = horas + ":" + minutos + ":" + segundos;
                     this.sleep(9);
+                    guardarTiempo();
                 }
                 this.sleep(1000);
             }
@@ -120,6 +120,7 @@ public class  Contador extends Thread {
                 segundos = 0;
                 minutos = 0;
                 horas = 0;
+                tiempo="0:0:0";
                 guardarTiempo();
                 return true;
             }catch(Exception ex) {

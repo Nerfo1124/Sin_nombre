@@ -8,7 +8,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
+
 
 public class  pantalla_on_off extends Service {
 
@@ -29,7 +29,6 @@ public class  pantalla_on_off extends Service {
             filter.addAction(Intent.ACTION_SCREEN_OFF);
             BroadcastReceiver mReceiver = new Recevier(contador,this);
             registerReceiver(mReceiver, filter);
-            Toast.makeText(this, "Servicio creado!", Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "Servicio creado!");
         }catch (Exception e){
             Log.e(TAG_LOG, "Error " + e.toString(), e);
@@ -43,7 +42,6 @@ public class  pantalla_on_off extends Service {
             contador.continua=false;
             guardarTiempo();
             // TODO: Return the communication channel to the service.
-            Toast.makeText(this, "Servicio destruído!", Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "Servicio destruido!");
         }catch (Exception e){
             Log.e(TAG_LOG, "Error " + e.toString(), e);

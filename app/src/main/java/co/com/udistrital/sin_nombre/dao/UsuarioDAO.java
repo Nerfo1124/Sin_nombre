@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,6 @@ public class UsuarioDAO {
             dbh = new DataBaseHelper(context);
             db = dbh.getWritableDatabase();
         } catch (Exception e){
-            Toast.makeText(context, "[UsuarioDAO] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[UsuarioDAO] Error en UsuarioDAO: " + e.toString());
         }
     }
@@ -74,7 +72,6 @@ public class UsuarioDAO {
             }
             return listaUsuario;
         } catch (Exception e){
-            Toast.makeText(contexto, "[list] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[list] Error en UsuarioDAO: " + e.toString());
             return null;
         }
@@ -157,7 +154,6 @@ public class UsuarioDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
-            Toast.makeText(contexto, "[insert] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
             System.out.println("[insert] Error en UsuarioDAO: " + e.toString());
             return false;
         }
@@ -201,7 +197,6 @@ public class UsuarioDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[update] Error en UsuarioDAO " + e.toString(), Toast.LENGTH_SHORT).show();
             System.out.println("[update] Error en UsuarioDAO " + e.toString());
             return false;
         }
@@ -223,7 +218,6 @@ public class UsuarioDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[delete] Error en UsuarioDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[delete] Error en UsuarioDAO: " + e.toString());
             return false;
         }

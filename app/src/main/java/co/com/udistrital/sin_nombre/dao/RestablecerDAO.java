@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,6 @@ public class RestablecerDAO {
             dbh = new DataBaseHelper(context);
             db = dbh.getWritableDatabase();
         } catch (Exception e){
-            Toast.makeText(context, "[RestablecerDAO] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[RestablecerDAO] Error en RestablecerDAO: " + e.toString());
         }
     }
@@ -58,7 +56,6 @@ public class RestablecerDAO {
             }
             return listaRes;
         } catch (Exception e){
-            Toast.makeText(contexto, "[list] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[list] Error en RestablecerDAO: " + e.toString());
             return null;
         }
@@ -85,7 +82,6 @@ public class RestablecerDAO {
             }
             return objRes;
         } catch (Exception e){
-            Toast.makeText(contexto, "[consult] Error en FormulaDAO - consult: " + e.toString(), Toast.LENGTH_SHORT ).show();
             Log.e(TAG_LOG, "[consult] Error en FormulaDAO - consult: " + e.toString());
             return null;
         }
@@ -108,7 +104,6 @@ public class RestablecerDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e){
-            Toast.makeText(contexto, "[insert] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT ).show();
             Log.e(TAG_LOG, "[insert] Error en RestablecerDAO: " + e.toString());
             return false;
         }
@@ -130,7 +125,6 @@ public class RestablecerDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[update] Error en FormulaDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[update] Error en FormulaDAO: " + e.toString());
             return false;
         }
@@ -147,7 +141,6 @@ public class RestablecerDAO {
             db.execSQL(sb.toString());
             return true;
         } catch (Exception e) {
-            Toast.makeText(contexto, "[delete] Error en RestablecerDAO: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "[delete] Error en RestablecerDAO: " + e.toString());
             return false;
         }

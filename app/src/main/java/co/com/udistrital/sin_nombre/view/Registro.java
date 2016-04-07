@@ -313,7 +313,6 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
                         layoutAnimadoDos.setVisibility(View.GONE);//metodo que oculpa el layout junto con todos sus elementos
                 }
             }
-            Toast.makeText(this, "" + r + " " + r2 + " " + r3 + " " + p+" "+r4+" "+r5, Toast.LENGTH_LONG).show();
             if (r == 1 && r2 == 1 && r3 == 1 && p == 1 && r4==1 && r5==1) {
                 if (grupoFamilia.getCheckedRadioButtonId() != R.id.radiosiR1) {
                     if (layoutAnimadoDos.getVisibility() == View.GONE)
@@ -542,7 +541,6 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         usuarioReg.setRestablecerUsuario(llenarCuenta());
 
         objUsuarioDao.insert(usuarioReg);
-        Toast.makeText(this, ":D :D :D :(", Toast.LENGTH_LONG).show();
         Log.i(TAG_LOG, " [llenarUsuario] Usuario registrado satisfactoriamente.");
     }
 

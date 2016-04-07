@@ -65,7 +65,6 @@ public class Principal extends AppCompatActivity {
         cargarDatosIniciales();
         cargarSwitchLetra();
         cargarSwitchLetra2();
-        //Toast.makeText(this,"anterior "+aux+" actual "+idUsuarioSesion,Toast.LENGTH_LONG).show();
         if(aux!=idUsuarioSesion){
             guardarContador();
             HistoricoVO objH= new HistoricoVO();
@@ -140,7 +139,7 @@ public class Principal extends AppCompatActivity {
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), " Error" + e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e("[Sin_nombre]","Error: "+e.getMessage(),e);
         }
 
     }
@@ -160,7 +159,6 @@ public class Principal extends AppCompatActivity {
                         } else {
                             bloquearSwitch();
                             s1.setChecked(false);
-                            //Toast.makeText(getApplicationContext(), "OD: " + objF.getaVisualOD() + "OI: " + objF.getaVisualOI(), Toast.LENGTH_LONG).show();
                             Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, 2);
                             toast();
                         }
@@ -170,7 +168,7 @@ public class Principal extends AppCompatActivity {
                         toast();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), " Error" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("[Sin_nombre]","Error: "+e.getMessage(),e);
                 }
             }
         });
@@ -212,7 +210,7 @@ public class Principal extends AppCompatActivity {
                 }
             }
         }catch (Exception e) {
-            Toast.makeText(getApplicationContext(), " Error " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e("[Sin_nombre]", "Error: " + e.getMessage(), e);
         }
     }
 
@@ -242,10 +240,6 @@ public class Principal extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.boton) {
-            Toast.makeText(this, "Se presionó el ícono de la *", Toast.LENGTH_LONG).show();
-            return true;
-        }
         if (id == R.id.ejercicio) {
             Intent intent = new Intent(this, Ejercicios.class);
             startActivity(intent);
@@ -311,7 +305,7 @@ public class Principal extends AppCompatActivity {
                         }
                     }).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Error Inicio - Dialogo:" + e.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("[Sin_nombre]", "Error: " + e.getMessage(), e);
         }
     }
 
@@ -339,7 +333,7 @@ public class Principal extends AppCompatActivity {
             seg.putExtra("idUsuario", "" + usuarioSesion.getIdUsuario());
             startActivity(seg);
         }catch (Exception e){
-            Toast.makeText(this, "Error Inicio - Dialogo:" + e.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("[Sin_nombre]","Error: "+e.getMessage(),e);
         }
     }
 
@@ -355,7 +349,6 @@ public class Principal extends AppCompatActivity {
             String v[]=prefe.getString("1234", "0:0").split(":");
             aux=Integer.parseInt(v[0]);
         }catch (Exception e){
-            Toast.makeText(this, "Error!: "+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
 
