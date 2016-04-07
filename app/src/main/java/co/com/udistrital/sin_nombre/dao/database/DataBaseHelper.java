@@ -159,7 +159,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String INSERT_EXCERSICE_6 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
                     + "VALUES ('Palmeo','palmeo.png','Ejercicio que consiste en poner las palmas de las manos sobre los ojos sin hacer presion sobre ellos.')";
-    public static final String INSERT_EXCERSICE_7 =
+    /*public static final String INSERT_EXCERSICE_7 =
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
                     + "VALUES ('En Construccion!!!','cons.png','Breve descripcion del ejercicio.')";
     public static final String INSERT_EXCERSICE_8 =
@@ -169,8 +169,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
                     + "VALUES ('En Construccion!!!','cons.png','Breve descripcion del ejercicio.')";
     public static final String INSERT_EXCERSICE_10 =
-            "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
-                    + "VALUES ('En Construccion!!!','cons.png','Breve descripcion del ejercicio.')";
+           "INSERT INTO EJERCICIO(" + EJERCICIO_NOMBRE + " , " + EJERCICIO_IMAGEN + " , " + EJERCICIO_DESCRIPCION + ") "
+                   + "VALUES ('En Construccion!!!','cons.png','Breve descripcion del ejercicio.')";*/
 
     // ========================================================
     // Tabla de Historico ejercicios realizados.
@@ -223,10 +223,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(INSERT_EXCERSICE_4);
         db.execSQL(INSERT_EXCERSICE_5);
         db.execSQL(INSERT_EXCERSICE_6);
-        db.execSQL(INSERT_EXCERSICE_7);
-        db.execSQL(INSERT_EXCERSICE_8);
-        db.execSQL(INSERT_EXCERSICE_9);
-        db.execSQL(INSERT_EXCERSICE_10);
+        //db.execSQL(INSERT_EXCERSICE_7);
+        //db.execSQL(INSERT_EXCERSICE_8);
+        //db.execSQL(INSERT_EXCERSICE_9);
+        //db.execSQL(INSERT_EXCERSICE_10);
         db.execSQL(CREATE_TABLE_HISTORICO_EX);
         Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_HISTORICO_EX);
 

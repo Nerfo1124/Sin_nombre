@@ -44,8 +44,10 @@ public class  Contador extends Thread {
         try {
             while(siempre) {
                 Log.e("Sin_nombre", "por FUERAAAAA hora:"+horas+" minutos:"+minutos+" segundos:"+segundos);
-                if(ReiniciarContador())
+                if(ReiniciarContador()) {
+                    Log.e("Sin_nombre", "FUERA - reinicio-> horas: "+horas+" minutos: "+minutos+" segundos: "+segundos);
                     this.sleep(60000);
+                }
 
                 while (continua) {
                     Log.e("Sin_nombre", "por DENNTROOOO hora:"+horas+" minutos:"+minutos+" segundos:"+segundos);
@@ -54,8 +56,10 @@ public class  Contador extends Thread {
                         ponerfre(c);
                     }
 
-                    if(ReiniciarContador())
+                    if(ReiniciarContador()) {
                         this.sleep(60000);
+                        Log.e("Sin_nombre", "DENTRO - reinicio-> horas: " + horas + " minutos: " + minutos + " segundos: " + segundos);
+                    }
 
                     if(frecuencia<(horas*60+minutos)){
                         frecuencia=frecuencia+band;
@@ -90,7 +94,6 @@ public class  Contador extends Thread {
                     else
                         tiempo = horas + ":" + minutos + ":" + segundos;
                     this.sleep(9);
-                    guardarTiempo();
                 }
                 this.sleep(1000);
             }
@@ -116,7 +119,7 @@ public class  Contador extends Thread {
                     objBD.insert(objH);
                 else
                     objBD.update(objH);
-                Log.d(TAG_LOG, " Tiempo " + tiempo + " fecha " + new Date()+ "id "+idUsuarioSesion);
+                Log.d("Sin_nombre", " Tiempo " + tiempo + " fecha " + new Date()+ "id "+idUsuarioSesion);
                 segundos = 0;
                 minutos = 0;
                 horas = 0;
