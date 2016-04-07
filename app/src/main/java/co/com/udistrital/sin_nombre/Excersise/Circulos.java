@@ -3,6 +3,7 @@ package co.com.udistrital.sin_nombre.Excersise;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -83,9 +84,11 @@ public class Circulos extends AppCompatActivity {
                     objE.setIdEjercicio(3);
                     objE.setFechaRegistro(new Date());
                     objDB.insert(objE);
-                    Log.e("[Sin_nombre]", "HOLA: "+objE.getIdUsuario());
+                    Log.e("[Sin_nombre]", "HOLA: " + objE.getIdUsuario());
                     c.setText("FINALIZADO");
                     boton.setEnabled(true);
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.notificacion);
+                    mp.start();
                 }
             }.start();
         }catch (Exception e){

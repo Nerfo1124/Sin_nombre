@@ -3,6 +3,7 @@ package co.com.udistrital.sin_nombre.Excersise;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,9 +72,11 @@ public class Palmeo extends AppCompatActivity {
                     objE.setIdEjercicio(6);
                     objE.setFechaRegistro(new Date());
                     objDB.insert(objE);
-                    Log.e("[Sin_nombre]", "HOLA: "+objE.getIdUsuario());
+                    Log.e("[Sin_nombre]", "HOLA: " + objE.getIdUsuario());
                     c.setText("FINALIZADO");
                     boton.setEnabled(true);
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.notificacion);
+                    mp.start();
                 }
             }.start();
         } catch (Exception ex) {
