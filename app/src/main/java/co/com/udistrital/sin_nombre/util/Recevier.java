@@ -36,19 +36,9 @@ public class  Recevier extends BroadcastReceiver {
                 //Toast.makeText(context, " ENCENDIDO "+contador.tiempo, Toast.LENGTH_LONG).show();
             } else
                 contador.continua=false;
-            if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){
-                try{
-                    Log.e("[Sin_nombre]", "YESSSS"+context.getApplicationContext());
-                    //Intent i = new Intent(context, InicioSesion.class);
-                    //i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //context.startActivity(i);
-                }catch (Error e){
-                    Log.e("[Sin_nombre]", "error: "+e.getMessage(),e);
-                }
-            }
 
         }catch (Exception e){
-            Log.e("[Sin_nombre]", "Error en Receiver: ", e);
+            Log.e("[Sin_nombre]", " Error en Receiver: ", e);
         }
 
     }

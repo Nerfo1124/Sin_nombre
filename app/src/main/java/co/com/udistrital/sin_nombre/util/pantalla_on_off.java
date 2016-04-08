@@ -23,8 +23,8 @@ public class  pantalla_on_off extends Service {
     public void onCreate() {
         super.onCreate();
         try{
-            contador.start();
             ponerTiempo();
+            contador.start();
             IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
             filter.addAction(Intent.ACTION_SCREEN_OFF);
             BroadcastReceiver mReceiver = new Recevier(contador,this);
