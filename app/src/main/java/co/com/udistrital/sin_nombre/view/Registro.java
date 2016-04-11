@@ -599,8 +599,10 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
                 //Log.d(TAG_LOG, "Se inserto satisfactoriamente el nuevo usuario.");
                 this.finish();
                 //Log.d(TAG_LOG,"Debio terminarse la Actividad");
-            }else
-                Toast.makeText(this,"Debe llenar todos los campos correctamente",Toast.LENGTH_LONG).show();
+            }else {
+                TbH.setCurrentTab(0);
+                Toast.makeText(this, "Debe llenar todos los campos correctamente", Toast.LENGTH_LONG).show();
+            }
         } catch (Exception ex) {
             Log.d(TAG_LOG, "Error al mostrar Perfil de Usuario", ex);
         }

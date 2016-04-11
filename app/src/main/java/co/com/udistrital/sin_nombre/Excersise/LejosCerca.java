@@ -33,6 +33,7 @@ public class LejosCerca extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lejos_cerca);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Ejercicio - LejosCerca");
         c = (Chronometer) findViewById(R.id.chronometer);
         imagen = (ImageView) findViewById(R.id.imagen);
         imagen.setBackgroundResource(R.drawable.lejoscerca);

@@ -33,6 +33,7 @@ public class Masaje extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masaje);
         c = (Chronometer) findViewById(R.id.chronometer);
+        getSupportActionBar().setTitle("Ejercicio - Masaje");
         imagen = (ImageView) findViewById(R.id.imagen);
         imagen.setBackgroundResource(R.drawable.masaje);
         boton = (Button)findViewById(R.id.btngirar);

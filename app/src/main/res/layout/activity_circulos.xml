@@ -42,7 +42,7 @@
                 android:gravity="center" />
 
             <ImageView
-                android:layout_marginTop="300px"
+                android:layout_marginTop="325px"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ojo"
@@ -50,12 +50,13 @@
                 android:layout_gravity="left" />
 
             <Button
-                android:layout_marginTop="300px"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="325px"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Comenzar"
                 android:id="@+id/btngirar"
-                android:onClick="girar" />
+                android:onClick="girar"
+                android:background="@android:color/holo_blue_light" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

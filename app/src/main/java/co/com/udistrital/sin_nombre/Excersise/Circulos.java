@@ -38,6 +38,7 @@ public class Circulos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circulos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Ejercicio - Circulos");
         c = (Chronometer) findViewById(R.id.chronometer);
         imagen = (ImageView) findViewById(R.id.imagen);
         boton = (Button)findViewById(R.id.btngirar);

@@ -3,6 +3,7 @@ package co.com.udistrital.sin_nombre.view;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import co.com.udistrital.sin_nombre.R;
@@ -21,6 +22,7 @@ public class PerfilUsuario extends AppCompatActivity {
         Log.d(TAG_LOG, "Ingresando a la vista principal de Perfil.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_usuario);
+        getSupportActionBar().setTitle("Tus Datos ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
 
         // Recibiendo parametros de la Actividad InicioSesion
@@ -50,5 +52,14 @@ public class PerfilUsuario extends AppCompatActivity {
         } catch (Exception ex) {
             Log.e(TAG_LOG, "[onCreate] Error en la consulta del usuario: ", ex);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -34,6 +34,7 @@ public class Parpadeo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parpadeo);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Ejercicio - Parpadeo");
         c = (Chronometer) findViewById(R.id.chronometer);
         imagen = (ImageView) findViewById(R.id.imagen);
         imagen.setBackgroundResource(R.drawable.ojos);

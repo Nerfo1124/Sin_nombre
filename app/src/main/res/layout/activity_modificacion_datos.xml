@@ -93,14 +93,15 @@
                                 android:hint="Sexo de Usuario" />
 
                             <Button
-                                android:layout_width="wrap_content"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Actualizar Datos Personales"
                                 android:id="@+id/btnActualizarMD"
                                 android:layout_gravity="center_horizontal"
                                 android:textSize="15sp"
                                 android:layout_marginTop="10sp"
-                                android:onClick="modificarDatosPersonales" />
+                                android:onClick="modificarDatosPersonales"
+                                android:background="@android:color/holo_blue_light" />
 
                         </LinearLayout>
                     </ScrollView>
@@ -137,7 +138,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/spPreguntaUno"
-                                android:background="@android:color/holo_green_dark" />
+                                android:background="@android:color/holo_blue_light" />
 
                             <EditText
                                 android:layout_width="fill_parent"
@@ -151,7 +152,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/spPreguntaDos"
-                                android:background="@android:color/holo_green_dark" />
+                                android:background="@android:color/holo_blue_light" />
 
                             <EditText
                                 android:layout_width="fill_parent"
@@ -162,14 +163,15 @@
                                 android:layout_marginTop="12sp" />
 
                             <Button
-                                android:layout_width="wrap_content"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Modificar Respuestas de Seguridad"
                                 android:id="@+id/btnModificarResMD"
                                 android:layout_gravity="center_horizontal"
                                 android:textSize="15sp"
                                 android:layout_marginTop="12sp"
-                                android:onClick="modificarSeguridad" />
+                                android:onClick="modificarSeguridad"
+                                android:background="@android:color/holo_blue_light" />
 
                         </LinearLayout>
                     </ScrollView>

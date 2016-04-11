@@ -33,6 +33,7 @@ public class Acercamiento extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acercamiento);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Ejercicio - Acercamiento");
         c = (Chronometer) findViewById(R.id.chronometer);
         imagen = (ImageView) findViewById(R.id.imagen);
         imagen.setBackgroundResource(R.drawable.seguirlapiz);

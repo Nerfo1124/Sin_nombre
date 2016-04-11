@@ -164,7 +164,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:background="@android:color/holo_green_light"
+                                android:background="@android:color/holo_blue_light"
                                 android:layout_marginTop="12sp" />
 
                             <EditText
@@ -177,7 +177,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/selectorDosR1"
-                                android:background="@android:color/holo_green_light" />
+                                android:background="@android:color/holo_blue_light" />
 
                             <EditText
                                 android:layout_width="fill_parent"
@@ -227,7 +227,8 @@
                                 android:onClick="continuar"
                                 android:text="Continuar"
                                 android:textSize="20dp"
-                                android:layout_marginTop="8sp" />
+                                android:layout_marginTop="8sp"
+                                android:background="@android:color/holo_blue_light" />
                         </LinearLayout>
                     </ScrollView>
                 </LinearLayout>
@@ -291,7 +292,7 @@
                                         style="?android:attr/buttonStyleSmall"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:background="@android:color/holo_green_light"
+                                        android:background="@android:color/holo_blue_light"
                                         android:onClick="menos"
                                         android:text="-" />
 
@@ -299,18 +300,17 @@
                                         android:id="@+id/lblizq"
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
-                                        android:background="@android:color/holo_green_light"
                                         android:backgroundTint="@android:color/holo_blue_dark"
                                         android:textAppearance="?android:attr/textAppearanceSmall"
-                                        android:textSize="20dp" />
+                                        android:textSize="20dp"
+                                        android:gravity="center" />
 
                                     <Button
                                         android:id="@+id/btnmas2"
                                         style="?android:attr/buttonStyleSmall"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-
-                                        android:background="@android:color/holo_green_light"
+                                        android:background="@android:color/holo_blue_light"
                                         android:onClick="mas"
                                         android:text="+" />
 
@@ -352,7 +352,7 @@
                                         style="?android:attr/buttonStyleSmall"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:background="@android:color/holo_green_light"
+                                        android:background="@android:color/holo_blue_light"
                                         android:onClick="menos2"
                                         android:text="-" />
 
@@ -360,17 +360,17 @@
                                         android:id="@+id/lblder"
                                         android:layout_width="wrap_content"
                                         android:layout_height="fill_parent"
-                                        android:background="@android:color/holo_green_light"
                                         android:backgroundTint="@android:color/holo_blue_dark"
                                         android:textAppearance="?android:attr/textAppearanceSmall"
-                                        android:textSize="20dp" />
+                                        android:textSize="20dp"
+                                        android:gravity="center" />
 
                                     <Button
                                         android:id="@+id/btnmas22"
                                         style="?android:attr/buttonStyleSmall"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:background="@android:color/holo_green_light"
+                                        android:background="@android:color/holo_blue_light"
                                         android:onClick="mas2"
                                         android:text="+" />
                                 </LinearLayout>
@@ -390,7 +390,8 @@
                                         android:layout_weight="1"
                                         android:onClick="continuar2"
                                         android:text="Continuar"
-                                        android:textSize="20dp" />
+                                        android:textSize="20dp"
+                                        android:background="@android:color/holo_blue_light" />
                                 </LinearLayout>
                             </RelativeLayout>
                         </ScrollView>
@@ -448,7 +449,7 @@
                                             style="?android:attr/buttonStyleSmall"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:background="@android:color/holo_green_light"
+                                            android:background="@android:color/holo_blue_bright"
                                             android:onClick="menosET"
                                             android:text="-" />
 
@@ -465,7 +466,7 @@
                                             style="?android:attr/buttonStyleSmall"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:background="@android:color/holo_green_light"
+                                            android:background="@android:color/holo_blue_bright"
                                             android:onClick="masET"
                                             android:text="+" />
                                     </LinearLayout>
@@ -501,7 +502,7 @@
                                             android:id="@+id/btnSiguiente"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:background="@android:color/holo_green_light"
+                                            android:background="@android:color/holo_blue_dark"
                                             android:longClickable="true"
                                             android:onClick="continuar2"
                                             android:text="Continuar" />
@@ -550,7 +551,7 @@
                                     android:gravity="center_horizontal"
                                     android:inputType="textMultiLine"
                                     android:text="la siguiente variable que debera ajustar, sera  la frecuencia(en minutos)en la cual  usted desea realizar los ejercicios que tenemos para ayudar a mejorar su vision"
-                                    android:textSize="20dp" />
+                                    android:textSize="25dp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -590,13 +591,13 @@
 
                                 <Button
                                     android:id="@+id/btnTerminarReg"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentBottom="true"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginBottom="174dp"
                                     android:layout_weight="1"
-                                    android:background="@android:color/holo_green_light"
+                                    android:background="@android:color/holo_blue_light"
                                     android:onClick="terminar"
                                     android:text="Terminar" />
                             </LinearLayout>

@@ -57,9 +57,9 @@
                 android:id="@+id/btnIngresar"
                 android:layout_marginTop="30sp"
                 android:allowUndo="false"
-                android:textColor="#2c56c5"
                 android:textSize="20sp"
-                android:onClick="iniciarSesion" />
+                android:onClick="iniciarSesion"
+                android:background="@android:color/holo_blue_light" />
 
             <Button
                 android:layout_width="fill_parent"

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -42,6 +43,8 @@ public class Ejercicios extends AppCompatActivity implements AdapterView.OnItemC
         Log.i(LOG_TAG, "Ingresando a la vista Ejercicios.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ejercicios);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Ejercicios ");
         /*NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         nm.cancel(getIntent().getExtras().getInt("notificationID"));*/
 
@@ -59,6 +62,15 @@ public class Ejercicios extends AppCompatActivity implements AdapterView.OnItemC
 
         myArrayAdapter = new ArrayAdapter(mContext, ejercicioInfoList);
         ejerciciosView.setAdapter((ListAdapter) myArrayAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

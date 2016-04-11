@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -49,6 +50,8 @@ public class Seguimiento extends AppCompatActivity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seguimiento);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Seguimientos ");
         try{
             Bundle bundle = getIntent().getExtras();
             idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
@@ -77,6 +80,15 @@ public class Seguimiento extends AppCompatActivity implements AdapterView.OnItem
             txtHistoricoEx = (TextView) findViewById(R.id.txtHistoricoTitulo);
             txtHistoricoEx.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void cargardatos(){
