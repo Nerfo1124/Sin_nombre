@@ -27,6 +27,7 @@ public class Masaje extends AppCompatActivity {
     Chronometer c;
     AnimationDrawable frameAnimation;
     Button boton;
+    CountDownTimer desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class Masaje extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
+            desc.cancel();
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -58,7 +60,7 @@ public class Masaje extends AppCompatActivity {
             boton.setEnabled(false);
             frameAnimation = (AnimationDrawable) imagen.getBackground();
             frameAnimation.start();
-            new CountDownTimer(60000, 1000) {
+            desc =new CountDownTimer(60000, 1000) {
                 public void onTick(long millisUntilFinished) {
                     c.setText("Tiempo Restante: " + millisUntilFinished / 1000);
                 }
@@ -77,7 +79,8 @@ public class Masaje extends AppCompatActivity {
                     MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.notificacion);
                     mp.start();
                 }
-            }.start();
+            };
+            desc.start();
         } catch (Exception ex) {
             Log.e("[Sin_nombre]", "Error: ", ex);
         }
@@ -85,6 +88,7 @@ public class Masaje extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            desc.cancel();
             this.finish();
             return true;
         }

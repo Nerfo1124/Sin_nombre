@@ -345,16 +345,6 @@ public class Principal extends AppCompatActivity {
         }
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void seg(View v){
         try{
             Intent seg = new Intent(this, Seguimiento.class);
@@ -390,7 +380,7 @@ public class Principal extends AppCompatActivity {
                             String v[]=getTiempoContador();
                             Float minutos= Float.parseFloat(v[0])*60+Float.parseFloat(v[1]);
                             Float m = minutos/480;
-                            publishProgress(""+0.5);
+                            publishProgress(""+m);
                             Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

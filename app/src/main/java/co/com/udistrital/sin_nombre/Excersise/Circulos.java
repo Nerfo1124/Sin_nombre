@@ -32,6 +32,7 @@ public class Circulos extends AppCompatActivity {
     int cont = 0;
     Chronometer c;
     Button boton;
+    CountDownTimer desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class Circulos extends AppCompatActivity {
     public void girar(View v) {
         try{
             boton.setEnabled(false);
-            new CountDownTimer(57000, 5600) {
+            desc =new CountDownTimer(57000, 5600) {
                 public void onTick(long millisUntilFinished) {
                     Log.e("[Prueba]", "seg: "+millisUntilFinished);
                     c.setText("Vueltas Restantes: " + (10 - cont));
@@ -90,7 +91,8 @@ public class Circulos extends AppCompatActivity {
                     MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.notificacion);
                     mp.start();
                 }
-            }.start();
+            };
+            desc.start();
         }catch (Exception e){
             Log.e("[Sin_nombre]", "Error-Circulos ",e);
         }
@@ -131,6 +133,7 @@ public class Circulos extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
+            desc.cancel();
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -138,6 +141,7 @@ public class Circulos extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            desc.cancel();
             Circulos.this.finish();
             return true;
         }
