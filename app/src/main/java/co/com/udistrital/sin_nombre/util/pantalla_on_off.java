@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -14,7 +13,8 @@ public class  pantalla_on_off extends Service {
 
     private static String TAG_LOG = "[Sin_nombre]";
 
-    Contador contador=new Contador(this);
+    Contador contador = new Contador(this);
+
     public pantalla_on_off() {
 
     }
@@ -22,15 +22,14 @@ public class  pantalla_on_off extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        try{
-            ponerTiempo();
+        try {
             contador.start();
             IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
             filter.addAction(Intent.ACTION_SCREEN_OFF);
-            BroadcastReceiver mReceiver = new Recevier(contador,this);
+            BroadcastReceiver mReceiver = new Recevier(contador, this);
             registerReceiver(mReceiver, filter);
             Log.e(TAG_LOG, "Servicio creado!");
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
     }
@@ -38,12 +37,10 @@ public class  pantalla_on_off extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        try{
-            contador.continua=false;
-            guardarTiempo();
-            // TODO: Return the communication channel to the service.
+        try {
+            contador.stop();
             Log.e(TAG_LOG, "Servicio destruido!");
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
     }
@@ -52,27 +49,6 @@ public class  pantalla_on_off extends Service {
     public IBinder onBind(Intent intent) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
-
-    public void ponerTiempo() {
-        try{
-            SharedPreferences prefe=getSharedPreferences("datos", Context.MODE_PRIVATE);
-            String[] v = prefe.getString("mail", "0:0:0").split(":");
-            contador.horas=Integer.parseInt(v[0]);
-            contador.minutos=Integer.parseInt(v[1]);
-            contador.segundos=Integer.parseInt(v[2]);
-        }catch (Exception e){
-            Log.e(TAG_LOG, "Error " + e.toString(), e);
-        }
-    }
-
-    public void guardarTiempo() {
-        try{
-            SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor=preferencias.edit();
-            editor.putString("mail", contador.tiempo);
-            editor.commit();
-        }catch (Exception e){
-            Log.e(TAG_LOG, "Error " + e.toString(), e);
-        }
-    }
 }
+
+

@@ -53,52 +53,106 @@ public class Principal extends AppCompatActivity {
 
     ProgressCircle progressCircle;
     Switch s1,s2;
-    MyTask myTask=null;
+    MyTask myTask=new MyTask();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
-        BuscarUltimoUsuario1();
-        cargarDatosIniciales();
-        cargarSwitchLetra();
-        cargarSwitchLetra2();
-        if(aux!=idUsuarioSesion){
-            guardarContador();
-            HistoricoVO objH= new HistoricoVO();
-            HistoricoDAO objBD = new HistoricoDAO(this);
-            objH=objBD.consult2(idUsuarioSesion);
-            if(objH==null){
-                Log.e(TAG_LOG, "[1] ");
-                Contador.horas=0;
-                Contador.minutos=0;
-                Contador.segundos=0;
-            }else{
-                Log.e(TAG_LOG, "[2] ");
-                String v[]= objH.getTiempo().split(":");
-                Contador.horas=Integer.parseInt(v[0]);
-                Contador.minutos=Integer.parseInt(v[1]);
-                Contador.segundos=Integer.parseInt(v[2]);
+        progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
+        try{
+            cargarDatosIniciales();
+            String s[]=getDatosUsuario();
+            if(s[0]=="0")
+                aux=idUsuarioSesion;
+            else
+                aux=Integer.parseInt(s[0]);
+            if(idUsuarioSesion!=aux){
+                guardarContador();
+                HistoricoVO objH= new HistoricoVO();
+                HistoricoDAO objBD = new HistoricoDAO(this);
+                objH=objBD.consult2(idUsuarioSesion);
+                if(objH==null){
+                    Contador.horas=0;
+                    Contador.minutos=0;
+                    Contador.segundos=0;
+                }else{
+                    String v[]= objH.getTiempo().split(":");
+                    Contador.horas=Integer.parseInt(v[0]);
+                    Contador.minutos=Integer.parseInt(v[1]);
+                    Contador.segundos=Integer.parseInt(v[2]);
+                }
             }
+            cargarSwitchLetra();
+            cargarSwitchLetra2();
+            setDatosUsuario(1);
+            startService(new Intent(this, pantalla_on_off.class));
+            this.myTask.execute();
+    }catch (Exception e){
+        Log.e("[Error]", "Error " + e.toString(), e);
+    }
+    }
+
+    public void setTiempoContadorP(int ho,int mi, int se) {
+        try{
+            Log.e("[cont]", "Guardando Tiempo De Contador");
+            SharedPreferences preferencias=getSharedPreferences("Contador", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=preferencias.edit();
+            editor.putString("Tiempo", ho + ":" + mi + ":" + se);
+            editor.commit();
+        }catch (Exception e){
+            Log.e("[Error]", "Error " + e.toString(), e);
         }
-        cargarSwitchYProgress();
+    }
+
+    public String[] getTiempoContador() {
+        try {
+            SharedPreferences prefe = getSharedPreferences("Contador", Context.MODE_PRIVATE);
+            String[] v = prefe.getString("Tiempo", "0:0:0").split(":");
+            return v;
+        } catch (Exception e) {
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
+        return null;
+    }
+
+    public String[] getDatosUsuario() {
+        try {
+            SharedPreferences prefe = getSharedPreferences("Usuario", Context.MODE_PRIVATE);
+            String[] v = prefe.getString("Datos", "0:0:0").split(":");
+            return v;
+        } catch (Exception e) {
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
+        return null;
+    }
+
+    public void setDatosUsuario(int s){
+        try {
+            Log.e("[Hola]", "Guardando Datos Usuario");
+            SharedPreferences preferencias = getSharedPreferences("Usuario", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferencias.edit();
+            editor.putString("Datos", idUsuarioSesion+":"+this.objS.getFrecuencia()+":"+s);
+            editor.commit();
+        } catch (Exception e) {
+            Log.e("[Prueba]", "Error " + e.toString(), e);
+        }
     }
 
     public void guardarContador(){
+        String s[]=getTiempoContador();
         HistoricoVO objH= new HistoricoVO();
         HistoricoVO objC= new HistoricoVO();
         HistoricoDAO objBD = new HistoricoDAO(this);
         objH.setIdUsuario(aux);
-        objH.setTiempo(Contador.tiempo);
+        objH.setTiempo(s[0]+":"+s[1]+":"+s[2]);
         objH.setFechaHistorico(new Date());
         objC=objBD.consult2(aux);
         if(objC==null)
             objBD.insert(objH);
         else
             objBD.update(objH);
-
     }
 
     public void cargarDatosIniciales(){
@@ -106,7 +160,6 @@ public class Principal extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
         Log.d(TAG_LOG, "Parametro recibido: " + idUsuarioSesion);
-        guardarUltimoUsuario1(idUsuarioSesion, ":1");
         //
         UsuarioDAO daoU=new UsuarioDAO(this);
         usuarioSesion = daoU.consult(idUsuarioSesion);
@@ -139,7 +192,7 @@ public class Principal extends AppCompatActivity {
                 }
             });
         } catch (Exception e) {
-            Log.e("[Sin_nombre]","Error: "+e.getMessage(),e);
+            Log.e("[Error]","Error: "+e.getMessage(),e);
         }
 
     }
@@ -168,27 +221,11 @@ public class Principal extends AppCompatActivity {
                         toast();
                     }
                 } catch (Exception e) {
-                    Log.e("[Sin_nombre]","Error: "+e.getMessage(),e);
+                    Log.e("[Error]","Error: "+e.getMessage(),e);
                 }
             }
         });
         revisarletra();
-    }
-
-
-    public void cargarSwitchYProgress(){
-        progressCircle = (ProgressCircle) findViewById(R.id.progress_circle);
-        progressCircle.startAnimation();
-        Contador.setIdSesion(idUsuarioSesion, getApplicationContext());
-        if(isMyServiceRunning(pantalla_on_off.class)==false) {
-            startService(new Intent(this, pantalla_on_off.class));
-            myTask = new MyTask();
-            myTask.execute();
-        }
-        else {
-            myTask = new MyTask();
-            myTask.execute();
-        }
     }
 
     public void revisarletra(){
@@ -210,7 +247,7 @@ public class Principal extends AppCompatActivity {
                 }
             }
         }catch (Exception e) {
-            Log.e("[Sin_nombre]", "Error: " + e.getMessage(), e);
+            Log.e("[Error]", "Error: " + e.getMessage(), e);
         }
     }
 
@@ -298,23 +335,14 @@ public class Principal extends AppCompatActivity {
                                 Intent i = new Intent(getApplicationContext(), InicioSesion.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
-                                guardarUltimoUsuario1(idUsuarioSesion, ":0");
-                                guardarTiempo();
+                                setDatosUsuario(0);
                                 Principal.this.finish();
                             }
                         }
                     }).show();
         } catch (Exception e) {
-            Log.e("[Sin_nombre]", "Error: " + e.getMessage(), e);
+            Log.e("[Error]", "Error: " + e.getMessage(), e);
         }
-    }
-
-    public void guardarTiempo() {
-        Log.e("Sin_nombre", "Guardo  en principal: "+Contador.tiempo);
-        SharedPreferences preferencias=getSharedPreferences("datos",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=preferencias.edit();
-        editor.putString("mail", Contador.tiempo);
-        editor.commit();
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -333,7 +361,7 @@ public class Principal extends AppCompatActivity {
             seg.putExtra("idUsuario", "" + usuarioSesion.getIdUsuario());
             startActivity(seg);
         }catch (Exception e){
-            Log.e("[Sin_nombre]","Error: "+e.getMessage(),e);
+            Log.e("[Error]","Error: "+e.getMessage(),e);
         }
     }
 
@@ -342,24 +370,7 @@ public class Principal extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void BuscarUltimoUsuario1() {
-        try{
-            SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
-            Log.d(TAG_LOG, "SharedPreferences: " + prefe.toString());
-            String v[]=prefe.getString("1234", "0:0").split(":");
-            aux=Integer.parseInt(v[0]);
-        }catch (Exception e){
-            Log.e(TAG_LOG, "Error " + e.toString(), e);
-        }
 
-    }
-
-    public void guardarUltimoUsuario1(int id,String s) {
-        SharedPreferences preferencias=getSharedPreferences("usuario",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=preferencias.edit();
-        editor.putString("1234", ""+id+s);
-        editor.commit();
-    }
 
 
     private class MyTask extends AsyncTask<String, String, String> {
@@ -376,16 +387,11 @@ public class Principal extends AppCompatActivity {
             protected String doInBackground(String... params) {
                 while (cent) {
                     try {
-                        if (Contador.tiempo.toString() != "") {
-                            String v[] = Contador.tiempo.split(":");
-                            int minutos = (Integer.parseInt(v[0]) * 60) + (Integer.parseInt(v[1]));
-                            float min = (float) minutos / 480;
-                            publishProgress("" + min);
-                        } else {
-                            publishProgress("" + 0);
-                        }
-                        Thread.sleep(1000);
-                        guardarTiempo();
+                            String v[]=getTiempoContador();
+                            Float minutos= Float.parseFloat(v[0])*60+Float.parseFloat(v[1]);
+                            Float m = minutos/480;
+                            publishProgress(""+0.5);
+                            Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

@@ -52,8 +52,8 @@ public class InicioSesion extends AppCompatActivity {
         txtUsuario = (EditText) findViewById(R.id.txtUserSesion);
         txtPassword = (EditText) findViewById(R.id.txtPassSesion);
         try{
-            String v[] = BuscarUltimoUsuario();
-            if(Integer.parseInt(v[1])==1){
+            String v[] = getDatosUsuario();
+            if(Integer.parseInt(v[2])==1){
                 Intent intento = new Intent(this, Principal.class);
                 intento.putExtra("idUsuario", "" +v[0]);
                 startActivity(intento);
@@ -330,12 +330,12 @@ public class InicioSesion extends AppCompatActivity {
         }
     }
 
-    public String[] BuscarUltimoUsuario() {
-        try{
-            SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
-            String v[]=prefe.getString("1234", "0:0").split(":");
+    public String[] getDatosUsuario() {
+        try {
+            SharedPreferences prefe = getSharedPreferences("Usuario", Context.MODE_PRIVATE);
+            String[] v = prefe.getString("Datos", "0:0:0").split(":");
             return v;
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
         return null;

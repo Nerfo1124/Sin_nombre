@@ -80,7 +80,7 @@ public class Circulos extends AppCompatActivity {
                     cont=0;
                     HistoricoExcVO objE=new HistoricoExcVO();
                     HistoricoExcDAO objDB=new HistoricoExcDAO(getApplicationContext());
-                    objE.setIdUsuario(BuscarUltimoUsuario1());
+                    objE.setIdUsuario(Integer.parseInt(getDatosUsuario()));
                     objE.setIdEjercicio(3);
                     objE.setFechaRegistro(new Date());
                     objDB.insert(objE);
@@ -96,17 +96,15 @@ public class Circulos extends AppCompatActivity {
         }
     }
 
-    public int BuscarUltimoUsuario1() {
-        try{
-            SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
-            Log.d("[Sin_nombre]", "SharedPreferences: " + prefe.toString());
-            String v[]=prefe.getString("1234", "0:0").split(":");
-            return Integer.parseInt(v[0]);
-        }catch (Exception e){
-            Log.e("[Sin_nombre]", "Error " + e.toString(), e);
+    public String getDatosUsuario() {
+        try {
+            SharedPreferences prefe = getSharedPreferences("Usuario", Context.MODE_PRIVATE);
+            String[] v = prefe.getString("Datos", "0:0:0").split(":");
+            return v[0];
+        } catch (Exception e) {
+            Log.e("[Error]", "Error " + e.toString(), e);
         }
-        return -1;
-
+        return null;
     }
 
     public void girar(int dir) {

@@ -24,138 +24,133 @@ import co.com.udistrital.sin_nombre.vo.SistemaVO;
  */
 public class  Contador extends Thread {
 
-    private static String TAG_LOG = "[Sin_nombre]";
+    private static String TAG_LOG = "[Prueba]";
     int notificationID = 1;
-    static int frecuencia=0,band=0;
+    static int frecuencia = 2, band = 0;
 
-    public static int idUsuarioSesion;
+    public static int idUsuarioSesion = 0, SesionActiva = 0;
 
-    boolean continua=true,siempre=true;
-    public static  int centesimas = 00,minutos=00, segundos=00, horas=0;
-    public static String tiempo="";
-    Context c;
+    boolean continua = true, siempre = true;
+    public static int minutos = 00, segundos = 00, horas = 0;
+    public static String tiempo = "";
+    static Context c;
 
-    public Contador(Context c){
-        this.c=c;
+    public Contador(Context c) {
+        this.c = c;
     }
 
     @SuppressWarnings("static-access")
     public void run() {
         try {
-            while(siempre) {
-                Log.e("Sin_nombre", "por FUERAAAAA hora:"+horas+" minutos:"+minutos+" segundos:"+segundos);
-                if(ReiniciarContador()) {
-                    Log.e("Sin_nombre", "FUERA - reinicio-> horas: "+horas+" minutos: "+minutos+" segundos: "+segundos);
-                    this.sleep(60000);
-                }
+            ponerTiempo();
+            while (siempre) {
+                Log.e("[Prueba]", "POR FUERAAAAA hora:" + horas + " minutos:" + minutos + " segundos:" + segundos + " Frecuencia: " + band);
+                if (ReiniciarContador()) {
+                    Log.e("[Prueba]", "Parando por un minuto");
+                    sleep(60000);
+                } else {
+                    if (continua) {
+                        if (band == (horas * 60 + minutos)) {
+                            this.displayNotification();
+                            band = band + frecuencia;
 
-                while (continua) {
-                    Log.e("Sin_nombre", "por DENNTROOOO hora:"+horas+" minutos:"+minutos+" segundos:"+segundos);
-                    if(idUsuarioSesion==0){
-                        idUsuarioSesion=BuscarUltimoUsuario1();
-                        ponerfre(c);
-                    }
+                        }
+                        if (band < (horas * 60 + minutos)) {
+                            band = band + frecuencia;
+                        }
 
-                    if(ReiniciarContador()) {
-                        this.sleep(60000);
-                        Log.e("Sin_nombre", "DENTRO - reinicio-> horas: " + horas + " minutos: " + minutos + " segundos: " + segundos);
-                    }
-
-                    if(frecuencia<(horas*60+minutos)){
-                        frecuencia=frecuencia+band;
-                    }
-                    if((frecuencia==(horas*60+minutos))&&segundos==0){
-                        Log.e("Sin_nombre", "entro!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                        this.displayNotification();
-                        frecuencia=frecuencia+band;
-                        //minutos++;
-                        guardarfre(c);
-                        ponerfre(c);
-                    }
-                    if (centesimas == 99) {
-                        centesimas = 00;
+                        if (segundos == 59) {
+                            segundos = 00;
+                            minutos++;
+                        }
+                        if (minutos >= 59) {
+                            minutos = 00;
+                            horas++;
+                        }
                         segundos++;
+                        if (minutos <= 9)
+                            tiempo = horas + ":0" + minutos + ":" + segundos;
+                        else
+                            tiempo = horas + ":" + minutos + ":" + segundos;
+                        if (segundos <= 9)
+                            tiempo = horas + ":" + minutos + ":0" + segundos;
+                        else
+                            tiempo = horas + ":" + minutos + ":" + segundos;
+                        setTiempoContador();
                     }
-                    if (segundos == 59){
-                        segundos = 00;
-                        minutos++;
-                    }
-                    if (minutos >= 59){
-                        minutos = 00;
-                        horas++;
-                    }
-                    centesimas++;
-                    if(minutos<=9)
-                        tiempo = horas + ":0" + minutos + ":" + segundos;
-                    else
-                        tiempo = horas + ":" + minutos + ":" + segundos;
-                    if(segundos<=9)
-                        tiempo = horas + ":" + minutos + ":0" + segundos;
-                    else
-                        tiempo = horas + ":" + minutos + ":" + segundos;
-                    this.sleep(9);
                 }
                 this.sleep(1000);
             }
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             Log.d("Sin_nombre", "Error en la ejecucion del servicio", ex);
         }
-
     }
 
-    public boolean ReiniciarContador(){
+    public static void setTiempoContador() {
+        try {
+            Log.e("[Prueba]", "Guardando Tiempo De Contador");
+            SharedPreferences preferencias = c.getSharedPreferences("Contador", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferencias.edit();
+            editor.putString("Tiempo", tiempo);
+            editor.commit();
+        } catch (Exception e) {
+            Log.e("[Prueba]", "Error " + e.toString(), e);
+        }
+    }
+
+    public static String[] getTiempoContador() {
+        try {
+            SharedPreferences prefe = c.getSharedPreferences("Contador", Context.MODE_PRIVATE);
+            String[] v = prefe.getString("Tiempo", "0:0:0").split(":");
+            return v;
+        } catch (Exception e) {
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
+        return null;
+    }
+
+
+    public static String[] getDatosUsuario() {
+        try {
+            SharedPreferences prefe = c.getSharedPreferences("Usuario", Context.MODE_PRIVATE);
+            String[] v = prefe.getString("Datos", "0:0:0").split(":");
+            return v;
+        } catch (Exception e) {
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
+        }
+        return null;
+    }
+
+    public boolean ReiniciarContador() {
         Calendar c = Calendar.getInstance();
-        //Log.e("[Prueba]", "Fecha "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE));
-        if(c.get(Calendar.HOUR_OF_DAY)==23&&c.get(Calendar.MINUTE)==59) {
-            try{
+        Log.e("[Prueba]", "Fecha " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE));
+        if (c.get(Calendar.HOUR_OF_DAY) == 23 && c.get(Calendar.MINUTE) == 59) {
+            try {
+                Log.e("[Prueba]", " REINICIANDO VARIABLES");
                 HistoricoVO objH= new HistoricoVO();
                 HistoricoVO objC= new HistoricoVO();
-                HistoricoDAO objBD= new HistoricoDAO(this.c);
+                HistoricoDAO objBD = new HistoricoDAO(this.c);
+                objH.setIdUsuario(idUsuarioSesion);
                 objH.setTiempo(tiempo);
                 objH.setFechaHistorico(new Date());
-                objH.setIdUsuario(idUsuarioSesion);
                 objC=objBD.consult2(idUsuarioSesion);
                 if(objC==null)
                     objBD.insert(objH);
                 else
                     objBD.update(objH);
-                Log.d("Sin_nombre", " Tiempo " + tiempo + " fecha " + new Date()+ "id "+idUsuarioSesion);
                 segundos = 0;
                 minutos = 0;
                 horas = 0;
-                tiempo="0:0:0";
-                guardarTiempo();
                 return true;
-            }catch(Exception ex) {
+            } catch (Exception ex) {
                 Log.e(TAG_LOG, "Error en Reinciar Contador", ex);
             }
         }
         return false;
     }
 
-    /**
-     * <b>Descripcion: </b> Metodo encargado de recibir el id de Sesion desde la actividad Principal.
-     *
-     * @param idSesion
-     */
-    public static void setIdSesion(int idSesion,Context c) {
-        try{
-            Log.d(TAG_LOG, "Valor de la Variable Sesion en Contador: " + idUsuarioSesion);
-            idUsuarioSesion = idSesion;
-            SistemaVO objS= new SistemaVO();
-            SistemaDAO objBD = new SistemaDAO(c);
-            objS=objBD.consult(idSesion);
-            frecuencia= Integer.parseInt("" + objS.getFrecuencia());
-            guardarfre(c);
-            ponerfre(c);
-        }catch (Exception e){
-            Log.e(TAG_LOG, "Error en  setIdsesion", e);
-        }
-
-    }
-
-    protected void displayNotification(){
-        try{
+    protected void displayNotification() {
+        try {
             Log.e(TAG_LOG, "[Sin_nombre] creando notificacion");
             Intent i = new Intent(c, Ejercicios.class);
             i.putExtra("notificationID", notificationID);
@@ -164,7 +159,7 @@ public class  Contador extends Thread {
 
             NotificationManager nm = (NotificationManager) c.getSystemService(c.NOTIFICATION_SERVICE);
 
-            CharSequence ticker ="Sin-nombre: Debe realizar sus ejercicios";
+            CharSequence ticker = "Sin-nombre: Debe realizar sus ejercicios";
             CharSequence contentTitle = "Sin-nombre - Ejercicios";
             CharSequence contentText = "Realiza ahora los ejercicios";
             Notification noti = new NotificationCompat.Builder(c)
@@ -174,58 +169,30 @@ public class  Contador extends Thread {
                     .setContentText(contentText)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .addAction(R.mipmap.ic_launcher, ticker, pendingIntent)
-                    .setVibrate(new long[] {100, 250, 100, 500})
+                    .setVibrate(new long[]{100, 250, 100, 500})
                     .build();
             nm.notify(notificationID, noti);
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
 
     }
 
-    public static void ponerfre(Context c) {
-        try{
-            SharedPreferences prefe= c.getSharedPreferences("frecuencia", Context.MODE_PRIVATE);
-            frecuencia=Integer.parseInt(prefe.getString("aic", "-1"));
-            band=frecuencia;
-        }catch (Exception e){
-            Log.e(TAG_LOG, "Error " + e.toString(), e);
+
+    public static void ponerTiempo(){
+        String[] tie = getTiempoContador();
+        String[] usu = getDatosUsuario();
+        if (tie != null) {
+            Log.e("[Prueba]", "Poniendo Tiempo Anterior " + tie[0] + ":" + tie[1] + ":" + tie[2]);
+            horas = Integer.parseInt(tie[0]);
+            minutos = Integer.parseInt(tie[1]);
+            segundos = Integer.parseInt(tie[2]);
+            idUsuarioSesion = Integer.parseInt(usu[0]);
+            frecuencia = Integer.parseInt(usu[1]);
+            SesionActiva = Integer.parseInt(usu[2]);
         }
     }
 
-    public static void guardarfre(Context c) {
-        try{
-            SharedPreferences preferencias=c.getSharedPreferences("frecuencia",Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor=preferencias.edit();
-            editor.putString("aic", ""+frecuencia);
-            editor.commit();
-        }catch (Exception e){
-            Log.e(TAG_LOG, "Error " + e.toString(), e);
-        }
-
-    }
-
-    public void guardarTiempo() {
-        try{
-            SharedPreferences preferencias=c.getSharedPreferences("datos", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor=preferencias.edit();
-            editor.putString("mail", tiempo);
-            editor.commit();
-        }catch (Exception e){
-            Log.e(TAG_LOG, "Error " + e.toString(), e);
-        }
-    }
-
-    public int BuscarUltimoUsuario1() {
-        try{
-            SharedPreferences prefe=c.getSharedPreferences("usuario", Context.MODE_PRIVATE);
-            String v[]=prefe.getString("1234", "0:0").split(":");
-            return Integer.parseInt(v[0]);
-        }catch (Exception e){
-            Log.e(TAG_LOG, "Error " + e.toString(), e);
-        }
-        return 0;
-    }
 
 }
 
