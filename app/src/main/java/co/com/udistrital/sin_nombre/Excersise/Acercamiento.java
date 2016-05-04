@@ -28,6 +28,7 @@ public class Acercamiento extends AppCompatActivity {
     AnimationDrawable frameAnimation;
     Button boton;
     CountDownTimer desc;
+    boolean ini=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,8 @@ public class Acercamiento extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            desc.cancel();
+            if(ini)
+                desc.cancel();
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -61,6 +63,7 @@ public class Acercamiento extends AppCompatActivity {
             frameAnimation.start();
             desc= new CountDownTimer(60000, 1000) {
                 public void onTick(long millisUntilFinished) {
+                    ini=true;
                     c.setText("Tiempo Restante: " + millisUntilFinished / 1000);
                 }
 
@@ -98,8 +101,9 @@ public class Acercamiento extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if(ini)
+                desc.cancel();
             Acercamiento.this.finish();
-            desc.cancel();
             return true;
         }
         return super.onKeyDown(keyCode, event);

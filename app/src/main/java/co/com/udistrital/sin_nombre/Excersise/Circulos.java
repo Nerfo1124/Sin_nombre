@@ -33,6 +33,7 @@ public class Circulos extends AppCompatActivity {
     Chronometer c;
     Button boton;
     CountDownTimer desc;
+    boolean ini=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class Circulos extends AppCompatActivity {
             boton.setEnabled(false);
             desc =new CountDownTimer(57000, 5600) {
                 public void onTick(long millisUntilFinished) {
+                    ini=true;
                     Log.e("[Prueba]", "seg: "+millisUntilFinished);
                     c.setText("Vueltas Restantes: " + (10 - cont));
                     if(cont<5){
@@ -133,7 +135,8 @@ public class Circulos extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            desc.cancel();
+            if(ini)
+                desc.cancel();
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -141,7 +144,8 @@ public class Circulos extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            desc.cancel();
+            if(ini)
+                desc.cancel();
             Circulos.this.finish();
             return true;
         }

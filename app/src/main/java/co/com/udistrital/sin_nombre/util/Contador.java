@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -26,12 +27,12 @@ public class  Contador extends Thread {
 
     private static String TAG_LOG = "[Prueba]";
     int notificationID = 1;
-    static int frecuencia = 2, band = 0;
+    static int frecuencia = 0, band = 0;
 
     public static int idUsuarioSesion = 0, SesionActiva = 0;
 
     boolean continua = true, siempre = true;
-    public static int minutos = 00, segundos = 00, horas = 0;
+    public static int minutos = 1, segundos = 00, horas = 0;
     public static String tiempo = "";
     static Context c;
 
@@ -172,6 +173,8 @@ public class  Contador extends Thread {
                     .setVibrate(new long[]{100, 250, 100, 500})
                     .build();
             nm.notify(notificationID, noti);
+            MediaPlayer mp = MediaPlayer.create(c, R.raw.notificacion);
+            mp.start();
         } catch (Exception e) {
             Log.e(TAG_LOG, "Error " + e.toString(), e);
         }

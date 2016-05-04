@@ -28,6 +28,7 @@ public class LejosCerca extends AppCompatActivity {
     AnimationDrawable frameAnimation;
     Button boton;
     CountDownTimer desc;
+    boolean ini=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,8 @@ public class LejosCerca extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            desc.cancel();
+            if(ini)
+                desc.cancel();
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -62,6 +64,7 @@ public class LejosCerca extends AppCompatActivity {
             frameAnimation.start();
             desc=new CountDownTimer(60000, 1000) {
                 public void onTick(long millisUntilFinished) {
+                    ini=true;
                     c.setText("Tiempo Restante: " + millisUntilFinished / 1000);
                 }
 
@@ -88,7 +91,8 @@ public class LejosCerca extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            desc.cancel();
+            if(ini)
+                desc.cancel();
             this.finish();
             return true;
         }
