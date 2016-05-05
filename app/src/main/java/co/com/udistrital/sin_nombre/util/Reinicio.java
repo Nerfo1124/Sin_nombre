@@ -20,7 +20,7 @@ public class Reinicio extends BroadcastReceiver {
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             }catch (Error e){
-                Log.e("[Sin_nombre]", "error: "+e.getMessage(),e);
+                Log.e("[Sin_nombre]", "Error: "+e.getMessage(),e);
             }
         }
     }

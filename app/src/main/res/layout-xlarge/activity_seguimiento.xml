@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".view.Seguimiento"
+    android:gravity="center">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/svHistorico" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Historico Uso de Dispositivo"
+                android:id="@+id/lblTituloHistorico"
+                android:allowUndo="false"
+                android:gravity="center"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="35sp" />
+
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="fill_parent"
+                android:layout_height="370dp"
+                android:id="@+id/graph" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Historico Ejercicios"
+                android:allowUndo="false"
+                android:gravity="center"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="35sp"
+                android:id="@+id/txtHistoricoTitulo"
+                android:layout_marginTop="20sp" />
+
+            <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="360sp"
+                android:id="@+id/listaHistorico" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
