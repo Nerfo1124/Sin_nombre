@@ -193,7 +193,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (seekBar.equals(barra))
+        if (seekBar.equals (barra))
             iz.setText("" + progress);
         if (seekBar.equals(barra2))
             de.setText("" + progress);

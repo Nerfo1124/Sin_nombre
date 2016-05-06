@@ -315,7 +315,7 @@ public class InicioSesion extends AppCompatActivity {
      */
     public void Dialogo(String tit, final String men, final int opc) {
         try {
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder( this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle(tit)
                     .setMessage(men)
