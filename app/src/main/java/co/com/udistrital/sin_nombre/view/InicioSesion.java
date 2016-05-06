@@ -60,7 +60,7 @@ public class InicioSesion extends AppCompatActivity {
                 finish();
             }
         }catch (Exception e){
-
+            Log.e(TAG_LOG, "Error " + e.toString(), e);
         }
     }
 

@@ -1,6 +1,8 @@
 package co.com.udistrital.sin_nombre.view;
 
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -88,6 +90,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//funcion hacia atras
+        getSupportActionBar().setTitle("Registro de usuario");
         objUsuarioDao = new UsuarioDAO(this);
         objSesionDao = new SesionDAO(this);
         pestanias();
@@ -521,7 +524,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         String[] apellidos = txtApellido.getText().toString().split(" ");
         usuarioReg.setApellido1Usuario(apellidos[0]);
         Log.d(TAG_LOG, "[llenarUsuario] Tamaño del array: " + apellidos.length);
-        Log.e("[Sin_nombre]", "Lengt :D :"+apellidos.length);
+        Log.e("[Sin_nombre]", "Lengt :D :" + apellidos.length);
         if (apellidos.length > 1) {
             if (apellidos[1] != null && apellidos[1] != "")
                 usuarioReg.setApellido2Usuario(apellidos[1]);
@@ -541,7 +544,12 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         usuarioReg.setRestablecerUsuario(llenarCuenta());
 
         objUsuarioDao.insert(usuarioReg);
+        Dialogo("Usuario Registrado", "Se a creado su usuario e ingresado sus datos en la base de datos:" +
+                "\n\n Usuario: " + llenarSesion().getUsuario()+
+                "\n Nombre: " + usuarioReg.getNombreUsuario() + "\n Apellidos: " + usuarioReg.getApellido1Usuario() + " " + usuarioReg.getApellido2Usuario()
+                + "\n Fecha Nacimiento: " + usuarioReg.getFechaNacimiento() + "\n Sexo: " + usuarioReg.getSexo());
         Log.i(TAG_LOG, " [llenarUsuario] Usuario registrado satisfactoriamente.");
+
     }
 
     public SesionVO llenarSesion() {
@@ -598,7 +606,6 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             if(revisa()==1){
                 llenarUsuario();
                 //Log.d(TAG_LOG, "Se inserto satisfactoriamente el nuevo usuario.");
-                this.finish();
                 //Log.d(TAG_LOG,"Debio terminarse la Actividad");
             }else {
                 TbH.setCurrentTab(0);
@@ -606,6 +613,24 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             }
         } catch (Exception ex) {
             Log.d(TAG_LOG, "Error al mostrar Perfil de Usuario", ex);
+        }
+    }
+
+    public void Dialogo(String tit, final String men) {
+        try {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(tit)
+                    .setMessage(men)
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Registro.this.finish();
+                        }
+                    }).show();
+        } catch (Exception e) {
+            Log.e(TAG_LOG, "Error Dialogo " + e.toString(), e);
         }
     }
 }
