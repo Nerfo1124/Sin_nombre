@@ -27,6 +27,7 @@ import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.security.Encrypter;
 import co.com.udistrital.sin_nombre.util.DateDialog;
+import co.com.udistrital.sin_nombre.util.OptometriaUtil;
 import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
@@ -149,11 +150,15 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         tamanioF = (EditText) findViewById(R.id.txtTamanioFuente);
         tamanioF.setText("Tamaño de la Fuente: " + seekBar.getProgress() + "%");
         barra = (SeekBar) findViewById(R.id.barra);
+        barra.setMax(20);
         barra.setOnSeekBarChangeListener(this);
         barra2 = (SeekBar) findViewById(R.id.barra2);
+        barra2.setMax(20);
         barra2.setOnSeekBarChangeListener(this);
         iz = (TextView) findViewById(R.id.lblizq);
+        iz.setText("0.0");
         de = (TextView) findViewById(R.id.lblder);
+        de.setText("0.0");
 
         tamanioSistema = "" + texto.getTextSize();
 
@@ -191,9 +196,9 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (seekBar.equals(barra))
-            iz.setText("" + progress);
+            iz.setText("" + OptometriaUtil.rangoFormulaMedica(progress));
         if (seekBar.equals(barra2))
-            de.setText("" + progress);
+            de.setText("" + OptometriaUtil.rangoFormulaMedica(progress));
     }
 
     @Override
@@ -560,7 +565,16 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             datoFormula.setaVisualOD((float) 0.0);
             datoFormula.setaVisualOI((float) 0.0);
         }
-        datoFormula.setTamanioFuente("" + texto.getTextSize());
+
+        double promFormula = 0.0d;
+        Log.d(TAG_LOG, "[llenarFormula] Promedio: " + (datoFormula.getaVisualOD() + datoFormula.getaVisualOI())/2.0d);
+        if((datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) != 0.0f) {
+            promFormula = (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d;
+            datoFormula.setTamanioFuente("" + OptometriaUtil.asignarTamanioXFormula(promFormula));
+        }
+        if (Integer.parseInt(datoFormula.getTamanioFuente()) == 0){
+            datoFormula.setTamanioFuente("" + texto.getTextSize());
+        }
         return datoFormula;
     }
 

@@ -254,7 +254,6 @@
                     </ScrollView>
                 </LinearLayout>
 
-                <!-- Cuerpo para la modificacion de la Formula Medica y parametros de config Sistema -->
                 <LinearLayout
                     android:orientation="vertical"
                     android:id="@+id/modificarCuatro"

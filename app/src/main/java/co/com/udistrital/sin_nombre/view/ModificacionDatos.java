@@ -25,6 +25,7 @@ import co.com.udistrital.sin_nombre.dao.SistemaDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.security.Encrypter;
 import co.com.udistrital.sin_nombre.util.DateDialog;
+import co.com.udistrital.sin_nombre.util.OptometriaUtil;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
@@ -107,11 +108,15 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
         seekBar.setProgress((int) texto.getTextSize());
         tamanioF.setText("Tamaño de la Fuente: " + seekBar.getProgress() + "%");
         barra = (SeekBar) findViewById(R.id.barraM);
+        barra.setMax(20);
         barra.setOnSeekBarChangeListener(this);
         barra2 = (SeekBar) findViewById(R.id.barra2M);
+        barra2.setMax(20);
         barra2.setOnSeekBarChangeListener(this);
         iz = (TextView) findViewById(R.id.lblizq);
+        iz.setText("0.0");
         de = (TextView) findViewById(R.id.lblder);
+        de.setText("0.0");
         referenciaTres();
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -386,9 +391,9 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (seekBar.equals(barra))
-            iz.setText("" + progress);
+            iz.setText("" + OptometriaUtil.rangoFormulaMedica(progress));
         if (seekBar.equals(barra2))
-            de.setText("" + progress);
+            de.setText("" + OptometriaUtil.rangoFormulaMedica(progress));
     }
 
     @Override
