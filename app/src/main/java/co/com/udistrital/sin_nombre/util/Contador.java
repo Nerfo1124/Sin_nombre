@@ -195,7 +195,5 @@ public class  Contador extends Thread {
             SesionActiva = Integer.parseInt(usu[2]);
         }
     }
-
-
 }
 
