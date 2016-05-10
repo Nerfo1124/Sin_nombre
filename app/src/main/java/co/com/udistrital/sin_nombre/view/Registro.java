@@ -1,7 +1,6 @@
 package co.com.udistrital.sin_nombre.view;
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +27,6 @@ import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.security.Encrypter;
 import co.com.udistrital.sin_nombre.util.DateDialog;
 import co.com.udistrital.sin_nombre.util.OptometriaUtil;
-import co.com.udistrital.sin_nombre.util.pantalla_on_off;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
@@ -140,7 +138,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
     /**
-     * este metodo se encarga de referenciar los elementos creados globalmente con los elementos que hay en el XML en la segunda pestaña
+     * <b>Descripcion: </b>Metodo que se encarga de referenciar los elementos creados globalmente con los elementos que hay en el XML en la segunda pestaña
      * esto con el fin de poder hacer cambios en dichos elementos
      */
     public void referenciaDos() {

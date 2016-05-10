@@ -317,6 +317,8 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
         });
     }
 
+    /* INICIO Bloque para los botones de Formula Medica */
+
     public void mas(View v) {
         barra.setProgress(barra.getProgress() + 1);
     }
@@ -332,6 +334,7 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
     public void menos2(View v) {
         barra2.setProgress(barra2.getProgress() - 1);
     }
+    /* FIN Bloque botones de Formula Medica */
 
     public void referenciaTres() {
         fre = (NumberPicker) findViewById(R.id.numero);
@@ -370,7 +373,7 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
     }
 
     public void cargardatos(){
-        SistemaVO objS=new SistemaVO();
+        SistemaVO objS;
         SistemaDAO objBD=new SistemaDAO(this);
         objS=objBD.consult(idUsuario);
         fre.setValue(objS.getFrecuencia());

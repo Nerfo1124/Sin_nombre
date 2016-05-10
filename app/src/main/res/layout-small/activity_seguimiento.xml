@@ -47,7 +47,7 @@
 
             <ListView
                 android:layout_width="fill_parent"
-                android:layout_height="360sp"
+                android:layout_height="420dp"
                 android:id="@+id/listaHistorico" />
         </LinearLayout>
     </ScrollView>

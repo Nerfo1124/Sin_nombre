@@ -25,7 +25,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="EJERCICIOS VISUALES"
+            android:text="EJERCICIOS VISUALES."
             android:textStyle="bold"
             android:textSize="25sp"
             android:textColor="#2c56c5"

@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/avatar"
-        android:layout_width="280sp"
+        android:layout_width="275sp"
         android:layout_height="100sp"
         android:maxHeight="16dp"
         android:maxWidth="16dp"

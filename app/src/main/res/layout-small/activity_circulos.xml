@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Debe seguir el circulo por un minuto"
+                android:text="Debe seguir el circulo por un minuto."
                 android:id="@+id/texto"
                 android:textSize="35px"
                 android:gravity="center" />

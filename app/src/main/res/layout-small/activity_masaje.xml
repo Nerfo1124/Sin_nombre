@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Debe realizar la siguiente trasncicion por un minuto"
+                android:text="Debe realizar la siguiente transicion por un minuto."
                 android:id="@+id/texto"
                 android:textSize="35px"
                 android:gravity="center" />

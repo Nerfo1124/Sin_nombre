@@ -55,7 +55,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/IS_ET_nameuser"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:enabled="true" />
             </LinearLayout>
 
             <LinearLayout
@@ -78,7 +79,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:hint="Fecha de Nacimiento"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:enabled="true" />
             </LinearLayout>
 
             <LinearLayout
@@ -101,7 +103,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:hint="Sexo"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:enabled="true" />
             </LinearLayout>
 
             <LinearLayout
@@ -124,7 +127,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:hint="Id de Sesion"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:enabled="true" />
 
             </LinearLayout>
 
@@ -163,7 +167,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtFuentePerfil"
-                    android:hint="Tamaño fuente" />
+                    android:hint="Tamaño fuente"
+                    android:enabled="true" />
             </LinearLayout>
 
         </RelativeLayout>

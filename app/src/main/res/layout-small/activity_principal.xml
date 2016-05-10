@@ -43,7 +43,7 @@
                     android:textColor="#42cb35"
                     android:textOff="Activar ajuste"
                     android:textOn="Desactivar ajuste"
-                    android:textSize="25dp"
+                    android:textSize="24sp"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
 
@@ -66,7 +66,7 @@
                     android:textColor="#42cb35"
                     android:textOff="Activar ajuste"
                     android:textOn="Desactivar ajuste"
-                    android:textSize="25dp"
+                    android:textSize="24sp"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
 
@@ -109,7 +109,7 @@
                     android:layout_marginRight="15px">
 
                     <Button
-                        android:layout_width="130dp"
+                        android:layout_width="181dp"
                         android:layout_height="fill_parent"
                         android:text="   Seguimientos  "
                         android:id="@+id/button3"
@@ -129,7 +129,7 @@
                     android:layout_height="match_parent">
 
                     <Button
-                        android:layout_width="130dp"
+                        android:layout_width="188dp"
                         android:layout_height="fill_parent"
                         android:text="   Ejercicios   "
                         android:onClick="ejercicio"

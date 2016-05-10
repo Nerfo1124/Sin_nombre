@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Inicio de Sesion"
+                android:text="Inicio de Sesion."
                 android:id="@+id/lblTituloInicio"
                 android:textColor="#2c56c5"
                 android:singleLine="false"

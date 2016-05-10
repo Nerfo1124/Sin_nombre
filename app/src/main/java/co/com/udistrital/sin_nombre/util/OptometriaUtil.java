@@ -2,9 +2,10 @@ package co.com.udistrital.sin_nombre.util;
 
 import android.util.Log;
 
-import java.util.Random;
-
 /**
+ * <b>Descripcion: </b>Clase creada con el fin de manipular datos espefcificamente de optometria y
+ * oftalmologia, esto con el fin de asignar valores correctos al leer una formula de gafas.
+ *
  * Created by Fernando on 09/05/2016.
  */
 public class OptometriaUtil {
@@ -38,7 +39,7 @@ public class OptometriaUtil {
      * @return String con el valor de la Formula Medica Elegida por el usuario.
      */
     public static String rangoFormulaMedica(int progress){
-        String respuesta = "";
+        String respuesta;
         switch (progress){
             case 1:
                 respuesta = "" + adicionFormula[0];
@@ -116,7 +117,7 @@ public class OptometriaUtil {
      * @return
      */
     public static String calcularAdicionDonders(int distancia, int edad){
-        String respuesta = "";
+        String respuesta;
         double adicion = 0.0d;
         if (edad >= 15 && edad < 20) {
             adicion = (1 / distancia) - (tablaAcomodacion[0] / 2);

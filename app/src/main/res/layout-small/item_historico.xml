@@ -8,8 +8,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtHistEjercicio"
         android:hint="Titulo del Ejercicio"
-        android:textAlignment="textStart"
-        android:textSize="21sp" />
+        android:textSize="21sp"
+        android:textAlignment="textStart" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -18,6 +18,6 @@
         android:textSize="15sp"
         android:hint="Fecha registro"
         android:textColor="@android:color/holo_green_dark"
-        android:textAlignment="viewEnd" />
+        android:textAlignment="textEnd" />
 
 </LinearLayout>
