@@ -32,7 +32,7 @@ public class  Contador extends Thread {
     public static int idUsuarioSesion = 0, SesionActiva = 0;
 
     boolean continua = true, siempre = true;
-    public static int minutos = 1, segundos = 00, horas = 0;
+    public static int minutos = 00, segundos = 00, horas = 0;
     public static String tiempo = "";
     static Context c;
 
@@ -51,7 +51,7 @@ public class  Contador extends Thread {
                     sleep(60000);
                 } else {
                     if (continua) {
-                        if (band == (horas * 60 + minutos)) {
+                        if (band == (horas * 60 + minutos)&&(horas *60+minutos)>=1) {
                             this.displayNotification();
                             band = band + frecuencia;
 
@@ -195,7 +195,5 @@ public class  Contador extends Thread {
             SesionActiva = Integer.parseInt(usu[2]);
         }
     }
-
-
 }
 
