@@ -212,7 +212,7 @@ public class Principal extends AppCompatActivity {
                         } else {
                             bloquearSwitch();
                             s1.setChecked(false);
-                            Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, 2);
+                            Settings.System.putFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE, Float.parseFloat(objF.getTamanioFuente()) / 40);
                             toast();
                         }
                     } else {
