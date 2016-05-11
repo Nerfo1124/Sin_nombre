@@ -131,7 +131,7 @@ public class FormulaDAO {
             sb.append(dbh.FORMULA_TAM_FUENTE).append("='").append(vo.getTamanioFuente()).append("' ");
             sb.append("WHERE ").append(dbh.FORMULA_ID).append("=").append(vo.getIdFormula());
 
-            Log.d(TAG_LOG, "SQL: " + sb.toString());
+            Log.e(TAG_LOG, "SQL: " + sb.toString());
 
             db.execSQL(sb.toString());
             return true;

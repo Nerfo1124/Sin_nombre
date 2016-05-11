@@ -231,17 +231,18 @@ public class Principal extends AppCompatActivity {
     public void revisarletra(){
         try{
             Float s=Settings.System.getFloat(getBaseContext().getContentResolver(), Settings.System.FONT_SCALE);
+            primero=false;
             if(s==1){
                 s1.setChecked(false);
                 s2.setChecked(false);
-                primero=false;
             }else{
-                primero=true;
                 if(s==objS.getTamanoFuente() / 40) {
+                    primero=true;
                     s1.setChecked(true);
                     Log.e("[Sin_nombre]", " S1 ");
                 }
-                if(s==2/*Float.parseFloat(objF.getTamanioFuente())/40*/) {
+                if(s==Float.parseFloat(objF.getTamanioFuente())/40) {
+                    primero=true;
                     Log.e("[Sin_nombre]", " S2 ");
                     s2.setChecked(true);
                 }

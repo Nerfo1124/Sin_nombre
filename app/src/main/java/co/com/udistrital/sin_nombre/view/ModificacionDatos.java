@@ -285,6 +285,32 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
         }
     }
 
+    public void ActualizarFormula() {
+        Log.e(TAG_LOG, "Entro A Actualizar Formula");
+        FormulaVO datoFormula = new FormulaVO();
+        FormulaDAO objDB = new FormulaDAO(this);
+        if(!iz.getText().toString().trim().equals("") && !de.getText().toString().trim().equals("")) {
+            datoFormula.setaVisualOD(Float.parseFloat(de.getText().toString()));
+            datoFormula.setaVisualOI(Float.parseFloat(iz.getText().toString()));
+        } else {
+            datoFormula.setaVisualOD((float) 0.0);
+            datoFormula.setaVisualOI((float) 0.0);
+        }
+
+        double promFormula = 0.0d;
+        Log.d(TAG_LOG, "[llenarFormula] Promedio: " + (datoFormula.getaVisualOD() + datoFormula.getaVisualOI())/2.0d);
+        if((datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) != 0.0f) {
+            promFormula = (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d;
+            datoFormula.setTamanioFuente("" + OptometriaUtil.asignarTamanioXFormula(promFormula));
+        }
+        if (Integer.parseInt(datoFormula.getTamanioFuente()) == 0){
+            datoFormula.setTamanioFuente("" + texto.getTextSize());
+        }
+        datoFormula.setIdFormula(idUsuario);
+        objDB.update(datoFormula);
+
+    }
+
     public boolean validarCamposPass() {
         boolean response = false;
         String valor1 = txtPassUno.getText().toString();
@@ -375,9 +401,15 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
     public void cargardatos(){
         SistemaVO objS;
         SistemaDAO objBD=new SistemaDAO(this);
+        FormulaDAO objBD2=new FormulaDAO(this);
+        FormulaVO objF=objBD2.consult(idUsuario);
+        Log.e(TAG_LOG, "llega: " + objF.getaVisualOI() + ": " + objF.getaVisualOD());
+        barra.setProgress((int)(objF.getaVisualOI() * 4));
+        barra2.setProgress((int)(objF.getaVisualOD() * 4));
         objS=objBD.consult(idUsuario);
         fre.setValue(objS.getFrecuencia());
         seekBar.setProgress((int)objS.getTamanoFuente());
+
     }
 
     public void guardar(View v){
@@ -387,12 +419,15 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
         objS.setTamanoFuente(texto.getTextSize());
         objS.setIdSistema(idUsuario);
         objBD.update(objS);
+        Log.e(TAG_LOG, "Entro al  view guardar");
+        ActualizarFormula();
         Toast.makeText(this, " Datos modificados correctamente! ", Toast.LENGTH_LONG).show();
         this.finish();
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        Log.e(TAG_LOG,"Progreso:"+progress);
         if (seekBar.equals(barra))
             iz.setText("" + OptometriaUtil.rangoFormulaMedica(progress));
         if (seekBar.equals(barra2))

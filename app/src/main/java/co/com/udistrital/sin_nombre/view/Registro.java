@@ -1,6 +1,8 @@
 package co.com.udistrital.sin_nombre.view;
 
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -524,7 +526,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         String[] apellidos = txtApellido.getText().toString().split(" ");
         usuarioReg.setApellido1Usuario(apellidos[0]);
         Log.d(TAG_LOG, "[llenarUsuario] Tamaño del array: " + apellidos.length);
-        Log.e("[Sin_nombre]", "Lengt :D :"+apellidos.length);
+        Log.e("[Sin_nombre]", "Lengt :D :" + apellidos.length);
         if (apellidos.length > 1) {
             if (apellidos[1] != null && apellidos[1] != "")
                 usuarioReg.setApellido2Usuario(apellidos[1]);
@@ -544,6 +546,12 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         usuarioReg.setRestablecerUsuario(llenarCuenta());
 
         objUsuarioDao.insert(usuarioReg);
+
+        String datos="Los datos personales de su nuevo usuario son los siguientes: \nNombre de usuario:"+usuarioReg.getSesionUsuario().getUsuario()
+                +"\nNombre:"+usuarioReg.getNombreUsuario()+"\nApellidos:"+usuarioReg.getApellido1Usuario()+" "+usuarioReg.getApellido2Usuario()
+                +"\nFecha nacimiento:"+usuarioReg.getFechaNacimiento()+"\nSexo:"+usuarioReg.getSexo();
+
+        Dialogo("Nuevos Datos",datos);
         Log.i(TAG_LOG, " [llenarUsuario] Usuario registrado satisfactoriamente.");
     }
 
@@ -557,15 +565,15 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     public FormulaVO llenarFormula() {
         FormulaVO datoFormula = new FormulaVO();
         if(!iz.getText().toString().trim().equals("") && !de.getText().toString().trim().equals("")) {
-            datoFormula.setaVisualOD(Float.parseFloat(iz.getText().toString()));
-            datoFormula.setaVisualOI(Float.parseFloat(de.getText().toString()));
+            datoFormula.setaVisualOD(Float.parseFloat(de.getText().toString()));
+            datoFormula.setaVisualOI(Float.parseFloat(iz.getText().toString()));
         } else {
             datoFormula.setaVisualOD((float) 0.0);
             datoFormula.setaVisualOI((float) 0.0);
         }
 
         double promFormula = 0.0d;
-        Log.d(TAG_LOG, "[llenarFormula] Promedio: " + (datoFormula.getaVisualOD() + datoFormula.getaVisualOI())/2.0d);
+        Log.d(TAG_LOG, "[llenarFormula] Promedio: " + (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d);
         if((datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) != 0.0f) {
             promFormula = (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d;
             datoFormula.setTamanioFuente("" + OptometriaUtil.asignarTamanioXFormula(promFormula));
@@ -610,14 +618,30 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             if(revisa()==1){
                 llenarUsuario();
                 //Log.d(TAG_LOG, "Se inserto satisfactoriamente el nuevo usuario.");
-                this.finish();
-                //Log.d(TAG_LOG,"Debio terminarse la Actividad");
             }else {
                 TbH.setCurrentTab(0);
                 Toast.makeText(this, "Debe llenar todos los campos correctamente", Toast.LENGTH_LONG).show();
             }
         } catch (Exception ex) {
             Log.d(TAG_LOG, "Error al mostrar Perfil de Usuario", ex);
+        }
+    }
+
+    public void Dialogo(String tit, final String men) {
+        try {
+            new AlertDialog.Builder( this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(tit)
+                    .setMessage(men)
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Registro.this.finish();
+                        }
+                    }).show();
+        } catch (Exception e) {
+            Log.e(TAG_LOG, "Error Dialogo " + e.toString(), e);
         }
     }
 }

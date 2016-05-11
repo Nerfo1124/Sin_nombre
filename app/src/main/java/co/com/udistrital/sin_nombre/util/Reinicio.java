@@ -15,7 +15,6 @@ public class Reinicio extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){
             try{
-                Log.e("[Sin_nombre]", "YESSSS" + context.getApplicationContext());
                 Intent i = new Intent(context, InicioSesion.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
