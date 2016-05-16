@@ -10,47 +10,87 @@
     tools:context=".view.Seguimiento"
     android:gravity="center">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/svHistorico" >
+    <TabHost
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tabHost3">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
+            <TabWidget
+                android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Historico Uso de Dispositivo"
-                android:id="@+id/lblTituloHistorico"
-                android:allowUndo="false"
-                android:gravity="center"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="25dp" />
+                android:layout_height="wrap_content"></TabWidget>
 
-            <com.jjoe64.graphview.GraphView
-                android:layout_width="fill_parent"
-                android:layout_height="300dip"
-                android:id="@+id/graph" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Historico Ejercicios"
-                android:allowUndo="false"
-                android:gravity="center"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="25dp"
-                android:id="@+id/txtHistoricoTitulo" />
+                <!-- Inicio Primera Pestaña -->
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
 
-            <ListView
-                android:layout_width="fill_parent"
-                android:layout_height="360sp"
-                android:id="@+id/listaHistorico" />
+                    <ScrollView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/scrollView6" >
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Historial"
+                                    android:id="@+id/lblHistorial"
+                                    android:allowUndo="false"
+                                    android:gravity="center"
+                                    android:textColor="@android:color/holo_green_dark"
+                                    android:textSize="25dp" />
+
+                            <com.jjoe64.graphview.GraphView
+                                android:layout_width="fill_parent"
+                                android:layout_height="300dip"
+                                android:id="@+id/graph" />
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <!-- Inicio Segunda Pestaña -->
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Historico Ejercicios"
+                        android:allowUndo="false"
+                        android:gravity="center"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="25dp"
+                        android:id="@+id/txtHistoricoTitulo" />
+
+                    <ListView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/listaHistorico" />
+
+                </LinearLayout>
+
+            </FrameLayout>
         </LinearLayout>
-    </ScrollView>
-
+    </TabHost>
 
 </RelativeLayout>

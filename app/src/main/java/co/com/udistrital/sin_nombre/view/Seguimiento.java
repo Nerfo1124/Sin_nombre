@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -46,12 +47,15 @@ public class Seguimiento extends AppCompatActivity implements AdapterView.OnItem
     List<HistoricoExcVO> historicoInfoList = null;
     Context mContext;
 
+    private TabHost TabHostHistorico;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seguimiento);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Seguimientos ");
+        cargarTabHost();
         try{
             Bundle bundle = getIntent().getExtras();
             idUsuarioSesion = Integer.parseInt(bundle.getString("idUsuario"));
@@ -197,5 +201,12 @@ public class Seguimiento extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    private void cargarTabHost() {
+        TabHostHistorico = (TabHost) findViewById(R.id.tabHost3);
+        TabHostHistorico.setup();
+        TabHostHistorico.addTab(TabHostHistorico.newTabSpec("HistUno").setIndicator("Historico de Uso").setContent(R.id.modificarUno));
+        TabHostHistorico.addTab(TabHostHistorico.newTabSpec("HistDos").setIndicator("Historico de Ejercicios").setContent(R.id.modificarDos));
     }
 }
