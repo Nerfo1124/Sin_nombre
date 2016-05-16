@@ -206,7 +206,7 @@ public class Seguimiento extends AppCompatActivity implements AdapterView.OnItem
     private void cargarTabHost() {
         TabHostHistorico = (TabHost) findViewById(R.id.tabHost3);
         TabHostHistorico.setup();
-        TabHostHistorico.addTab(TabHostHistorico.newTabSpec("HistUno").setIndicator("Historico de Uso").setContent(R.id.modificarUno));
-        TabHostHistorico.addTab(TabHostHistorico.newTabSpec("HistDos").setIndicator("Historico de Ejercicios").setContent(R.id.modificarDos));
+        TabHostHistorico.addTab(TabHostHistorico.newTabSpec("HistUno").setIndicator("Historico de Uso").setContent(R.id.historicoUno));
+        TabHostHistorico.addTab(TabHostHistorico.newTabSpec("HistDos").setIndicator("Historico de Ejercicios").setContent(R.id.historicoDos));
     }
 }
