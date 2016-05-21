@@ -53,48 +53,52 @@ public class Circulos extends AppCompatActivity {
 
     public void girar(View v) {
         try{
-            boton.setEnabled(false);
-            desc =new CountDownTimer(57000, 5600) {
-                public void onTick(long millisUntilFinished) {
-                    ini=true;
-                    Log.e("[Prueba]", "seg: "+millisUntilFinished);
-                    c.setText("Vueltas Restantes: " + (10 - cont));
-                    if(cont<5){
-                        Animation giro;
-                        giro = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.girarder);
-                        giro.reset();
-                        imagen.startAnimation(giro);
-                        cont++;
-                    }else{
-                        if(cont<10){
+            if(boton.getText().equals("Comenzar")) {
+                desc = new CountDownTimer(57000, 5600) {
+                    public void onTick(long millisUntilFinished) {
+                        ini = true;
+                        Log.e("[Prueba]", "seg: " + millisUntilFinished);
+                        c.setText("Vueltas Restantes: " + (10 - cont));
+                        if (cont < 5) {
                             Animation giro;
-                            giro = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.girarizq);
+                            giro = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.girarder);
                             giro.reset();
                             imagen.startAnimation(giro);
                             cont++;
-                        }else
-                            cont=0;
-
+                        } else {
+                            if (cont < 10) {
+                                Animation giro;
+                                giro = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.girarizq);
+                                giro.reset();
+                                imagen.startAnimation(giro);
+                                cont++;
+                            } else
+                                cont = 0;
+                        }
                     }
-                }
-
-                public void onFinish() {
-                    c.setText("FINALIZADO");
-                    cont=0;
-                    HistoricoExcVO objE=new HistoricoExcVO();
-                    HistoricoExcDAO objDB=new HistoricoExcDAO(getApplicationContext());
-                    objE.setIdUsuario(Integer.parseInt(getDatosUsuario()));
-                    objE.setIdEjercicio(3);
-                    objE.setFechaRegistro(new Date());
-                    objDB.insert(objE);
-                    Log.e("[Sin_nombre]", "HOLA: " + objE.getIdUsuario());
-                    c.setText("FINALIZADO");
-                    boton.setEnabled(true);
-                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.notificacion);
-                    mp.start();
-                }
-            };
-            desc.start();
+                    public void onFinish() {
+                        c.setText("FINALIZADO");
+                        cont = 0;
+                        HistoricoExcVO objE = new HistoricoExcVO();
+                        HistoricoExcDAO objDB = new HistoricoExcDAO(getApplicationContext());
+                        objE.setIdUsuario(Integer.parseInt(getDatosUsuario()));
+                        objE.setIdEjercicio(3);
+                        objE.setFechaRegistro(new Date());
+                        objDB.insert(objE);
+                        Log.e("[Sin_nombre]", "HOLA: " + objE.getIdUsuario());
+                        c.setText("FINALIZADO");
+                        boton.setText("Comenzar");
+                        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.notificacion);
+                        mp.start();
+                    }
+                };
+                desc.start();
+                boton.setText("Cancelar");
+            }else{
+                desc.cancel();
+                c.setText("00:00");
+                boton.setText("Comenzar");
+            }
         }catch (Exception e){
             Log.e("[Sin_nombre]", "Error-Circulos ",e);
         }

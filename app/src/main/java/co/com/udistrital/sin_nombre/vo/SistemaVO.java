@@ -22,6 +22,8 @@ public class SistemaVO {
         return frecuencia;
     }
 
+
+
     // Bloque Setter
     public void setIdSistema(int idSistema) {
         this.idSistema = idSistema;
@@ -30,8 +32,7 @@ public class SistemaVO {
     public void setTamanoFuente(float tamanoFuente) {
         this.tamanoFuente = tamanoFuente;
     }
+    public void setFrecuencia(int frecuencia) {this.frecuencia = frecuencia;}
 
-    public void setFrecuencia(int frecuencia) {
-        this.frecuencia = frecuencia;
-    }
+
 }

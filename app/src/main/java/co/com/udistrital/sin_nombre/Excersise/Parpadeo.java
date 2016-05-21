@@ -60,31 +60,38 @@ public class Parpadeo extends AppCompatActivity {
 
     public void girar(View v) {
         try {
-            boton.setEnabled(false);
-            frameAnimation = (AnimationDrawable) imagen.getBackground();
-            frameAnimation.start();
-            desc = new CountDownTimer(60000, 1000) {
-                public void onTick(long millisUntilFinished) {
-                    ini=true;
-                    c.setText("Tiempo Restante: " + millisUntilFinished / 1000);
-                }
+            if(boton.getText().equals("Comenzar")) {
+                frameAnimation = (AnimationDrawable) imagen.getBackground();
+                frameAnimation.start();
+                desc = new CountDownTimer(60000, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                        ini = true;
+                        c.setText("Tiempo Restante: " + millisUntilFinished / 1000);
+                    }
 
-                public void onFinish() {
-                    Log.e("[Sin_nombre]", "HOLA  ");
-                    frameAnimation.stop();
-                    HistoricoExcVO objE=new HistoricoExcVO();
-                    HistoricoExcDAO objDB=new HistoricoExcDAO(getApplicationContext());
-                    objE.setIdUsuario(Integer.parseInt(getDatosUsuario()));
-                    objE.setIdEjercicio(1);
-                    objE.setFechaRegistro(new Date());
-                    objDB.insert(objE);
-                    c.setText("FINALIZADO");
-                    boton.setEnabled(true);
-                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.notificacion);
-                    mp.start();
-                }
-            };
-            desc.start();
+                    public void onFinish() {
+                        Log.e("[Sin_nombre]", "HOLA  ");
+                        frameAnimation.stop();
+                        HistoricoExcVO objE = new HistoricoExcVO();
+                        HistoricoExcDAO objDB = new HistoricoExcDAO(getApplicationContext());
+                        objE.setIdUsuario(Integer.parseInt(getDatosUsuario()));
+                        objE.setIdEjercicio(1);
+                        objE.setFechaRegistro(new Date());
+                        objDB.insert(objE);
+                        c.setText("FINALIZADO");
+                        boton.setText("Comenzar");
+                        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.notificacion);
+                        mp.start();
+                    }
+                };
+                desc.start();
+                boton.setText("Cancelar");
+            }else{
+                desc.cancel();
+                c.setText("00:00");
+                frameAnimation.stop();
+                boton.setText("Comenzar");
+            }
         } catch (Exception ex) {
             Log.e("[Sin_nombre]", "Error: ", ex);
         }

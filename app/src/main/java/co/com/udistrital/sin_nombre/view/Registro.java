@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.provider.Settings;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -80,7 +81,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     private TextView iz, de;//elementos que llevaran el valor de formula del ojo izquierdo y  del ojo derecho
     private EditText texto;
     private EditText tamanioF;
-    private SeekBar seekBar;
+    private SeekBar seekBar,brillo;
     private NumberPicker fre;//elemento que permite selecionar el numero de horas para la frecuencia de tiempo
 
     @Override
@@ -155,6 +156,9 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         barra2 = (SeekBar) findViewById(R.id.barra2);
         barra2.setMax(20);
         barra2.setOnSeekBarChangeListener(this);
+        brillo =(SeekBar)findViewById(R.id.barra4);
+        brillo.setMax(255);
+        brillo.setOnSeekBarChangeListener(this);
         iz = (TextView) findViewById(R.id.lblizq);
         iz.setText("0.0");
         de = (TextView) findViewById(R.id.lblder);
@@ -199,6 +203,13 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             iz.setText("" + OptometriaUtil.rangoFormulaMedica(progress));
         if (seekBar.equals(barra2))
             de.setText("" + OptometriaUtil.rangoFormulaMedica(progress));
+        if(seekBar.equals(brillo)){
+            if(progress<1) {progress=1;}
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                    Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, progress);
+        }
+
     }
 
     @Override

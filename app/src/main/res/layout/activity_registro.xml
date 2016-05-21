@@ -255,13 +255,27 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="10dp">
-
                                 <LinearLayout
-                                    android:id="@+id/l20"
+                                    android:id="@+id/l200"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="horizontal">
 
+                                    <TextView
+                                        android:id="@+id/lblformula"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Formula Medica"
+                                        android:textSize="25dp"
+                                        android:gravity="center" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/l20"
+                                    android:layout_below="@+id/l200"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
                                     <TextView
                                         android:id="@+id/lblojoizq"
                                         android:layout_width="wrap_content"
@@ -373,6 +387,7 @@
                                         android:background="@android:color/holo_blue_light"
                                         android:onClick="mas2"
                                         android:text="+" />
+
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -393,6 +408,7 @@
                                         android:textSize="20dp"
                                         android:background="@android:color/holo_blue_light" />
                                 </LinearLayout>
+
                             </RelativeLayout>
                         </ScrollView>
                     </RelativeLayout>
@@ -472,6 +488,7 @@
                                     </LinearLayout>
 
                                     <LinearLayout
+                                        android:id="@+id/t"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:orientation="vertical">
@@ -492,7 +509,7 @@
                                         android:id="@+id/l2"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@+id/l1"
+                                        android:layout_below="@+id/t"
                                         android:layout_marginTop="15dp"
                                         android:layout_weight="1"
                                         android:gravity="center"
@@ -507,9 +524,7 @@
                                             android:onClick="continuar2"
                                             android:text="Continuar" />
                                     </LinearLayout>
-
                                 </LinearLayout>
-
                             </RelativeLayout>
                         </ScrollView>
                     </RelativeLayout>
@@ -555,7 +570,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/LinearLayout"
+                                android:id="@+id/linearpicket"
                                 android:layout_width="fill_parent"
                                 android:layout_height="match_parent"
                                 android:layout_below="@+id/lr0"
@@ -581,10 +596,46 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/linearbrillotexto"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@+id/linearpicket"
+                                android:gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/brillo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Nivel de brillo de la pantalla"
+                                    android:textSize="25dp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linearbrillo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@+id/linearbrillotexto"
+                                android:layout_marginTop="15dp"
+                                android:orientation="horizontal">
+
+                                <SeekBar
+                                    android:id="@+id/barra4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:indeterminate="false"
+                                    android:progress="0"
+                                    android:translationZ="2dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:id="@+id/lr2"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/LinearLayout"
+                                android:layout_below="@+id/linearbrillo"
                                 android:layout_marginTop="15dp"
                                 android:gravity="center"
                                 android:orientation="vertical">

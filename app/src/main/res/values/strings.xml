@@ -23,6 +23,10 @@
     <string name="RE_RB_yes">SI</string>
     <string name="RE_RB_no">NO</string>
 
+    <string name="AC_TV_des">Debe realizar la siguiente transicion por un minuto</string>
+    <string name="AC_BU_start">Comenzar</string>
+
+
     <string-array name="letra">
         <item>Tamaño de letra automatico</item>
         <item>Tamaño de letra manual</item>

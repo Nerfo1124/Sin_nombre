@@ -539,10 +539,46 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/linearbrillotexto2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@+id/t"
+                                android:layout_marginTop="15dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/brillo2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Nivel de brillo de la pantalla"
+                                    android:textSize="25dp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linearbrillo2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@+id/linearbrillotexto2"
+                                android:layout_marginTop="15dp"
+                                android:orientation="horizontal">
+
+                                <SeekBar
+                                    android:id="@+id/barra5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:indeterminate="false"
+                                    android:progress="0"
+                                    android:translationZ="2dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:id="@+id/lr2"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/t"
+                                android:layout_below="@+id/linearbrillo2"
                                 android:layout_marginTop="15dp"
                                 android:gravity="center"
                                 android:orientation="vertical">
