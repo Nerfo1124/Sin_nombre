@@ -23,14 +23,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import co.com.udistrital.sin_nombre.R;
+import co.com.udistrital.sin_nombre.dao.HistoricoLetraFrecuencuaDAO;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.UsuarioDAO;
 import co.com.udistrital.sin_nombre.security.Encrypter;
 import co.com.udistrital.sin_nombre.util.DateDialog;
 import co.com.udistrital.sin_nombre.util.OptometriaUtil;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
+import co.com.udistrital.sin_nombre.vo.HistoricoLetraFrecuenciaVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
 import co.com.udistrital.sin_nombre.vo.SistemaVO;
@@ -280,10 +283,10 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      */
 
     public void continuar(View v) {
-        revisa();
+        revisa(0);
     }
 
-    public int revisa(){
+    public int revisa(int opc){
         try{
             int p = espaciosblancos();
             int r = 0, r2 = 0, r3 = 0,r4=0,r5=0;
@@ -336,7 +339,8 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
                     if (layoutAnimadoUno.getVisibility() == View.VISIBLE)
                         layoutAnimadoUno.setVisibility(View.GONE);
                 }
-                TbH.setCurrentTab(1);
+                if(opc==0)
+                    TbH.setCurrentTab(1);
                 return 1;
             }else
                 return 0;
@@ -537,7 +541,6 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         String[] apellidos = txtApellido.getText().toString().split(" ");
         usuarioReg.setApellido1Usuario(apellidos[0]);
         Log.d(TAG_LOG, "[llenarUsuario] Tamaño del array: " + apellidos.length);
-        Log.e("[Sin_nombre]", "Lengt :D :" + apellidos.length);
         if (apellidos.length > 1) {
             if (apellidos[1] != null && apellidos[1] != "")
                 usuarioReg.setApellido2Usuario(apellidos[1]);
@@ -551,19 +554,21 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
         } else if (grupoSexo.getCheckedRadioButtonId() == R.id.rbmujerR1) {
             usuarioReg.setSexo("Femenino");
         }
+
         usuarioReg.setSesionUsuario(llenarSesion());
+        Log.e("Hola", "Entroooooooooooooooooooooooooooooooooooooooooooooooo");
         usuarioReg.setFormulaUsuario(llenarFormula());
         usuarioReg.setConfigUsuario(llenarSistema());
         usuarioReg.setRestablecerUsuario(llenarCuenta());
-
         objUsuarioDao.insert(usuarioReg);
+
 
         String datos="Los datos personales de su nuevo usuario son los siguientes: \nNombre de usuario:"+usuarioReg.getSesionUsuario().getUsuario()
                 +"\nNombre:"+usuarioReg.getNombreUsuario()+"\nApellidos:"+usuarioReg.getApellido1Usuario()+" "+usuarioReg.getApellido2Usuario()
                 +"\nFecha nacimiento:"+usuarioReg.getFechaNacimiento()+"\nSexo:"+usuarioReg.getSexo();
 
         Dialogo("Nuevos Datos",datos);
-        Log.i(TAG_LOG, " [llenarUsuario] Usuario registrado satisfactoriamente.");
+        Log.e("Hola", " [llenarUsuario] Usuario registrado satisfactoriamente.");
     }
 
     public SesionVO llenarSesion() {
@@ -574,25 +579,30 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
     }
 
     public FormulaVO llenarFormula() {
-        FormulaVO datoFormula = new FormulaVO();
-        if(!iz.getText().toString().trim().equals("") && !de.getText().toString().trim().equals("")) {
-            datoFormula.setaVisualOD(Float.parseFloat(de.getText().toString()));
-            datoFormula.setaVisualOI(Float.parseFloat(iz.getText().toString()));
-        } else {
-            datoFormula.setaVisualOD((float) 0.0);
-            datoFormula.setaVisualOI((float) 0.0);
-        }
+        try{
+            FormulaVO datoFormula = new FormulaVO();
+            if(!iz.getText().toString().trim().equals("") && !de.getText().toString().trim().equals("")) {
+                datoFormula.setaVisualOD(Float.parseFloat(de.getText().toString()));
+                datoFormula.setaVisualOI(Float.parseFloat(iz.getText().toString()));
+            } else {
+                datoFormula.setaVisualOD((float) 0.0);
+                datoFormula.setaVisualOI((float) 0.0);
+            }
 
-        double promFormula = 0.0d;
-        Log.d(TAG_LOG, "[llenarFormula] Promedio: " + (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d);
-        if((datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) != 0.0f) {
-            promFormula = (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d;
-            datoFormula.setTamanioFuente("" + OptometriaUtil.asignarTamanioXFormula(promFormula));
+            double promFormula = 0.0d;
+            Log.d(TAG_LOG, "[llenarFormula] Promedio: " + (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d);
+            if((datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) != 0.0f) {
+                promFormula = (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d;
+                datoFormula.setTamanioFuente("" + OptometriaUtil.asignarTamanioXFormula(promFormula));
+            }
+            if (Integer.parseInt(datoFormula.getTamanioFuente()) == 0){
+                datoFormula.setTamanioFuente("" + texto.getTextSize());
+            }
+            return datoFormula;
+        }catch (Exception e){
+            Log.d(TAG_LOG,"Error:"+e.getMessage().toString() );
         }
-        if (Integer.parseInt(datoFormula.getTamanioFuente()) == 0){
-            datoFormula.setTamanioFuente("" + texto.getTextSize());
-        }
-        return datoFormula;
+        return null;
     }
 
 
@@ -626,7 +636,7 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
      */
     public void terminar(View v) {
         try {
-            if(revisa()==1){
+            if(revisa(1)==1){
                 llenarUsuario();
                 //Log.d(TAG_LOG, "Se inserto satisfactoriamente el nuevo usuario.");
             }else {

@@ -191,6 +191,27 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     + " ) ";
 
     // ========================================================
+
+    // ========================================================
+    // Tabla de Historico ejercicios realizados.
+    public static final String TABLE_NAME_HISTORICO_LETRA_FREC = "HISTORICO_LETRA_FRECUENCIA";
+    public static final String HISTORICO_LET_ID = "his_let_id";
+    public static final String HISTORICO_LET_USU = "Usuario_id";
+    public static final String HISTORICO_LET_FRECUENCIA = "his_let_fre";
+    public static final String HISTORICO_LET_LETRA = "his_let_letra";
+    public static final String HISTORICO_LET_FECHA = "his_let_fecha";
+
+    public static final String CREATE_TABLE_HISTORICO_LETRA_FREC =
+            "CREATE TABLE " + TABLE_NAME_HISTORICO_LETRA_FREC + "("
+                    + HISTORICO_LET_ID + " integer primary key autoincrement not null, "
+                    + HISTORICO_LET_USU + " integer, "
+                    + HISTORICO_LET_FRECUENCIA + " integer, "
+                    + HISTORICO_LET_LETRA + " text not null, "
+                    + HISTORICO_LET_FECHA + " text not null, "
+                    + "foreign key(" + HISTORICO_LET_USU + ") references " + TABLE_NAME_USUARIO + "(" + USUARIO_ID + ")"
+                    + " ) ";
+
+    // ========================================================
     private static final String DB_NAME = "presbicia.sqlite";
     private static final int DB_SCHEMA_VERSION = 1;
     Context contexto;
@@ -229,6 +250,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         //db.execSQL(INSERT_EXCERSICE_10);
         db.execSQL(CREATE_TABLE_HISTORICO_EX);
         Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_HISTORICO_EX);
+        db.execSQL(CREATE_TABLE_HISTORICO_LETRA_FREC);
+        Log.d(TAG_LOG, "[DataBaseHelper] SQL: " + CREATE_TABLE_HISTORICO_LETRA_FREC);
 
         Log.i(TAG_LOG, "Base de Datos creada satisfactoriamente.");
     }

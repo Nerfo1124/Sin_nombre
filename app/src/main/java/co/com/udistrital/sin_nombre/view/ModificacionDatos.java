@@ -18,8 +18,11 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import co.com.udistrital.sin_nombre.R;
 import co.com.udistrital.sin_nombre.dao.FormulaDAO;
+import co.com.udistrital.sin_nombre.dao.HistoricoLetraFrecuencuaDAO;
 import co.com.udistrital.sin_nombre.dao.RestablecerDAO;
 import co.com.udistrital.sin_nombre.dao.SesionDAO;
 import co.com.udistrital.sin_nombre.dao.SistemaDAO;
@@ -28,6 +31,7 @@ import co.com.udistrital.sin_nombre.security.Encrypter;
 import co.com.udistrital.sin_nombre.util.DateDialog;
 import co.com.udistrital.sin_nombre.util.OptometriaUtil;
 import co.com.udistrital.sin_nombre.vo.FormulaVO;
+import co.com.udistrital.sin_nombre.vo.HistoricoLetraFrecuenciaVO;
 import co.com.udistrital.sin_nombre.vo.ReestablecerVO;
 import co.com.udistrital.sin_nombre.vo.SesionVO;
 import co.com.udistrital.sin_nombre.vo.SistemaVO;
@@ -419,11 +423,18 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
     public void guardar(View v){
         SistemaVO objS = new SistemaVO();
         SistemaDAO objBD = new SistemaDAO(this);
+        HistoricoLetraFrecuenciaVO objH = new HistoricoLetraFrecuenciaVO();
+        HistoricoLetraFrecuencuaDAO objB = new HistoricoLetraFrecuencuaDAO(this);
+        objH.setIdUsuario(idUsuario);
+        objH.setFrecuencia("" + fre.getValue());
+        objH.setTamaño("" + texto.getTextSize());
+        objH.setFechaHistorico(new Date());
+        objB.insert(objH);
         objS.setFrecuencia(fre.getValue());
         objS.setTamanoFuente(texto.getTextSize());
         objS.setIdSistema(idUsuario);
         objBD.update(objS);
-        Log.e(TAG_LOG, "Entro al  view guardar");
+        Log.e("[1]", "Entro al view guardar");
         ActualizarFormula();
         Toast.makeText(this, " Datos modificados correctamente! ", Toast.LENGTH_LONG).show();
         this.finish();
