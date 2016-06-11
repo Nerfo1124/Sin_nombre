@@ -592,15 +592,20 @@ public class Registro extends AppCompatActivity implements SeekBar.OnSeekBarChan
             double promFormula = 0.0d;
             Log.d(TAG_LOG, "[llenarFormula] Promedio: " + (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d);
             if((datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) != 0.0f) {
+                Log.d(TAG_LOG, "Hola Mundo");
                 promFormula = (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d;
                 datoFormula.setTamanioFuente("" + OptometriaUtil.asignarTamanioXFormula(promFormula));
+            } else {
+                datoFormula.setTamanioFuente("" + texto.getTextSize());
             }
-            if (Integer.parseInt(datoFormula.getTamanioFuente()) == 0){
+
+            Log.d(TAG_LOG, "Tamaño Fuente: " + datoFormula.getTamanioFuente().replaceAll("([,\\.][0-9]*)", ""));
+            if (Integer.parseInt(datoFormula.getTamanioFuente().replaceAll("([,\\.][0-9]*)", "")) == 0) {
                 datoFormula.setTamanioFuente("" + texto.getTextSize());
             }
             return datoFormula;
         }catch (Exception e){
-            Log.d(TAG_LOG,"Error:"+e.getMessage().toString() );
+            Log.e(TAG_LOG, "Error: " + e.getMessage().toString(), e);
         }
         return null;
     }

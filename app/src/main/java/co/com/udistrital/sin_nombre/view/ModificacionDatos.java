@@ -311,7 +311,7 @@ public class ModificacionDatos extends AppCompatActivity implements SeekBar.OnSe
             promFormula = (datoFormula.getaVisualOD() + datoFormula.getaVisualOI()) / 2.0d;
             datoFormula.setTamanioFuente("" + OptometriaUtil.asignarTamanioXFormula(promFormula));
         }
-        if (Integer.parseInt(datoFormula.getTamanioFuente()) == 0){
+        if (Integer.parseInt(datoFormula.getTamanioFuente().replaceAll("([,\\.][0-9]*)", "")) == 0) {
             datoFormula.setTamanioFuente("" + texto.getTextSize());
         }
         datoFormula.setIdFormula(idUsuario);
